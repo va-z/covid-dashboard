@@ -20,24 +20,26 @@
       <main>
         <div class="search">
           <button class="fullscreen-btn">X</button>
-          <div class="search__title"></div>
+          <div class="search__title">Cases by countries</div>
           <input class="search__input" type="text">
           <ul class="search__list">
             <li class="search-item">
-              <div class="search-item__flag"></div>
-              <div class="search-item__title"></div>
-              <div class="search-item__value"></div>
+              <div class="search-item__flag">flag</div>
+              <div class="search-item__title">Russia</div>
+              <div class="search-item__value">50000</div>
             </li>
           </ul>
-          <div class="toggles">
+          <div class=" toggles search__toggles">
             <div class="toggles__period">
-              <!-- 2 buttons total / last day-->
+              <button class="toggles__btn--left toggles_btn--active">total</button>
+              <button class="toggles__btn--right">last day</button>
             </div>
             <div class="toggles__amount">
-              <!-- 2 buttons absolute / per 100ths-->
+              <button class="toggles__btn--left toggles_btn--active">abs</button>
+              <button class="toggles__btn--right">per 1K</button>
             </div>
           </div>
-          <div class="tabs">
+          <div class="tabs search__tabs">
             <button class="tabs__btn tabs_btn--active" type="button">Total</button>
             <button class="tabs__btn" type="button">Deaths</button>
             <button class="tabs__btn" type="button">Recovered</button>
@@ -47,12 +49,14 @@
         <div class="map">
           <button class="fullscreen-btn">X</button>
           <div class="map__block"></div>
-          <div class="toggles">
+          <div class="toggles map__toggles">
             <div class="toggles__period">
-              <!-- 2 buttons total / last day-->
+              <button class="toggles__btn--left toggles_btn--active">total</button>
+              <button class="toggles__btn--right">last day</button>
             </div>
             <div class="toggles__amount">
-              <!-- 2 buttons absolute / per 100ths-->
+              <button class="toggles__btn--left toggles_btn--active">abs</button>
+              <button class="toggles__btn--right">per 1K</button>
             </div>
           </div>
           <div class="map__control">
@@ -61,39 +65,41 @@
             </div>
             <div class="control__legend"></div>
           </div>
-          <div class="tabs">
+          <div class="tabs map__tabs">
             <button class="tabs__btn tabs_btn--active" type="button">Total</button>
             <button class="tabs__btn" type="button">Recovered</button>
             <button class="tabs__btn" type="button">Deaths</button>
           </div>
         </div>
 
-        <div class="data">
+        <div class="table">
           <button class="fullscreen-btn">X</button>
-          <div class="data__title"></div>
-          <div class="data__block">
-            <div class="data__total">
-              <span class="data--title">Cases</span>
-              <span class="data--value">10000000</span>
+          <div class="table__title">Global/Country</div>
+          <div class="table__block">
+            <div class="table__total">
+              <span class="table--title">Cases</span>
+              <span class="table--value">10000000</span>
             </div>
-            <div class="data__recovery">
-              <span class="data--title">Recovered</span>
-              <span class="data--value">5000</span>
+            <div class="table__recovery">
+              <span class="table--title">Recovered</span>
+              <span class="table--value">5000</span>
             </div>
-            <div class="data__deaths">
-              <span class="data--title">Deaths</span>
-              <span class="data--value">500</span>
+            <div class="table__deaths">
+              <span class="table--title">Deaths</span>
+              <span class="table--value">500</span>
             </div>
           </div>
-          <div class="toggles">
+          <div class="toggles table__toggles">
             <div class="toggles__period">
-              <!-- 2 buttons total / last day-->
+              <button class="toggles__btn--left toggles_btn--active">total</button>
+              <button class="toggles__btn--right">last day</button>
             </div>
             <div class="toggles__amount">
-              <!-- 2 buttons absolute / per 100ths-->
+              <button class="toggles__btn--left toggles_btn--active">abs</button>
+              <button class="toggles__btn--right">per 100K</button>
             </div>
           </div>
-          <div class="tabs">
+          <div class="tabs table__tabs">
             <button class="tabs__btn tabs_btn--active" type="button">Total</button>
             <button class="tabs__btn" type="button">Recovered</button>
             <button class="tabs__btn" type="button">Deaths</button>
@@ -102,17 +108,19 @@
 
         <div class="graph">
           <button class="fullscreen-btn">X</button>
-          <div class="graph__title"></div>
+          <div class="graph__title">Global/Country</div>
           <div class="graph__block"></div>
-          <div class="toggles">
+          <div class="toggles graph__toggles">
             <div class="toggles__period">
-              <!-- 2 buttons total / last day-->
+              <button class="toggles__btn--left toggles_btn--active">total</button>
+              <button class="toggles__btn--right">last day</button>
             </div>
             <div class="toggles__amount">
-              <!-- 2 buttons absolute / per 100ths-->
+              <button class="toggles__btn--left toggles_btn--active">abs</button>
+              <button class="toggles__btn--right">per 1K</button>
             </div>
           </div>
-          <div class="tabs">
+          <div class="tabs graph__tabs">
             <button class="tabs__btn tabs_btn--active" type="button">Total</button>
             <button class="tabs__btn" type="button">Recovered</button>
             <button class="tabs__btn" type="button">Deaths</button>
