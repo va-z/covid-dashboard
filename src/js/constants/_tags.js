@@ -1,4 +1,4 @@
-const HTML_TAGS = {
+const TAGS = {
   DIV: 'div',
   SPAN: 'span',
 
@@ -6,8 +6,12 @@ const HTML_TAGS = {
   MAIN: 'main',
   FOOTER: 'footer',
   P: 'p',
+
+  UL: 'ul',
+  LI: 'li',
+  A: 'a',
 };
 
-Object.freeze(HTML_TAGS);
+Object.freeze(TAGS);
 
-export default HTML_TAGS;
+export default TAGS;
