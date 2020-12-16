@@ -1,0 +1,64 @@
+.view {
+
+}
+
+.header {
+  height: 3rem;
+  width: 100%;
+  outline: 2px solid rebeccapurple;
+}
+
+main {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 1fr 2fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  margin: 1rem auto;
+  padding: 0 1rem;
+}
+
+.fullscreen-btn {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 1rem;
+  width: 1rem;
+}
+
+.search {
+  position: relative;
+  grid-row: 1 / 3;
+  height: 100%;
+  //width: 25%;
+  outline: 2px solid seagreen;
+}
+
+.map {
+  position: relative;
+  grid-row: 1 / 3;
+  height: 100%;
+  //width: 50%;
+  outline: 2px solid tomato;
+}
+
+.table {
+  position: relative;
+  // height: 100%;
+  //width: 25%;
+  outline: 2px solid lightskyblue;
+}
+
+.graph {
+  position: relative;
+  grid-column: 3 / 4;
+  // height: 100%;
+  //width: 25%;
+  outline: 2px solid blue;
+}
+
+.footer {
+  height: 3rem;
+  width: 100%;
+  outline: 2px solid rebeccapurple;
+}
+
