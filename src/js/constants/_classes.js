@@ -1,13 +1,17 @@
-const CSS_CLASSES = {
-  VIEW: 'view',
+import STATIC from './css-blocks/_static';
+import SEARCH from './css-blocks/_search';
+import MAP from './css-blocks/_map';
+import TABLE from './css-blocks/_table';
+import GRAPH from './css-blocks/_graph';
+
+const CLASSES = {
+  STATIC,
+  SEARCH,
+  MAP,
+  TABLE,
+  GRAPH,
 };
 
-Object.freeze(CSS_CLASSES);
+Object.freeze(CLASSES);
 
-export default CSS_CLASSES;
-
-export { STATIC } from './css-blocks/_static';
-export { SEARCH } from './css-blocks/_search';
-export { MAP } from './css-blocks/_map';
-export { TABLE } from './css-blocks/_table';
-export { GRAPH } from './css-blocks/_graph';
+export default CLASSES;

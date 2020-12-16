@@ -1,5 +1,5 @@
 import { NUMBERS } from '../constants/index';
-import { createTemplateFields, getGrossOrPer100k } from './_helpers';
+import { createTemplateFields, getAbsOrPer100k } from './_helpers';
 
 function processData(cumulative, today, pop = null) {
   const cumulativeEntries = Object.entries(cumulative);
@@ -21,16 +21,16 @@ function processData(cumulative, today, pop = null) {
       const prevValue = (datesEntries[j - 1]?.[1] ?? 0);
       const dailyValue = value - prevValue;
 
-      result.cumulative[type][date] = getGrossOrPer100k(value, pop);
-      result.daily[type][date] = getGrossOrPer100k(dailyValue, pop);
+      result.cumulative[type][date] = getAbsOrPer100k(value, pop);
+      result.daily[type][date] = getAbsOrPer100k(dailyValue, pop);
 
       if (j === DAYS - 1) {
-        result.total[type] = getGrossOrPer100k(value, pop);
+        result.total[type] = getAbsOrPer100k(value, pop);
       }
     }
 
     const todayValue = today[`today${type[0].toUpperCase() + type.slice(1)}`];
-    result.today[type] = getGrossOrPer100k(todayValue, pop);
+    result.today[type] = getAbsOrPer100k(todayValue, pop);
   }
 
   return result;

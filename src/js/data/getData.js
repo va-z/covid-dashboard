@@ -15,7 +15,7 @@ async function getData(urls) {
     World: {
       name: 'World',
       population: lastWorld.population,
-      gross: {
+      abs: {
         ...processData(cumulativeWorld, lastWorld),
       },
       per100k: {

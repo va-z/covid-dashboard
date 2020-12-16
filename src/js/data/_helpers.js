@@ -8,7 +8,7 @@ function createTemplateFields(type = null) {
   };
 }
 
-function getGrossOrPer100k(val, pop) {
+function getAbsOrPer100k(val, pop) {
   if (pop === null) {
     return val;
   }
@@ -16,4 +16,4 @@ function getGrossOrPer100k(val, pop) {
   return Math.round(NUMBERS['100K'] * (val / pop));
 }
 
-export { createTemplateFields, getGrossOrPer100k };
+export { createTemplateFields, getAbsOrPer100k };

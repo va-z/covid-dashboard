@@ -16,7 +16,7 @@ function getCountryObj(lastCountry, cumulativeCountry) {
     lat,
     long,
     flag,
-    gross: {
+    abs: {
       ...processData(cumulativeCountry.timeline, lastCountry),
     },
     per100k: {
