@@ -1,8 +1,9 @@
 const URLS = {
-  COUNTRIES: 'https://restcountries.eu/rest/v2/all?fields=name;alpha2Code;flag',
-  COVID_BASE: 'https://disease.sh/v3/covid-19/historical/',
-  COVID_PARAM: '?lastdays=all',
-  FLAGS: 'https://restcountries.eu/rest/v2/alpha?codes=', /* needs a 3-letter country code */
+  LAST_WORLD: 'https://disease.sh/v3/covid-19/all?yesterday=true',
+  LAST_COUNTRIES: 'https://disease.sh/v3/covid-19/countries?yesterday=true',
+  CUMULATIVE_WORLD_BASE: 'https://disease.sh/v3/covid-19/historical/all',
+  CUMULATIVE_COUNTRIES_BASE: 'https://disease.sh/v3/covid-19/historical/',
+  CUMULATIVE_PARAM: '?lastdays=all',
 };
 
 Object.freeze(URLS);
