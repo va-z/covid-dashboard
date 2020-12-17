@@ -11,6 +11,7 @@ const STATIC = {
   'FOOTER_RSS-LOGO': 'footer__RSS-logo',
 
   // commons
+  CONTENT_WRAPPER: 'content-wrapper',
   FULLSCREEN_BTN: 'fullscreen-btn',
 
   TOGGLES: 'toggles',
