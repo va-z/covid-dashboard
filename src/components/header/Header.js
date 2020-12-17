@@ -4,7 +4,11 @@ import Element from '../_common/Element';
 
 class Header extends Element {
   constructor() {
-    super({ tagName: TAGS.HEADER, className: CLASSES.HEADER });
+    super({ tagName: TAGS.HEADER, className: CLASSES.STATIC.HEADER });
+
+    const wrapper = Element.createDOM({
+      className: CLASSES.STATIC.CONTENT_WRAPPER,
+    })
 
     const title = Element.createDOM({
       tagName: TAGS.H1,
@@ -22,11 +26,12 @@ class Header extends Element {
 
     this.date = new Element({
       tagName: TAGS.P,
-      textContent: 'placeholder',
+      textContent: '00.00.2020',
     });
 
     dateWrapper.append(text, this.date.element);
-    this.element.append(title, dateWrapper);
+    wrapper.append(title, dateWrapper);
+    this.element.append(wrapper);
   }
 }
 
