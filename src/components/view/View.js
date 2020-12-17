@@ -14,6 +14,10 @@ class View extends Element {
 
     const mainWrapper = Element.createDOM({ tagName: TAGS.MAIN });
 
+    const wrapper = Element.createDOM({
+      className: CLASSES.STATIC.CONTENT_WRAPPER,
+    });
+
     this.header = new Header();
     this.search = new Search();
     this.map = new Map();
@@ -21,12 +25,14 @@ class View extends Element {
     this.graph = new Graph();
     this.footer = new Footer();
 
-    mainWrapper.append(
+    wrapper.append(
       this.search.element,
       this.map.element,
       this.table.element,
       this.graph.element,
     );
+
+    mainWrapper.append(wrapper);
     this.element.append(this.header.element, mainWrapper, this.footer.element);
 
     /* Prepend this.element after appending all contents */
