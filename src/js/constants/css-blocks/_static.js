@@ -1,4 +1,6 @@
 const STATIC = {
+  VIEW: 'view',
+
   HEADER: 'header',
   HEADER_TITLE: 'header__title',
   HEADER_INFO: 'header__info',

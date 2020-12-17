@@ -12,6 +12,7 @@ async function getData(urls) {
   ] = await fetchData(urls);
 
   const result = {
+    _updated: lastWorld.updated,
     World: {
       name: 'World',
       population: lastWorld.population,

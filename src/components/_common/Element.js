@@ -1,4 +1,4 @@
-import HTML_TAGS from '../../js/constants/_htmlTags';
+import { TAGS } from '../../js/constants/index';
 
 class Element {
   /**
@@ -8,7 +8,7 @@ class Element {
    * @param {Array<Array<String>>} params.textContent - an array of ["attr", "value"] pairs
    */
   constructor({
-    tagName = HTML_TAGS.DIV,
+    tagName = TAGS.DIV,
     className = null,
     textContent = null,
     attrs = null,
