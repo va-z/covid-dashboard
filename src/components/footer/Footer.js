@@ -1,8 +1,8 @@
 import './Footer.scss';
 import { TAGS, CLASSES } from '../../js/constants/index';
 import Element from '../_common/Element';
-import FooterAuthors from './../footerAuthors/FooterAuthors';
-import FooterRssLogo from './../footerRssLogo/FooterRssLogo';
+import FooterAuthors from '../footerAuthors/FooterAuthors';
+import FooterRssLogo from '../footerRssLogo/FooterRssLogo';
 
 class Footer extends Element {
   constructor() {
