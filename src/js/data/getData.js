@@ -1,5 +1,5 @@
 import { NUMBERS } from '../constants/index';
-import fetchData from './_fetchData';
+import getRawData from './_getRawData';
 import processData from './_processData';
 import getCountryObj from './_getCountryObj';
 
@@ -9,10 +9,9 @@ async function getData(urls) {
     cumulativeWorld,
     lastCountries,
     cumulativeCountries,
-  ] = await fetchData(urls);
+  ] = await getRawData(urls);
 
   const result = {
-    _updated: lastWorld.updated,
     World: {
       name: 'World',
       population: lastWorld.population,
