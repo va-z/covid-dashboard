@@ -13,9 +13,11 @@ const STATIC = {
 
   // commons
   CONTENT_WRAPPER: 'content-wrapper',
+  'CONTENT_WRAPPER-MAIN': 'content-wrapper--main',
   FULLSCREEN_BTN: 'fullscreen-btn',
 
-  TOGGLES: 'toggles',
+  TOGGLES: 'toggles-container',
+  TOGGLES_CONTAINER: 'toggles',
   TOGGLES_PERIOD: 'toggles__period',
   TOGGLES_AMOUNT: 'toggles__amount',
   'TOGGLES_BTN-LEFT': 'toggles__btn--left',

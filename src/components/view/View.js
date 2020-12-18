@@ -15,7 +15,7 @@ class View extends Element {
     const mainWrapper = Element.createDOM({ tagName: TAGS.MAIN });
 
     const wrapper = Element.createDOM({
-      className: CLASSES.STATIC.CONTENT_WRAPPER,
+      className: `${CLASSES.STATIC.CONTENT_WRAPPER} ${CLASSES.STATIC['CONTENT_WRAPPER-MAIN']}`,
     });
 
     this.header = new Header();
