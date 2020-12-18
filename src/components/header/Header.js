@@ -8,7 +8,7 @@ class Header extends Element {
 
     const wrapper = Element.createDOM({
       className: CLASSES.STATIC.CONTENT_WRAPPER,
-    })
+    });
 
     const title = Element.createDOM({
       tagName: TAGS.H1,

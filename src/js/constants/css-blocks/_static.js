@@ -9,6 +9,7 @@ const STATIC = {
   FOOTER_AUTHORS: 'footer__authors',
   'FOOTER_AUTHORS-PERS': 'footer__authors--pers',
   'FOOTER_RSS-LOGO': 'footer__RSS-logo',
+  'RSS-LOGO_IMG': 'rss-logo__img',
 
   // commons
   CONTENT_WRAPPER: 'content-wrapper',

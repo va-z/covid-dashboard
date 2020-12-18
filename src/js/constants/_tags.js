@@ -17,6 +17,7 @@ const TAGS = {
   H4: 'h4',
 
   BUTTON: 'button',
+  IMG: 'img',
 };
 
 Object.freeze(TAGS);
