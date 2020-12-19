@@ -1,0 +1,43 @@
+@import "./../../../scss/variables";
+
+.toggles {
+  flex: 0 0 auto;
+  margin: 5px;
+
+  &:first-child {
+    margin-left: 0;
+  }
+
+  &:last-child {
+    margin-right: 0;
+  }
+
+  &--period {
+    width: 6.1rem;
+  }
+
+  &--amount {
+    width: 6.8rem;
+  }
+
+  &__btn {
+    width: 50%;
+    border: 1px solid $primary-theme-color;
+    background-color: $s-light-theme-color;
+    color: $secondary-text-color;
+
+    &:first-child {
+      border-radius: 4px 0 0 4px;
+    }
+
+    &:last-child {
+      border-radius: 0 4px 4px 0;
+    }
+
+    &--active {
+      border-color: $s-dark-theme-color;
+      background-color: $s-dark-theme-color;
+      color: $primary-text-color;
+    }
+  }
+}

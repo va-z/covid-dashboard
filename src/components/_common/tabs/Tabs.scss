@@ -1,0 +1,24 @@
+@import "./../../../scss/variables";
+
+.tabs {
+  &-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 5px;
+    min-width: min(100%, 20vw);
+    margin: 0 -0.8rem;
+    background-color: #3f0b31;
+  }
+
+  &__btn {
+    width: 100%;
+    border: none;
+    background-color: $p-light-theme-color;
+    color: $secondary-text-color;
+
+    &--active {
+      background-color: $primary-theme-color;
+      color: $primary-text-color;
+    }
+  }
+}

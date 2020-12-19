@@ -2,17 +2,46 @@ import './Graph.scss';
 import { TAGS, CLASSES } from '../../js/constants/index';
 import Element from '../_common/Element';
 import FullscreenContainer from '../_common/fullscreenContainer/FullscreenContainer';
+import Toggle from '../_common/toggle/Toggle';
+import Tabs from '../_common/tabs/Tabs';
 
 class Graph extends FullscreenContainer {
   constructor() {
     super({ className: CLASSES.GRAPH.GRAPH });
 
-    const text = Element.createDOM({
-      tagName: TAGS.SPAN,
-      textContent: 'Placeholder',
+    const title = Element.createDOM({
+      tagName: TAGS.H2,
+      className: CLASSES.GRAPH.GRAPH_TITLE,
+      textContent: 'Global/Country',
     });
 
-    this.element.append(text);
+    this.graph = Element.createDOM({
+      className: CLASSES.GRAPH.GRAPH_BLOCK,
+      textContent: 'Graph will be here',
+    });
+
+    this.togglesContainer = Element.createDOM({
+      className: CLASSES.STATIC.TOGGLES_CONTAINER,
+    });
+
+    this.togglePeriod = Toggle.createDOM({
+      type: 'period',
+      btnTitles: ['total', 'daily'],
+    });
+
+    this.toggleAmount = Toggle.createDOM({
+      type: 'amount',
+      btnTitles: ['abs', 'per 100K'],
+    });
+
+    this.tabs = Tabs.createDOM({
+      btnIndexes: ['total', 'recovery', 'deathes'],
+      btnTitles: ['Total', 'Recovery', 'Deathes'],
+    });
+
+    this.togglesContainer.append(this.togglePeriod, this.toggleAmount);
+
+    this.element.append(title, this.graph, this.togglesContainer, this.tabs);
   }
 }
 

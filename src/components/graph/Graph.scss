@@ -1,9 +1,9 @@
 @import "./../../scss/variables";
 
 .graph {
-  position: relative;
+  @include blocks;
   grid-area: graph;
   // height: 100%;
   //width: 25%;
-  outline: 2px solid blue;
+  //outline: 2px solid blue;
 }

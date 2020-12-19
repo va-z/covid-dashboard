@@ -1,9 +1,9 @@
 @import "./../../scss/variables";
 
 .table {
-  position: relative;
+  @include blocks;
   grid-area: table;
   // height: 100%;
   //width: 25%;
-  outline: 2px solid lightskyblue;
+  //outline: 2px solid lightskyblue;
 }

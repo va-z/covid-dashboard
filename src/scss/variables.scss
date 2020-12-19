@@ -7,9 +7,11 @@ $secondary-text-color: #adadad;
 
 //* theme colors
 $primary-theme-color: #5d1048;
-// $secondary-theme-color: rgb(111, 207, 151);
-$dark-theme-color: #310021;
-$light-theme-color: #8d3f74;
+$p-dark-theme-color: #310021;
+$p-light-theme-color: #8d3f74;
+$secondary-theme-color: #d90110;
+$s-dark-theme-color: #9f0000;
+$s-light-theme-color: #ff523c;
 
 // $primary-gradient: linear-gradient(180deg, rgb(188, 156, 255) 0%, rgb(139, 164, 249) 100%);
 // $secondary-gradient: linear-gradient(180deg, rgb(111, 207, 151) 0%, rgb(102, 210, 234) 100%);
@@ -95,26 +97,22 @@ body {
   @include regular;
 }
 
-// //* рамка для карточек (обертка карточек)
-// @mixin cardWrapper {
-//   width: 380px;
-//   padding: 41px 29px 29px 29px;
-//   border: $border-light;
-//   box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.2);
-//   border-radius: $border-radius;
-//   background: #ffffff;
+// //* bloks search, map, table & graph substrate
+@mixin blocks {
+  position: relative;
+  padding: 0.8rem 0.8rem 0 0.8rem;
+  border-radius: 13px 13px 0 0;
+  background: $primary-theme-color;
+  box-shadow:  7px 7px 11px #3f0b31,
+              -7px -7px 11px #7b155f;
 
-//   &:not(:only-child) {
-//     margin-bottom: 40px;
-//   }
-
-//   @media (max-width: $media-uMinW) {
-//     width: 100%;
-//     padding: 20px 5vw 10px 5vw;
-//     border: $border-light;
-//     box-shadow: 0px 0px 5vw rgba(0, 0, 0, 0.2);
-//   }
-// }
+  // @media (max-width: $media-uMinW) {
+  //   width: 100%;
+  //   padding: 20px 5vw 10px 5vw;
+  //   border: $border-light;
+  //   box-shadow: 0px 0px 5vw rgba(0, 0, 0, 0.2);
+  // }
+}
 
 // //* миксины для медиазапросов
 
@@ -143,3 +141,10 @@ body {
 //     padding: 0 5vw;
 //   }
 // }
+
+button {
+  font-family: $primary-type;
+  padding: 1px 2px;
+  border-radius: 0;
+  cursor: pointer;
+}
