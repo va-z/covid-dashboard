@@ -1,3 +1,4 @@
+import '../scss/index.scss';
 import URLS from './data/URLS';
 import getData from './data/getData';
 import View from '../components/view/View';
