@@ -20,6 +20,7 @@ const STATIC = {
   TOGGLES_CONTAINER: 'toggles-container',
   TOGGLES_PERIOD: 'toggles__period',
   TOGGLES_AMOUNT: 'toggles__amount',
+  TOGGLES_BTN: 'toggles__btn',
   'TOGGLES_BTN-LEFT': 'toggles__btn--left',
   'TOGGLES_BTN-RIGHT': 'toggles__btn--right',
   'TOGGLES_BTN-ACTIVE': 'toggles_btn--active',
