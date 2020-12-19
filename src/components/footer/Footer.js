@@ -13,7 +13,7 @@ class Footer extends Element {
 
     const authors = Element.createDOM({
       className: CLASSES.STATIC.FOOTER_AUTHORS,
-      textContent: 'Created by:',
+      textContent: 'Created by: ',
     });
 
     const author1 = Element.createDOM({
