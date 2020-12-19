@@ -2,7 +2,8 @@ import './Search.scss';
 import { TAGS, CLASSES } from '../../js/constants/index';
 import Element from '../_common/Element';
 import FullscreenContainer from '../_common/fullscreenContainer/FullscreenContainer';
-import Toggle from '../toggle/Toggle';
+import Toggle from '../_common/toggle/Toggle';
+import Tabs from '../_common/tabs/Tabs';
 
 class Search extends FullscreenContainer {
   constructor() {
@@ -14,7 +15,7 @@ class Search extends FullscreenContainer {
       textContent: 'Cases by countries',
     });
 
-    const searchInput = Element.createDOM({
+    this.searchInput = Element.createDOM({
       tagName: TAGS.INPUT,
       className: CLASSES.SEARCH.SEARCH_INPUT,
       attrs: [
@@ -23,7 +24,7 @@ class Search extends FullscreenContainer {
       ],
     });
 
-    const searchList = Element.createDOM({
+    this.searchList = Element.createDOM({
       tagName: TAGS.UL,
       className: CLASSES.SEARCH.SEARCH_LIST,
     });
@@ -33,24 +34,29 @@ class Search extends FullscreenContainer {
       textContent: 'List-item here',
     });
 
-    const togglesContainer = Element.createDOM({
+    this.togglesContainer = Element.createDOM({
       className: CLASSES.STATIC.TOGGLES_CONTAINER,
     });
 
-    const togglePeriod = Toggle.createDOM({
+    this.togglePeriod = Toggle.createDOM({
       type: 'period',
       btnTitles: ['total', 'last day'],
     });
 
-    const toggleAmount = Toggle.createDOM({
+    this.toggleAmount = Toggle.createDOM({
       type: 'amount',
       btnTitles: ['abs', 'per 100K'],
     });
 
-    searchList.append(text);
-    togglesContainer.append(togglePeriod, toggleAmount);
+    this.tabs = Tabs.createDOM({
+      btnIndexes: ['total', 'recovery', 'deathes'],
+      btnTitles: ['Total', 'Recovery', 'Deathes'],
+    });
 
-    this.element.append(title, searchInput, searchList, togglesContainer);
+    this.searchList.append(text);
+    this.togglesContainer.append(this.togglePeriod, this.toggleAmount);
+
+    this.element.append(title, this.searchInput, this.searchList, this.togglesContainer, this.tabs);
   }
 }
 

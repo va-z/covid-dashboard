@@ -16,15 +16,15 @@ const STATIC = {
   'CONTENT_WRAPPER-MAIN': 'content-wrapper--main',
   FULLSCREEN_BTN: 'fullscreen-btn',
 
-  TOGGLES: 'toggles-container',
-  TOGGLES_CONTAINER: 'toggles',
+  TOGGLES: 'toggles',
+  TOGGLES_CONTAINER: 'toggles-container',
   TOGGLES_PERIOD: 'toggles__period',
   TOGGLES_AMOUNT: 'toggles__amount',
   'TOGGLES_BTN-LEFT': 'toggles__btn--left',
   'TOGGLES_BTN-RIGHT': 'toggles__btn--right',
   'TOGGLES_BTN-ACTIVE': 'toggles_btn--active',
 
-  TABS: 'tabs',
+  TABS_CONTAINER: 'tabs-container',
   TABS_BTN: 'tabs__btn',
   'TABS_BTN-ACTIVE': 'tabs_btn--active',
 

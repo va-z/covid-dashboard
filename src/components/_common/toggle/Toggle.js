@@ -1,6 +1,6 @@
 import './Toggle.scss';
-import { TAGS, CLASSES } from '../../js/constants/index';
-import Element from '../_common/Element';
+import { TAGS, CLASSES } from '../../../js/constants/index';
+import Element from '../Element';
 
 class Toggle extends Element {
   /**
@@ -14,21 +14,21 @@ class Toggle extends Element {
   } = {}) {
     super({ className: `${CLASSES.STATIC.TOGGLES} ${CLASSES.STATIC.TOGGLES}--${type}` });
 
-    const btnLeft = Element.createDOM({
+    this.btnLeft = Element.createDOM({
       tagName: TAGS.BUTTON,
       className: CLASSES.STATIC['TOGGLES_BTN-LEFT TOGGLES_BTN-ACTIVE'],
       textContent: btnTitles[0],
       attrs: [['type', 'button']],
     });
 
-    const btnRight = Element.createDOM({
+    this.btnRight = Element.createDOM({
       tagName: TAGS.BUTTON,
       className: CLASSES.STATIC['TOGGLES_BTN-RIGHT'],
       textContent: btnTitles[1],
       attrs: [['type', 'button']],
     });
 
-    this.element.append(btnLeft, btnRight);
+    this.element.append(this.btnLeft, this.btnRight);
   }
 }
 
