@@ -1,9 +1,17 @@
 @import "./../../scss/variables";
 
 .map {
-  position: relative;
+  @include blocks;
+  display: flex; //потом убрать
+  flex-direction: column;
+  //justify-content: space-between;
   grid-area: map;
   height: 100%;
   //width: 50%;
-  outline: 2px solid tomato;
+  //outline: 2px solid tomato;
+
+  &__block {
+    flex: 10 10 auto;
+    //height: 100%;
+  }
 }
