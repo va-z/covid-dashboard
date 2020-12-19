@@ -1,7 +1,22 @@
+@import "./../../../scss/variables";
+
 .fullscreen-btn {
   position: absolute;
-  top: 0;
-  right: 0;
-  height: 1rem;
-  width: 1rem;
+  top: 3px;
+  right: 3px;
+  height: 1.2rem;
+  width: 1.2rem;
+  border: 1px solid $secondary-text-color;
+  border-radius: 50%;
+  background-color: transparent;
+  color: $secondary-text-color;
+
+  &::before {
+    content: "\2922";
+    position: absolute;
+    font-size: 1.1rem;
+    font-weight: lighter;
+    top: -4px;
+    left: 2px;
+  }
 }
