@@ -1,0 +1,16 @@
+@import "./../../scss/variables";
+
+.footer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 3rem;
+  width: 100%;
+  background-color: $dark-theme-color;
+  //outline: 2px solid rebeccapurple;
+}
+
+.rss-logo__img {
+  height: 2rem;
+  width: auto;
+}

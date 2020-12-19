@@ -1,0 +1,145 @@
+//* text, borders, etc
+$primary-text-color: #ffffff;
+$secondary-text-color: #adadad;
+// $middle-color: rgba(31, 32, 65, 0.5);
+// $lightest-color: rgba(31, 32, 65, 0.05);
+// $dark-color: #1F2041;
+
+//* theme colors
+$primary-theme-color: #5d1048;
+// $secondary-theme-color: rgb(111, 207, 151);
+$dark-theme-color: #310021;
+$light-theme-color: #8d3f74;
+
+// $primary-gradient: linear-gradient(180deg, rgb(188, 156, 255) 0%, rgb(139, 164, 249) 100%);
+// $secondary-gradient: linear-gradient(180deg, rgb(111, 207, 151) 0%, rgb(102, 210, 234) 100%);
+
+// $primary-gradient-half-opacity: linear-gradient(180deg, rgba(188, 156, 255, 0.5) 0%, rgba(139, 164, 249, 0.5) 100%);
+// $secondary-gradient__half-opacity: linear-gradient(180deg, rgba(111, 207, 151, 0.5) 0%, rgba(102, 210, 234, 0.5) 100%);
+
+//* types
+$primary-type: RobotoCondensed, Arial, sans-serif;
+
+//* borders
+// $border-depth: 1px;
+// $border-style: solid;
+// $border-radius: 4px;
+
+// $border-base: $border-depth $border-style $secondary-color;
+// $border-accent: $border-depth $border-style $middle-color;
+// $border-light: $border-depth $border-style rgba(31, 32, 65, 0.1);
+
+
+//* базовые размеры шрифтов
+$font-body: 16rem;
+$font-h1: 32rem;
+$font-h2: 20rem;
+$font-h3: 18rem;
+
+
+//* брейкпоинты
+// $media-maxW: 1223px; // уменьшается только второстепенный шрифт и высота строки в футере
+// $media-midW: 1023px; // уменьшается весь шрифт, мобильное меню и футер
+// $media-minW: 760px; // убираем бриф справа, центрируем карточку
+// $media-sMinW: 560px; // убираем логотип
+// $media-uMinW: 410px; // под узкие мобильные экраны - сужаем карточку
+
+
+
+@mixin head1 {
+  font-style: normal;
+  font-weight: bold;
+  font-size: #{$font-h1/$font-body}rem;
+  color: $primary-text-color;
+}
+
+h1, .head1 {
+  @include head1;
+}
+
+@mixin head2 {
+  font-style: normal;
+  //font-weight: bold;
+  font-size: #{$font-h2/$font-body}rem;
+  color: $primary-text-color;
+}
+
+h2, .head2 {
+  @include head2;
+}
+
+// @mixin head3 {
+//   font-family: $primary-type;
+//   font-style: normal;
+//   font-weight: bold;
+//   font-size: #{$font-h3/$font-body}rem;
+//   line-height: 1.25em;
+//   /* identical to box height */
+//   text-transform: uppercase;
+//   color: $dark-color;
+// }
+
+// h3, .head3 {
+//   @include head3;
+// }
+
+@mixin regular {
+  font-family: $primary-type;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 1rem;
+  color: $primary-text-color;
+}
+
+body {
+  @include regular;
+}
+
+// //* рамка для карточек (обертка карточек)
+// @mixin cardWrapper {
+//   width: 380px;
+//   padding: 41px 29px 29px 29px;
+//   border: $border-light;
+//   box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.2);
+//   border-radius: $border-radius;
+//   background: #ffffff;
+
+//   &:not(:only-child) {
+//     margin-bottom: 40px;
+//   }
+
+//   @media (max-width: $media-uMinW) {
+//     width: 100%;
+//     padding: 20px 5vw 10px 5vw;
+//     border: $border-light;
+//     box-shadow: 0px 0px 5vw rgba(0, 0, 0, 0.2);
+//   }
+// }
+
+// //* миксины для медиазапросов
+
+// @mixin widthMax {
+//   @media (max-width: $media-maxW) {
+//     font-size: #{$font-h3/$font-body}rem;
+//   }
+// }
+
+// //! общие стили макета
+
+// html {
+//   width: 1440px; //убрать для прода
+//   @media (max-width: $media-midW) {
+//     font-size: 12px;
+//   }
+// }
+
+// .container {
+//   max-width: 1200px;
+//   margin: 0 auto;
+//   padding: 0 20px;
+
+//   @media (max-width: $media-uMinW) {
+//     width: 100vw;
+//     padding: 0 5vw;
+//   }
+// }

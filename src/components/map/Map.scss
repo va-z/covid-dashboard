@@ -1,0 +1,9 @@
+@import "./../../scss/variables";
+
+.map {
+  position: relative;
+  grid-area: map;
+  height: 100%;
+  //width: 50%;
+  outline: 2px solid tomato;
+}

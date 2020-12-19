@@ -19,4 +19,3 @@ class FooterRssLogo extends Element {
 }
 
 export default FooterRssLogo;
-
