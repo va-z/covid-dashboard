@@ -17,7 +17,7 @@ class Tabs extends Element {
 
     this.btnTotal = Element.createDOM({
       tagName: TAGS.BUTTON,
-      className: CLASSES.STATIC['TABS_BTN TABS_BTN-ACTIVE'],
+      className: `${CLASSES.STATIC.TABS_BTN} ${CLASSES.STATIC['TABS_BTN-ACTIVE']}`,
       textContent: btnTitles[0],
       attrs: [['data-index', btnIndexes[0]]],
     });
