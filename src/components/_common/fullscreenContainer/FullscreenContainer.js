@@ -4,7 +4,7 @@ import Element from '../Element';
 import FullscreenButton from '../fullscreenButton/FullscreenButton';
 
 class FullscreenContainer extends Element {
-  constructor({ className: outerClasses }) {
+  constructor({ className: outerClasses } = {}) {
     super({ className: outerClasses });
 
     this.fullscreenButton = FullscreenButton.createDOM();

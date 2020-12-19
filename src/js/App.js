@@ -4,8 +4,8 @@ import getData from './data/getData';
 import View from '../components/view/View';
 
 class App {
-  constructor(parent, data) {
-    this.setData(URLS);
+  constructor(parent) {
+    const data = App.setData(URLS);
 
     this.state = {
       amount: 'abs', /* or per100k */
@@ -21,13 +21,15 @@ class App {
     });
   }
 
-  async setData(url) {
-    this.data = await getData(url);
+  static async setData(url) {
+    const data = await getData(url);
     // this.view.removeLoaders();
+
+    return data;
   }
 
-  static create(parent, data) {
-    return new App(parent, data);
+  static create(parent) {
+    return new App(parent);
   }
 }
 
