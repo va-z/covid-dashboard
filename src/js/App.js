@@ -1,11 +1,12 @@
+import '../scss/index.scss';
 import URLS from './data/URLS';
-// import getData from './data/getData';
+import getData from './data/getData';
 import View from '../components/view/View';
-import dummy from './data/dummy.json';
 
 class App {
-  constructor(parent, data) {
-    this.setData(URLS);
+  constructor(parent) {
+    const data = App.setData(URLS);
+
     this.state = {
       amount: 'abs', /* or per100k */
       figure: 'total', /* or daily */
@@ -20,14 +21,15 @@ class App {
     });
   }
 
-  async setData(/* url */) {
-    // this.data = await getData(url);
+  static async setData(url) {
+    const data = await getData(url);
     // this.view.removeLoaders();
-    this.data = dummy;
+
+    return data;
   }
 
-  static create(parent, data) {
-    return new App(parent, data);
+  static create(parent) {
+    return new App(parent);
   }
 }
 

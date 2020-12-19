@@ -21,7 +21,7 @@ class Header extends Element {
     });
 
     const text = Element.createDOM({
-      textContent: 'Last updated:',
+      textContent: 'Last updated: ',
     });
 
     this.date = new Element({
