@@ -5,6 +5,7 @@ const NUMBERS = {
 
   ZERO: 0,
   TWO: 2,
+  SIX: 6,
 
   '100K': 100_000,
 };
