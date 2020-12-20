@@ -35,8 +35,8 @@ class Graph extends FullscreenContainer {
     });
 
     this.tabs = Tabs.createDOM({
-      btnIndexes: ['total', 'recovery', 'deathes'],
-      btnTitles: ['Total', 'Recovery', 'Deathes'],
+      btnIndexes: ['total', 'recovery', 'deaths'],
+      btnTitles: ['Total', 'Recovery', 'Deaths'],
     });
 
     this.togglesContainer.append(this.togglePeriod, this.toggleAmount);

@@ -49,8 +49,8 @@ class Search extends FullscreenContainer {
     });
 
     this.tabs = Tabs.createDOM({
-      btnIndexes: ['total', 'recovery', 'deathes'],
-      btnTitles: ['Total', 'Recovery', 'Deathes'],
+      btnIndexes: ['total', 'recovery', 'deaths'],
+      btnTitles: ['Total', 'Recovery', 'Deaths'],
     });
 
     this.searchList.append(text);

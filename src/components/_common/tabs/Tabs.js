@@ -29,14 +29,14 @@ class Tabs extends Element {
       attrs: [['data-index', btnIndexes[1]]],
     });
 
-    this.btnDeathes = Element.createDOM({
+    this.btnDeaths = Element.createDOM({
       tagName: TAGS.BUTTON,
       className: CLASSES.STATIC.TABS_BTN,
       textContent: btnTitles[2],
       attrs: [['data-index', btnIndexes[2]]],
     });
 
-    this.element.append(this.btnTotal, this.btnRecovery, this.btnDeathes);
+    this.element.append(this.btnTotal, this.btnRecovery, this.btnDeaths);
   }
 }
 

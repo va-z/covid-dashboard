@@ -1,7 +1,6 @@
 import { NUMBERS } from '../constants/index';
 import getRawData from './_getRawData';
 import processData from './_processData';
-import getCountryObj from './_getCountryObj';
 
 async function getData(urls) {
   const [
@@ -11,18 +10,13 @@ async function getData(urls) {
     cumulativeCountries,
   ] = await getRawData(urls);
 
-  const result = {
-    World: {
+  const result = [
+    {
       name: 'World',
       population: lastWorld.population,
-      abs: {
-        ...processData(cumulativeWorld, lastWorld),
-      },
-      per100k: {
-        ...processData(cumulativeWorld, lastWorld, lastWorld.population),
-      },
+      ...processData(lastWorld, cumulativeWorld, lastWorld.population),
     },
-  };
+  ];
 
   const COUNTRIES = lastCountries.length;
 
@@ -31,12 +25,32 @@ async function getData(urls) {
     const cumulativeCountry = cumulativeCountries[i];
 
     if (cumulativeCountry) {
-      const { country: name } = lastCountry;
-      result[name] = getCountryObj(lastCountry, cumulativeCountry);
+      const {
+        country: name,
+        population,
+        countryInfo: {
+          iso2, lat, long, flag,
+        },
+      } = lastCountry;
+
+      const countryObj = {
+        name,
+        population,
+        iso2,
+        lat,
+        long,
+        flag,
+        ...processData(lastCountry, cumulativeCountry.timeline, population),
+      };
+
+      result.push(countryObj);
     }
   }
 
-  return result;
+  return {
+    updateTimestamp: lastWorld.updated,
+    data: result,
+  };
 }
 
 export default getData;

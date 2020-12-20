@@ -17,7 +17,7 @@
     display: grid;
     //grid-template-columns: 1fr 1fr 1fr;
     grid-template-areas: "search map table"
-                         "search map graph";
+      "search map graph";
     gap: 1rem;
     margin: 1rem auto;
     padding: 0 1rem;

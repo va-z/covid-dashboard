@@ -5,27 +5,26 @@ import View from '../components/view/View';
 
 class App {
   constructor(parent) {
-    const data = App.setData(URLS);
-
     this.state = {
       amount: 'abs', /* or per100k */
-      figure: 'total', /* or daily */
+      figure: 'total', /* or today */
       param: 'recovered', /* or cases, deaths */
       name: 'World', /* or Country Name */
     };
+
+    this.setData(URLS);
     this.view = new View(parent);
 
     this.view.element.addEventListener('updateRequest', () => {
-      // add updateState method that modifies this.state according to event.details
-      this.view.element.update(this.state, data);
+      this.view.element.update(this.state, this.data);
     });
   }
 
-  static async setData(url) {
+  async setData(url) {
     const data = await getData(url);
-    // this.view.removeLoaders();
-
-    return data;
+    this.data = data.data;
+    this.updateTimestamp = data.updateTimestamp;
+    // this.view.removeLoadingScreen();
   }
 
   static create(parent) {
