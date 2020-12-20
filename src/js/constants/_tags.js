@@ -10,6 +10,7 @@ const TAGS = {
   UL: 'ul',
   LI: 'li',
   A: 'a',
+  SVG: 'svg',
 
   H1: 'h1',
   H2: 'h2',

@@ -29,6 +29,7 @@ const STATIC = {
   TABS_BTN: 'tabs__btn',
   'TABS_BTN-ACTIVE': 'tabs__btn--active',
 
+  SVG_WRAPPER: 'svg-wrapper',
 };
 
 export default STATIC;
