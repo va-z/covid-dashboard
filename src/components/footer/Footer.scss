@@ -4,10 +4,28 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  height: 3rem;
   width: 100%;
+  padding: 1rem 0;
   background-color: $p-dark-theme-color;
-  //outline: 2px solid rebeccapurple;
+
+  &__RSS-logo {
+    background-color: #ffffff;
+  }
+
+  &__authors {
+    display: flex;
+    flex-direction: column;
+
+    &--pers {
+      color: $secondary-text-color;
+      text-decoration: none;
+
+      &:hover {
+        color: $primary-text-color;
+        text-decoration: underline;
+      }
+    }
+  }
 }
 
 .rss-logo__img {

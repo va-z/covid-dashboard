@@ -19,9 +19,9 @@ class Footer extends Element {
     const author1 = Element.createDOM({
       tagName: TAGS.A,
       className: CLASSES.STATIC['FOOTER_AUTHORS-PERS'],
-      textContent: 'Author#1',
+      textContent: 'va-z',
       attrs: [
-        ['href', 'https://www.some-adress/change-me'],
+        ['href', 'https://github.com/va-z'],
         ['target', '_blank'],
       ],
     });
@@ -29,9 +29,9 @@ class Footer extends Element {
     const author2 = Element.createDOM({
       tagName: TAGS.A,
       className: CLASSES.STATIC['FOOTER_AUTHORS-PERS'],
-      textContent: 'Author#2',
+      textContent: 'AnnaZAS',
       attrs: [
-        ['href', 'https://www.some-adress/change-me'],
+        ['href', 'https://github.com/ansivgit'],
         ['target', '_blank'],
       ],
     });
