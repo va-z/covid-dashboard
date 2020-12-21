@@ -8,6 +8,7 @@ import Map from '../map/Map';
 import Table from '../table/Table';
 import Graph from '../graph/Graph';
 import Footer from '../footer/Footer';
+import geo from '../../js/geo/geo';
 
 class View extends Element {
   constructor(parent) {
@@ -55,6 +56,7 @@ class View extends Element {
   init(params) {
     this.loadingScreen.setLoaded();
     this.update(params);
+    geo(params.data);
   }
 
   /**

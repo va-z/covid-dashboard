@@ -32,7 +32,8 @@ class App {
   }
 
   static create(parent) {
-    return new App(parent);
+    const app = new App(parent);
+    return app;
   }
 }
 
