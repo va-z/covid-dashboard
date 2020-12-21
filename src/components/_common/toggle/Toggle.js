@@ -18,14 +18,12 @@ class Toggle extends Element {
       tagName: TAGS.BUTTON,
       className: `${CLASSES.STATIC.TOGGLES_BTN} ${CLASSES.STATIC['TOGGLES_BTN-ACTIVE']}`,
       textContent: btnTitles[0],
-      attrs: [['type', 'button']],
     });
 
     this.btnRight = Element.createDOM({
       tagName: TAGS.BUTTON,
       className: `${CLASSES.STATIC.TOGGLES_BTN}`,
       textContent: btnTitles[1],
-      attrs: [['type', 'button']],
     });
 
     this.element.append(this.btnLeft, this.btnRight);

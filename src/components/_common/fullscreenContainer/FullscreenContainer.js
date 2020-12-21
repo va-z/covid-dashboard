@@ -1,15 +1,21 @@
 import './FullscreenContainer.scss';
-// import { TAGS, CLASSES } from '../../../js/constants/index';
+import { TAGS, CLASSES } from '../../../js/constants/index';
 import Element from '../Element';
-import FullscreenButton from '../fullscreenButton/FullscreenButton';
 
 class FullscreenContainer extends Element {
-  constructor({ className: outerClasses } = {}) {
-    super({ className: outerClasses });
+  constructor() {
+    super({ className: CLASSES.STATIC.FULLSCREEN });
 
-    this.fullscreenButton = FullscreenButton.createDOM();
+    this.fullscreenButton = Element.createDOM({
+      tagName: TAGS.BUTTON,
+      className: CLASSES.STATIC.FULLSCREEN_BTN,
+    });
 
     this.element.append(this.fullscreenButton);
+
+    this.fullscreenButton.addEventListener('click', () => {
+      this.element.classList.toggle(CLASSES.STATIC.FULLSCREEN_ACTIVE);
+    });
   }
 }
 

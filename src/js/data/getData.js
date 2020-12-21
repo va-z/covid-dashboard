@@ -1,3 +1,4 @@
+import codes from './_codes.json';
 import { NUMBERS } from '../constants/index';
 import getRawData from './_getRawData';
 import processData from './_processData';
@@ -18,6 +19,11 @@ async function getData(urls) {
     },
   ];
 
+  const codesMap = codes.reduce((acc, obj) => {
+    acc[obj['alpha-2']] = obj['country-code'];
+    return acc;
+  }, {});
+
   const COUNTRIES = lastCountries.length;
 
   for (let i = NUMBERS.ZERO; i < COUNTRIES; i += 1) {
@@ -36,6 +42,7 @@ async function getData(urls) {
       const countryObj = {
         name,
         population,
+        code: codesMap[iso2],
         iso2,
         lat,
         long,

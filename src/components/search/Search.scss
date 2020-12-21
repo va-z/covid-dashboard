@@ -1,8 +1,34 @@
 @import "./../../scss/variables";
 
 .search {
-  @include blocks;
   grid-area: search;
   height: 100%;
   //width: 25%;
+  padding: 0.8rem 0.8rem 0 0.8rem;
+  //outline: 2px solid seagreen;
+  border-radius: 13px 13px 0 0;
+  background: $primary-theme-color;
+  box-shadow: 7px 7px 11px #3f0b31,
+    -7px -7px 11px #7b155f;
+}
+
+.search {
+  grid-area: search;
+  height: 100%;
+  //width: 25%;
+}
+
+.search__title {
+  margin-bottom: 10px;
+}
+
+.search__input {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  margin-bottom: 10px;
+}
+
+.search__list {
+  list-style: none;
 }

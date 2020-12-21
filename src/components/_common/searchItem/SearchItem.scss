@@ -1,0 +1,26 @@
+.search-item {
+  display: flex;
+  justify-self: start;
+  padding: 10px 0;
+
+
+  &:hover,
+  &:focus {
+    background-color: rgb(68, 68, 68);
+    cursor: pointer;
+  }
+
+  &:active {
+    background-color: black;
+  }
+}
+
+.search-item__flag {
+  width: 30px;
+  height: 20px;
+  margin-right: 10px;
+}
+
+.search-item__title {
+  width: 100%;
+}

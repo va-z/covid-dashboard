@@ -1,22 +1,21 @@
 import '../scss/index.scss';
 import URLS from './data/URLS';
 import getData from './data/getData';
+import State from './State';
 import View from '../components/view/View';
 
 class App {
   constructor(parent) {
-    this.state = {
-      amount: 'abs', /* or per100k */
-      figure: 'total', /* or today */
-      param: 'recovered', /* or cases, deaths */
-      name: 'World', /* or Country Name */
-    };
-
-    this.setData(URLS);
+    this.state = new State();
     this.view = new View(parent);
+    this.setData(URLS);
 
     this.view.element.addEventListener('updateRequest', () => {
-      this.view.element.update(this.state, this.data);
+      this.view.update({
+        data: this.data,
+        updateTimestamp: this.updateTimestamp,
+        state: this.state,
+      });
     });
   }
 
@@ -24,11 +23,17 @@ class App {
     const data = await getData(url);
     this.data = data.data;
     this.updateTimestamp = data.updateTimestamp;
-    // this.view.removeLoadingScreen();
+
+    this.view.init({
+      data: this.data,
+      updateTimestamp: this.updateTimestamp,
+      state: this.state,
+    });
   }
 
   static create(parent) {
-    return new App(parent);
+    const app = new App(parent);
+    return app;
   }
 }
 

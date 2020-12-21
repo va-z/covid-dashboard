@@ -14,7 +14,10 @@ const STATIC = {
   // commons
   CONTENT_WRAPPER: 'content-wrapper',
   'CONTENT_WRAPPER-MAIN': 'content-wrapper--main',
+
+  FULLSCREEN: 'fullscreen',
   FULLSCREEN_BTN: 'fullscreen-btn',
+  FULLSCREEN_ACTIVE: 'fullscreen--active',
 
   TOGGLES: 'toggles',
   TOGGLES_CONTAINER: 'toggles-container',
@@ -29,6 +32,13 @@ const STATIC = {
   TABS_BTN: 'tabs__btn',
   'TABS_BTN-ACTIVE': 'tabs__btn--active',
 
+  SVG_WRAPPER: 'svg-wrapper',
+
+  LOADING_SCREEN: 'loading-screen',
+  LOADING_SCREEN_WRAPPER: 'loading-screen__wrapper',
+  LOADING_SCREEN_HEADING_WRAPPER: 'loading-screen__heading-wrapper',
+  LOADING_SCREEN_BUTTON: 'loading-screen__button',
+  LOADING_SCREEN__LOADED: 'loading-screen--loaded',
 };
 
 export default STATIC;

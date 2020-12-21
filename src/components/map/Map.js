@@ -6,19 +6,17 @@ import Tabs from '../_common/tabs/Tabs';
 
 class Map extends FullscreenContainer {
   constructor() {
-    super({ className: CLASSES.MAP.MAP });
+    super();
+    this.addClasses(CLASSES.MAP.MAP);
 
-    this.mapContainer = Element.createDOM({
-      className: CLASSES.MAP_BLOCK,
-      textContent: 'The map will be here',
-    });
+    const wrapper = Element.createDOM({ className: 'map-container' });
 
-    this.tabs = Tabs.createDOM({
-      btnIndexes: ['total', 'recovery', 'deaths'],
-      btnTitles: ['Total', 'Recovery', 'Deaths'],
-    });
+    this.tabs = Tabs.createDOM();
+    this.element.append(wrapper, this.tabs);
+  }
 
-    this.element.append(this.mapContainer, this.tabs);
+  update() {
+    console.log(this);
   }
 }
 
