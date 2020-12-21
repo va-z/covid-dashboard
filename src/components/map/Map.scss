@@ -1,7 +1,6 @@
 @import "./../../scss/variables";
 
 .map {
-  @include blocks;
   display: flex; //потом убрать
   flex-direction: column;
   //justify-content: space-between;

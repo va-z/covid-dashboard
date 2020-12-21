@@ -9,29 +9,23 @@ class Header extends Element {
     const wrapper = Element.createDOM({
       className: CLASSES.STATIC.CONTENT_WRAPPER,
     });
-
     const title = Element.createDOM({
       tagName: TAGS.H1,
       className: CLASSES.STATIC.HEADER_TITLE,
       textContent: 'RSS COVID-19 Dashboard',
     });
+    const dateWrapper = Element.createDOM({ className: CLASSES.STATIC.HEADER_INFO });
+    const text = Element.createDOM({ textContent: 'Last updated: ' });
 
-    const dateWrapper = Element.createDOM({
-      className: CLASSES.STATIC.HEADER_INFO,
-    });
+    this.date = Element.createDOM({ tagName: TAGS.P });
 
-    const text = Element.createDOM({
-      textContent: 'Last updated: ',
-    });
-
-    this.date = new Element({
-      tagName: TAGS.P,
-      textContent: '00.00.2020',
-    });
-
-    dateWrapper.append(text, this.date.element);
+    dateWrapper.append(text, this.date);
     wrapper.append(title, dateWrapper);
     this.element.append(wrapper);
+  }
+
+  update({ updateTimestamp }) {
+    this.date.textContent = new Date(updateTimestamp).toUTCString();
   }
 }
 

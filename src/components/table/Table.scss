@@ -1,7 +1,6 @@
 @import "./../../scss/variables";
 
 .table {
-  @include blocks;
   grid-area: table;
   // height: 100%;
   //width: 25%;

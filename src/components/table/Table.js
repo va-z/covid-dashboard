@@ -6,7 +6,8 @@ import Toggle from '../_common/toggle/Toggle';
 
 class Table extends FullscreenContainer {
   constructor() {
-    super({ className: CLASSES.TABLE.TABLE });
+    super();
+    this.addClasses(CLASSES.TABLE.TABLE);
 
     const title = Element.createDOM({
       tagName: TAGS.H2,
@@ -36,6 +37,10 @@ class Table extends FullscreenContainer {
     this.togglesContainer.append(this.togglePeriod, this.toggleAmount);
 
     this.element.append(title, this.table, this.togglesContainer);
+  }
+
+  update() {
+    console.log(this);
   }
 }
 

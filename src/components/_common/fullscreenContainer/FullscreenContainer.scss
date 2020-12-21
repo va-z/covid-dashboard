@@ -1,14 +1,39 @@
 @import "./../../../scss/variables";
 
-.search {
-  position: relative;
-  grid-area: search;
-  height: 100%;
-  //width: 25%;
-  padding: 0.8rem 0.8rem 0 0.8rem;
-  //outline: 2px solid seagreen;
-  border-radius: 13px 13px 0 0;
-  background: $primary-theme-color;
-  box-shadow:  7px 7px 11px #3f0b31,
-              -7px -7px 11px #7b155f;
+.fullscreen {
+  @include blocks;
+}
+
+.fullscreen-btn {
+  position: absolute;
+  top: 3px;
+  right: 3px;
+  height: 1.2rem;
+  width: 1.2rem;
+  border: 1px solid $secondary-text-color;
+  border-radius: 50%;
+  background-color: transparent;
+  color: $secondary-text-color;
+
+  &::before {
+    content: "\2922";
+    position: absolute;
+    font-size: 1.1rem;
+    font-weight: lighter;
+    top: -4px;
+    left: 2px;
+  }
+}
+
+.fullscreen--active {
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  height: calc(100vh - 20px);
+  width: calc(100% - 20px);
+  margin: 10px;
+  box-sizing: border-box;
+
+  z-index: 10;
 }

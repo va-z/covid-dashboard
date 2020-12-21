@@ -1,27 +1,22 @@
 import './Map.scss';
 import { CLASSES } from '../../js/constants/index';
-import SVGWrapper from '../_common/SVGWrapper/SVGWrapper';
+import Element from '../_common/Element';
 import FullscreenContainer from '../_common/fullscreenContainer/FullscreenContainer';
 import Tabs from '../_common/tabs/Tabs';
 
 class Map extends FullscreenContainer {
   constructor() {
-    super({ className: CLASSES.MAP.MAP });
+    super();
+    this.addClasses(CLASSES.MAP.MAP);
 
-    const wrapper = SVGWrapper.createDOM({
-      className: CLASSES.MAP.MAP_BLOCK,
-      attrs: [
-        ['width', '960'],
-        ['height', '600'],
-      ],
-    });
+    const wrapper = Element.createDOM({ className: 'map-container' });
 
-    this.tabs = Tabs.createDOM({
-      btnIndexes: ['total', 'recovery', 'deaths'],
-      btnTitles: ['Total', 'Recovery', 'Deaths'],
-    });
-
+    this.tabs = Tabs.createDOM();
     this.element.append(wrapper, this.tabs);
+  }
+
+  update() {
+    console.log(this);
   }
 }
 

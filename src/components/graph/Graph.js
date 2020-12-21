@@ -7,7 +7,8 @@ import Tabs from '../_common/tabs/Tabs';
 
 class Graph extends FullscreenContainer {
   constructor() {
-    super({ className: CLASSES.GRAPH.GRAPH });
+    super();
+    this.addClasses(CLASSES.GRAPH.GRAPH);
 
     const title = Element.createDOM({
       tagName: TAGS.H2,
@@ -34,14 +35,15 @@ class Graph extends FullscreenContainer {
       btnTitles: ['abs', 'per 100K'],
     });
 
-    this.tabs = Tabs.createDOM({
-      btnIndexes: ['total', 'recovery', 'deaths'],
-      btnTitles: ['Total', 'Recovery', 'Deaths'],
-    });
+    this.tabs = Tabs.createDOM();
 
     this.togglesContainer.append(this.togglePeriod, this.toggleAmount);
 
     this.element.append(title, this.graph, this.togglesContainer, this.tabs);
+  }
+
+  update() {
+    console.log(this);
   }
 }
 

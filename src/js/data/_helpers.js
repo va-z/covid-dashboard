@@ -1,11 +1,8 @@
+import cap from '../helpers/cap';
 import { NUMBERS, STRINGS } from '../constants/index';
 
 function val100k(val, pop) {
   return Math.round(NUMBERS['100K'] * (val / pop));
-}
-
-function cap(str) {
-  return str[0].toUpperCase() + str.slice(1);
 }
 
 function createTypeFields(type) {

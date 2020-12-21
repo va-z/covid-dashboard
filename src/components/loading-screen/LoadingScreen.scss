@@ -1,0 +1,42 @@
+.loading-screen {
+
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 20;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  width: 100%;
+  height: 100vh;
+
+  background-color: black;
+
+  &--loaded {
+    .loading-screen__button {
+      display: inline;
+    }
+  }
+
+  display: none !important;
+}
+
+.loading-screen__heading-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 450px;
+  margin-bottom: 20px;
+}
+
+.loading-screen__button {
+  display: none;
+  margin-left: 100px;
+}
+
+.loading-screen__wrapper {
+  text-align: center;
+}

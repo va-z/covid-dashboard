@@ -1,18 +1,23 @@
 import './Search.scss';
 import { TAGS, CLASSES } from '../../js/constants/index';
 import Element from '../_common/Element';
+import SearchItem from '../_common/searchItem/SearchItem';
 import FullscreenContainer from '../_common/fullscreenContainer/FullscreenContainer';
 import Toggle from '../_common/toggle/Toggle';
 import Tabs from '../_common/tabs/Tabs';
 
 class Search extends FullscreenContainer {
   constructor() {
-    super({ className: CLASSES.SEARCH.SEARCH });
+    super();
+    this.addClasses(CLASSES.SEARCH.SEARCH);
 
     const title = Element.createDOM({
       tagName: TAGS.H2,
       className: CLASSES.SEARCH.SEARCH_TITLE,
       textContent: 'Cases by countries',
+    });
+    const togglesContainer = Element.createDOM({
+      className: CLASSES.STATIC.TOGGLES_CONTAINER,
     });
 
     this.searchInput = Element.createDOM({
@@ -29,15 +34,6 @@ class Search extends FullscreenContainer {
       className: CLASSES.SEARCH.SEARCH_LIST,
     });
 
-    const text = Element.createDOM({
-      tagName: TAGS.SPAN,
-      textContent: 'List-item here',
-    });
-
-    this.togglesContainer = Element.createDOM({
-      className: CLASSES.STATIC.TOGGLES_CONTAINER,
-    });
-
     this.togglePeriod = Toggle.createDOM({
       type: 'period',
       btnTitles: ['total', 'last day'],
@@ -48,15 +44,32 @@ class Search extends FullscreenContainer {
       btnTitles: ['abs', 'per 100K'],
     });
 
-    this.tabs = Tabs.createDOM({
-      btnIndexes: ['total', 'recovery', 'deaths'],
-      btnTitles: ['Total', 'Recovery', 'Deaths'],
+    this.tabs = Tabs.createDOM();
+
+    togglesContainer.append(this.togglePeriod, this.toggleAmount);
+    this.element.append(
+      title,
+      this.searchInput,
+      this.searchList,
+      togglesContainer,
+      this.tabs,
+    );
+  }
+
+  update({ data, state }) {
+    this.searchList.innerHTML = '';
+
+    const key = state.getKey();
+    const filteredData = data.map((obj) => ({
+      flag: obj.flag,
+      name: obj.name,
+      value: obj[key],
+    })).sort(({ value: val1 }, { value: val2 }) => val2 - val1);
+
+    filteredData.forEach((obj) => {
+      const li = SearchItem.createDOM(obj);
+      this.searchList.append(li);
     });
-
-    this.searchList.append(text);
-    this.togglesContainer.append(this.togglePeriod, this.toggleAmount);
-
-    this.element.append(title, this.searchInput, this.searchList, this.togglesContainer, this.tabs);
   }
 }
 
