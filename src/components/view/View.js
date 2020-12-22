@@ -29,6 +29,10 @@ class View extends Element {
     this.graph = new Graph();
     this.footer = new Footer();
 
+    this.keyboardContainer = Element.createDOM({
+      className: 'simple-keyboard',
+    });
+
     this.dataBlocks = [
       this.header,
       this.search,
@@ -50,6 +54,7 @@ class View extends Element {
       this.header.element,
       mainWrapper,
       this.footer.element,
+      this.keyboardContainer,
     );
 
     parent.insertAdjacentElement('afterbegin', this.element);
@@ -59,7 +64,7 @@ class View extends Element {
     this.loadingScreen.setLoaded();
     this.update(params);
     geo(params.data);
-    graphDrow(params.data, params.state);
+
     // geo(params.data);
   }
 
@@ -74,6 +79,7 @@ class View extends Element {
     this.dataBlocks.forEach((block) => {
       block.update(params);
     });
+    graphDrow(params.data, params.state);
   }
 }
 

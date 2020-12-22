@@ -14,7 +14,7 @@ function graphDrow(allData, state) {
   const key = state.getKey();
   const currentCountry = allData.find((obj) => (obj.name === state.name));
   const currentData = currentCountry.historic;
-  //console.log(currentData);
+  // console.log(currentData);
 
   const svg = select('.graph__block')
     .append(`${TAGS.SVG}`)
@@ -49,6 +49,7 @@ function graphDrow(allData, state) {
       .attr('transform', `translate(${margin.left},${margin.top})`);
 
     const xAxis = axisBottom(xScale)
+      .ticks(5)
       .tickFormat(timeFormat(12, '%B'));
 
     const yAxis = axisLeft(yScale)

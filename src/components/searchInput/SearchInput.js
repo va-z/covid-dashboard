@@ -13,9 +13,9 @@ class SearchInput extends Element {
       attrs: [
         ['type', 'text'],
         ['placeholder', 'Type to search'],
+        ['id', 'input'],
       ],
     });
-
     this.dropdown = Element.createDOM({
       className: 'search-input__dropdown',
     });
