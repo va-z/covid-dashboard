@@ -58,7 +58,7 @@ class View extends Element {
     this.loadingScreen.setLoaded();
     this.update(params);
     geo(params.data);
-    graphDrow(params.data);
+    graphDrow(params.data, params.state);
   }
 
   /**
