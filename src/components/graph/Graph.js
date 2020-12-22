@@ -10,7 +10,7 @@ class Graph extends FullscreenContainer {
     super();
     this.addClasses(CLASSES.GRAPH.GRAPH);
 
-    const title = Element.createDOM({
+    this.title = Element.createDOM({
       tagName: TAGS.H2,
       className: CLASSES.GRAPH.GRAPH_TITLE,
       textContent: 'Global/Country',
@@ -48,7 +48,12 @@ class Graph extends FullscreenContainer {
       this.toggleAmount.element,
     );
 
-    this.element.append(title, this.graph, this.togglesContainer, this.tabs.element);
+    this.element.append(
+      this.title,
+      this.graph,
+      this.togglesContainer,
+      this.tabs.element,
+    );
   }
 
   update({ state, data, change }) {
@@ -57,6 +62,8 @@ class Graph extends FullscreenContainer {
         control.update(state);
       });
     }
+
+    this.title.textContent = state.name;
   }
 }
 

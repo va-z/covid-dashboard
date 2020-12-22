@@ -1,6 +1,7 @@
 import './Search.scss';
 import { TAGS, CLASSES } from '../../js/constants/index';
 import Element from '../_common/Element';
+import SearchInput from '../searchInput/SearchInput';
 import SearchItem from '../_common/searchItem/SearchItem';
 import FullscreenContainer from '../_common/fullscreenContainer/FullscreenContainer';
 import Toggle from '../_common/toggle/Toggle';
@@ -10,6 +11,8 @@ class Search extends FullscreenContainer {
   constructor() {
     super();
     this.addClasses(CLASSES.SEARCH.SEARCH);
+    this.names = [];
+    this.listItems = [];
 
     const title = Element.createDOM({
       tagName: TAGS.H2,
@@ -20,14 +23,7 @@ class Search extends FullscreenContainer {
       className: CLASSES.STATIC.TOGGLES_CONTAINER,
     });
 
-    this.searchInput = Element.createDOM({
-      tagName: TAGS.INPUT,
-      className: CLASSES.SEARCH.SEARCH_INPUT,
-      attrs: [
-        ['type', 'text'],
-        ['placeholder', 'Search'],
-      ],
-    });
+    this.searchInput = new SearchInput();
 
     this.searchList = Element.createDOM({
       tagName: TAGS.UL,
@@ -59,7 +55,7 @@ class Search extends FullscreenContainer {
 
     this.element.append(
       title,
-      this.searchInput,
+      this.searchInput.element,
       this.searchList,
       togglesContainer,
       this.tabs.element,
@@ -71,22 +67,48 @@ class Search extends FullscreenContainer {
       this.controls.forEach((control) => {
         control.update(state);
       });
+
+      if (Object.keys(change)[0] === 'name') {
+        this.listItems.forEach((item) => {
+          if (state.name === item.dataset.stateName) {
+            item.classList.add('search-item--active');
+          } else {
+            item.classList.remove('search-item--active');
+          }
+        });
+
+        return;
+      }
     }
 
-    this.searchList.innerHTML = '';
-
     const key = state.getKey();
+    const filteredData = data
+      .map((obj) => ({
+        flag: obj.flag,
+        name: obj.name,
+        value: obj[key],
+      }))
+      .sort(({ value: val1 }, { value: val2 }) => val2 - val1);
 
-    const filteredData = data.map((obj) => ({
-      flag: obj.flag,
-      name: obj.name,
-      value: obj[key],
-    })).sort(({ value: val1 }, { value: val2 }) => val2 - val1);
+    if (this.names.length === 0) {
+      filteredData.forEach((obj) => {
+        const li = SearchItem.createDOM({ ...obj, currentName: state.name });
+        this.searchList.append(li);
+        this.names.push(obj.name);
+        this.listItems.push(li);
+      });
 
-    filteredData.forEach((obj) => {
-      const li = SearchItem.createDOM(obj);
-      this.searchList.append(li);
-    });
+      this.searchInput.getNames(this.names);
+    } else {
+      this.listItems = [];
+      this.searchList.innerHTML = '';
+
+      filteredData.forEach((obj) => {
+        const li = SearchItem.createDOM({ ...obj, currentName: state.name });
+        this.searchList.append(li);
+        this.listItems.push(li);
+      });
+    }
   }
 }
 

@@ -12,7 +12,6 @@ class App {
 
     this.view.element.addEventListener('updateRequest', (event) => {
       const change = event.detail;
-      console.log(change);
       this.state.update(change);
 
       this.view.update({

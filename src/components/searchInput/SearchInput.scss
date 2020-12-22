@@ -1,0 +1,33 @@
+.search__input {
+  width: 100%;
+  padding: 10px;
+  border: none;
+}
+
+.search-input__wrapper {
+  position: relative;
+  margin-bottom: 10px;
+}
+
+.search-input__dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+
+  color: black;
+
+  width: 100%;
+  max-height: 300px;
+  overflow-y: scroll;
+  background-color: white;
+  box-shadow: 0 2px 10px -3px inset black;
+}
+
+.search-suggestion {
+  padding: 10px;
+
+  &:hover {
+    background-color: rgba(steelblue, 0.3);
+    cursor: pointer;
+  }
+}

@@ -4,9 +4,7 @@ import Element from '../Element';
 
 class SearchItem extends Element {
   constructor({
-    flag,
-    name,
-    value,
+    flag, name, value, currentName,
   }) {
     super({
       tagName: TAGS.LI,
@@ -16,6 +14,10 @@ class SearchItem extends Element {
       ],
     });
     this.name = name;
+
+    if (name === currentName) {
+      this.element.classList.add('search-item--active');
+    }
 
     const titleElem = Element.createDOM({
       tagName: TAGS.H3,
