@@ -53,6 +53,7 @@ class Graph extends FullscreenContainer {
       this.togglesContainer,
       this.tabs.element,
     );
+  }
 
   update({ state, data, change }) {
     if (change) {
