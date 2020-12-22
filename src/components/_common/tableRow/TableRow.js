@@ -24,7 +24,7 @@ class TableRow extends Element {
   }
 
   update(val) {
-    this.value.textContent = val;
+    this.value.textContent = val.toLocaleString('ru-RU');
   }
 }
 

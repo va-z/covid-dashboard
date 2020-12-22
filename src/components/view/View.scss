@@ -16,8 +16,8 @@
 
 .content-wrapper--main {
   display: grid;
-  grid-template-columns: minmax(250px, 17%) 1fr minmax(300px, 20%);
-  grid-row: repeat(2, 1fr);
+  grid-template-columns: minmax(325px, 20%) 1fr minmax(350px, 25%);
+  grid-template-rows: 1fr 2fr;
   gap: 1rem;
   padding: 0 1rem;
 }

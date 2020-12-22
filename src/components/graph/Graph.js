@@ -25,25 +25,38 @@ class Graph extends FullscreenContainer {
       className: CLASSES.STATIC.TOGGLES_CONTAINER,
     });
 
-    this.togglePeriod = Toggle.createDOM({
+    this.togglePeriod = new Toggle({
       type: 'period',
       btnTitles: ['total', 'daily'],
     });
 
-    this.toggleAmount = Toggle.createDOM({
+    this.toggleAmount = new Toggle({
       type: 'amount',
       btnTitles: ['abs', 'per 100K'],
     });
 
-    this.tabs = Tabs.createDOM();
+    this.tabs = new Tabs();
 
-    this.togglesContainer.append(this.togglePeriod, this.toggleAmount);
+    this.controls = [
+      this.togglePeriod,
+      this.toggleAmount,
+      this.tabs,
+    ];
 
-    this.element.append(title, this.graph, this.togglesContainer, this.tabs);
+    this.togglesContainer.append(
+      this.togglePeriod.element,
+      this.toggleAmount.element,
+    );
+
+    this.element.append(title, this.graph, this.togglesContainer, this.tabs.element);
   }
 
-  update() {
-    console.log(this);
+  update({ state, data, change }) {
+    if (change) {
+      this.controls.forEach((control) => {
+        control.update(state);
+      });
+    }
   }
 }
 
