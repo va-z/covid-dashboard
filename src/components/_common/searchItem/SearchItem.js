@@ -15,6 +15,7 @@ class SearchItem extends Element {
         ['data-state-name', name],
       ],
     });
+    this.name = name;
 
     const titleElem = Element.createDOM({
       tagName: TAGS.H3,
@@ -42,6 +43,10 @@ class SearchItem extends Element {
     }
 
     this.element.append(flagElem, titleElem, valueElem);
+
+    this.element.addEventListener('click', () => {
+      SearchItem.sendUpdateRequest(this.element, 'name', this.name);
+    });
   }
 }
 
