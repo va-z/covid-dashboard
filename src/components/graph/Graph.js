@@ -18,7 +18,6 @@ class Graph extends FullscreenContainer {
 
     this.graph = Element.createDOM({
       className: CLASSES.GRAPH.GRAPH_BLOCK,
-      textContent: 'Graph will be here',
     });
 
     this.togglesContainer = Element.createDOM({
@@ -54,7 +53,6 @@ class Graph extends FullscreenContainer {
       this.togglesContainer,
       this.tabs.element,
     );
-  }
 
   update({ state, data, change }) {
     if (change) {

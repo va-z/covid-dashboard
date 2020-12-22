@@ -9,6 +9,16 @@
   //height: 100%;
   //width: 25%;
   //outline: 2px solid blue;
+}
+
+rect {
+  fill: $s-dark-theme-color;
+}
+
+.tick line {
+  stroke: $secondary-text-color;
+  opacity: 0.5;
+}
 
   .tabs-container {
     margin-top: auto;
