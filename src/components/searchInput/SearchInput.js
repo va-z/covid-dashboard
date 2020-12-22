@@ -51,6 +51,32 @@ class SearchInput extends Element {
 
       SearchInput.sendUpdateRequest(this.element, 'name', name);
     });
+
+    this.element.addEventListener('keydown', (event) => {
+      const { value } = this.input;
+      const keyCond = event.key === 'Enter';
+      const valCond = value !== '';
+
+      if (keyCond && valCond) {
+        let name = this.names.find((str) => str === value);
+
+        if (name) {
+          SearchInput.sendUpdateRequest(this.element, 'name', name);
+          this.dropdown.innerHTML = '';
+        } else if (this.dropdown.children.length !== 0) {
+          name = this.dropdown.firstElementChild.textContent;
+          this.input.value = name;
+          SearchInput.sendUpdateRequest(this.element, 'name', name);
+          this.dropdown.innerHTML = '';
+        } else {
+          this.input.style.backgroundColor = '#eb4034';
+
+          setTimeout(() => {
+            this.input.style.backgroundColor = '';
+          }, 300);
+        }
+      }
+    });
   }
 
   addSuggestions(value) {
