@@ -1,16 +1,22 @@
 @import "./../../scss/variables";
 
 .map {
-  display: flex; //потом убрать
+  grid-row: 1 / span 2;
+  grid-column: 2 / 3;
+  display: flex; // потом убрать
   flex-direction: column;
   //justify-content: space-between;
-  grid-area: map;
-  height: 100%;
+  // grid-area: map;
+  // height: 100%;
   //width: 50%;
   //outline: 2px solid tomato;
 
   &__block {
     flex: 10 10 auto;
     //height: 100%;
+  }
+
+  .tabs-container {
+    margin-top: auto;
   }
 }

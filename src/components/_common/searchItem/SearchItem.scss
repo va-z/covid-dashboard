@@ -1,17 +1,22 @@
 .search-item {
   display: flex;
   justify-self: start;
-  padding: 10px 0;
+  padding: 10px;
+  margin: 0 10px 0 0;
 
 
   &:hover,
   &:focus {
-    background-color: rgb(68, 68, 68);
+    background-color: rgb(110, 8, 88);
     cursor: pointer;
   }
 
   &:active {
     background-color: black;
+  }
+
+  &--active {
+    background-color: rgb(168, 17, 135);
   }
 }
 
@@ -23,4 +28,5 @@
 
 .search-item__title {
   width: 100%;
+  margin-right: 5px;
 }

@@ -3,8 +3,21 @@ import { TAGS, CLASSES } from '../../../js/constants/index';
 import Element from '../Element';
 
 class SearchItem extends Element {
-  constructor({ name, value, flag }) {
-    super({ tagName: TAGS.LI, className: CLASSES.SEARCH['SEARCH-ITEM'] });
+  constructor({
+    flag, name, value, currentName,
+  }) {
+    super({
+      tagName: TAGS.LI,
+      className: CLASSES.SEARCH['SEARCH-ITEM'],
+      attrs: [
+        ['data-state-name', name],
+      ],
+    });
+    this.name = name;
+
+    if (name === currentName) {
+      this.element.classList.add('search-item--active');
+    }
 
     const titleElem = Element.createDOM({
       tagName: TAGS.H3,
@@ -15,7 +28,7 @@ class SearchItem extends Element {
     const valueElem = Element.createDOM({
       tagName: TAGS.H3,
       className: CLASSES.SEARCH['SEARCH-ITEM_VALUE'],
-      textContent: value,
+      textContent: value.toLocaleString('ru-RU') || '0',
     });
 
     let flagElem = Element.createDOM();
@@ -32,6 +45,10 @@ class SearchItem extends Element {
     }
 
     this.element.append(flagElem, titleElem, valueElem);
+
+    this.element.addEventListener('click', () => {
+      SearchItem.sendUpdateRequest(this.element, 'name', this.name);
+    });
   }
 }
 

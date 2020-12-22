@@ -1,25 +1,6 @@
 @import "./../../../scss/variables";
 
 .toggles {
-  flex: 0 0 auto;
-  margin: 5px;
-
-  &:first-child {
-    margin-left: 0;
-  }
-
-  &:last-child {
-    margin-right: 0;
-  }
-
-  &--period {
-    width: 6.1rem;
-  }
-
-  &--amount {
-    width: 6.8rem;
-  }
-
   &__btn {
     width: 50%;
     border: 1px solid $primary-theme-color;
@@ -40,4 +21,15 @@
       color: $primary-text-color;
     }
   }
+}
+
+.toggles-container {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  margin: 5px 0;
+}
+
+.toggles {
+  width: 49%;
 }

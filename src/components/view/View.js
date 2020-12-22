@@ -10,6 +10,7 @@ import Graph from '../graph/Graph';
 import Footer from '../footer/Footer';
 import geo from '../../js/geo/geo';
 import graphDrow from '../../js/graphDrow';
+// import geo from '../../js/geo/geo';
 
 class View extends Element {
   constructor(parent) {
@@ -59,6 +60,7 @@ class View extends Element {
     this.update(params);
     geo(params.data);
     graphDrow(params.data, params.state);
+    // geo(params.data);
   }
 
   /**
@@ -66,6 +68,7 @@ class View extends Element {
    * @param {Number} params.updateTimestamp - timestamp of the last update received from the server
    * @param {Array} params.data - data array
    * @param {Object} params.state - the state of the App
+   * @param {Object} params.change - param changed in previous update request
    */
   update(params) {
     this.dataBlocks.forEach((block) => {

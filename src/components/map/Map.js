@@ -9,14 +9,21 @@ class Map extends FullscreenContainer {
     super();
     this.addClasses(CLASSES.MAP.MAP);
 
-    const wrapper = Element.createDOM({ className: 'map-container' });
+    const wrapper = Element.createDOM({
+      className: 'map-container svg-container',
+      attrs: [
+        ['id', 'mapId'],
+      ],
+    });
 
-    this.tabs = Tabs.createDOM();
-    this.element.append(wrapper, this.tabs);
+    this.tabs = new Tabs();
+    this.element.append(wrapper, this.tabs.element);
   }
 
-  update() {
-    console.log(this);
+  update({ state, data, change }) {
+    if (change) {
+      this.tabs.update(state);
+    }
   }
 }
 
