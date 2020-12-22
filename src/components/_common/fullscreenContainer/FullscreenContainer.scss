@@ -1,7 +1,14 @@
 @import "./../../../scss/variables";
 
 .fullscreen {
-  @include blocks;
+  position: relative;
+  padding: 0.8rem 0.8rem 0 0.8rem;
+  border-radius: 13px 13px 0 0;
+  background: $primary-theme-color;
+  box-shadow: 7px 7px 11px #3f0b31,
+    -7px -7px 11px #7b155f;
+
+  box-sizing: border-box;
 }
 
 .fullscreen-btn {

@@ -34,32 +34,49 @@ class Search extends FullscreenContainer {
       className: CLASSES.SEARCH.SEARCH_LIST,
     });
 
-    this.togglePeriod = Toggle.createDOM({
+    this.togglePeriod = new Toggle({
       type: 'period',
       btnTitles: ['total', 'last day'],
     });
 
-    this.toggleAmount = Toggle.createDOM({
+    this.toggleAmount = new Toggle({
       type: 'amount',
       btnTitles: ['abs', 'per 100K'],
     });
 
-    this.tabs = Tabs.createDOM();
+    this.tabs = new Tabs();
 
-    togglesContainer.append(this.togglePeriod, this.toggleAmount);
+    this.controls = [
+      this.togglePeriod,
+      this.toggleAmount,
+      this.tabs,
+    ];
+
+    togglesContainer.append(
+      this.togglePeriod.element,
+      this.toggleAmount.element,
+    );
+
     this.element.append(
       title,
       this.searchInput,
       this.searchList,
       togglesContainer,
-      this.tabs,
+      this.tabs.element,
     );
   }
 
-  update({ data, state }) {
+  update({ data, state, change }) {
+    if (change) {
+      this.controls.forEach((control) => {
+        control.update(state);
+      });
+    }
+
     this.searchList.innerHTML = '';
 
     const key = state.getKey();
+
     const filteredData = data.map((obj) => ({
       flag: obj.flag,
       name: obj.name,

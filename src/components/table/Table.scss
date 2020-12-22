@@ -1,7 +1,9 @@
 @import "./../../scss/variables";
 
 .table {
-  grid-area: table;
+  grid-row: 1 / 2;
+  grid-column: 3 / 4;
+  // grid-area: table;
   // height: 100%;
   //width: 25%;
   //outline: 2px solid lightskyblue;

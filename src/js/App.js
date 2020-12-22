@@ -10,11 +10,16 @@ class App {
     this.view = new View(parent);
     this.setData(URLS);
 
-    this.view.element.addEventListener('updateRequest', () => {
+    this.view.element.addEventListener('updateRequest', (event) => {
+      const change = event.detail;
+
+      this.state.update(change);
+
       this.view.update({
         data: this.data,
         updateTimestamp: this.updateTimestamp,
         state: this.state,
+        change,
       });
     });
   }
@@ -32,8 +37,7 @@ class App {
   }
 
   static create(parent) {
-    const app = new App(parent);
-    return app;
+    return new App(parent);
   }
 }
 

@@ -3,8 +3,18 @@ import { TAGS, CLASSES } from '../../../js/constants/index';
 import Element from '../Element';
 
 class SearchItem extends Element {
-  constructor({ name, value, flag }) {
-    super({ tagName: TAGS.LI, className: CLASSES.SEARCH['SEARCH-ITEM'] });
+  constructor({
+    flag,
+    name,
+    value,
+  }) {
+    super({
+      tagName: TAGS.LI,
+      className: CLASSES.SEARCH['SEARCH-ITEM'],
+      attrs: [
+        ['data-state-name', name],
+      ],
+    });
 
     const titleElem = Element.createDOM({
       tagName: TAGS.H3,
@@ -15,7 +25,7 @@ class SearchItem extends Element {
     const valueElem = Element.createDOM({
       tagName: TAGS.H3,
       className: CLASSES.SEARCH['SEARCH-ITEM_VALUE'],
-      textContent: value,
+      textContent: value.toLocaleString('ru-RU') || '0',
     });
 
     let flagElem = Element.createDOM();

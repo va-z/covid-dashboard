@@ -25,9 +25,14 @@ class State {
 
     result += this.figure;
     result += cap(this.status);
-    result += this.amount === 'per100k' ? this.amount : '';
+    result += this.amount === '100k' ? this.amount : '';
 
     return result;
+  }
+
+  update(params) {
+    const [key, val] = Object.entries(params)[0];
+    this[key] = val;
   }
 }
 

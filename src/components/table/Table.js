@@ -16,31 +16,47 @@ class Table extends FullscreenContainer {
     });
 
     this.table = Element.createDOM({
+      tagName: TAGS.UL,
       className: CLASSES.TABLE.TABLE_BLOCK,
-      textContent: 'Table will be here',
     });
 
     this.togglesContainer = Element.createDOM({
       className: CLASSES.STATIC.TOGGLES_CONTAINER,
     });
 
-    this.togglePeriod = Toggle.createDOM({
+    this.togglePeriod = new Toggle({
       type: 'period',
       btnTitles: ['total', 'last day'],
     });
 
-    this.toggleAmount = Toggle.createDOM({
+    this.toggleAmount = new Toggle({
       type: 'amount',
       btnTitles: ['abs', 'per 100K'],
     });
 
-    this.togglesContainer.append(this.togglePeriod, this.toggleAmount);
+    this.controls = [
+      this.togglePeriod,
+      this.toggleAmount,
+    ];
 
+    this.togglesContainer.append(
+      this.togglePeriod.element,
+      this.toggleAmount.element,
+    );
     this.element.append(title, this.table, this.togglesContainer);
   }
 
-  update() {
-    console.log(this);
+  update({ data, state, change }) {
+    if (change) {
+      this.controls.forEach((control) => {
+        control.update(state);
+      });
+    }
+
+    const { name } = state;
+    const src = data.find((obj) => obj.name === name);
+
+    console.log(src);
   }
 }
 

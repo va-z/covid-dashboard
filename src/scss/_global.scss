@@ -62,3 +62,8 @@ h6 {
   font-size: 100%;
   font-weight: normal;
 }
+
+svg,
+svg * {
+  line-height: 0;
+}
