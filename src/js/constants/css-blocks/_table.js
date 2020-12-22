@@ -6,8 +6,8 @@ const TABLE = {
   TABLE_TABS: 'table__tabs',
 
   'TABLE-ROW': 'table-row',
-  'TABLE-ROW_TOTAL': 'table-row--total',
-  'TABLE-ROW-RECOVERY': 'table-row--recovery',
+  'TABLE-ROW_CASES': 'table-row--total',
+  'TABLE-ROW-RECOVERED': 'table-row--recovery',
   'TABLE-ROW-DEATHS': 'table-row--deaths',
   'TABLE-ROW_TITLE': 'table-row--title',
   'TABLE-ROW_VALUE': 'table-row--value',

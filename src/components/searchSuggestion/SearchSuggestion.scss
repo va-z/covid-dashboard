@@ -1,0 +1,8 @@
+.search-suggestion {
+  padding: 10px;
+
+  &:hover {
+    background-color: rgba(steelblue, 0.3);
+    cursor: pointer;
+  }
+}

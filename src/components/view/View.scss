@@ -1,30 +1,27 @@
 @import "./../../scss/variables";
 
 .view {
-  height: 100%;
+  display: grid;
+  align-items: stretch;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto 1fr auto;
+  row-gap: 1rem;
+  height: 100vh;
   background-color: $primary-theme-color;
-}
 
-.content-wrapper {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  margin: 0 auto;
-  padding: 0 1rem;
-
-  &--main {
-    display: grid;
-    //grid-template-columns: 1fr 1fr 1fr;
-    grid-template-areas:
-      "search map table"
-      "search map graph";
-    gap: 1rem;
-    margin: 1rem auto;
-    padding: 0 1rem;
+  main {
+    display: contents;
   }
 }
 
-.toggles-container {
-  display: flex;
+.content-wrapper--main {
+  display: grid;
+  grid-template-columns: minmax(275px, 20%) 1fr minmax(300px, 25%);
+  grid-template-rows: 1fr 2fr;
+  gap: 1rem;
+  padding: 0 1rem;
+}
+
+.svg-container svg {
+  width: 100%;
 }

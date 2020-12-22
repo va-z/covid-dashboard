@@ -45,6 +45,17 @@ class Element {
   static createDOM(params) {
     return new this(params).element;
   }
+
+  static sendUpdateRequest(dispatcher, key, value) {
+    const customEvent = new CustomEvent('updateRequest', {
+      bubbles: true,
+      detail: {
+        [key]: value,
+      },
+    });
+
+    dispatcher.dispatchEvent(customEvent);
+  }
 }
 
 export default Element;
