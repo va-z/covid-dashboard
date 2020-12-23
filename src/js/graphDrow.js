@@ -8,7 +8,9 @@ import {
   axisBottom,
   format,
   timeFormat,
-  selection,
+  timeMonth,
+  timeYear,
+  getFullYear,
 } from 'd3';
 import { TAGS } from './constants/index';
 
@@ -31,7 +33,7 @@ function graphDrow(allData, state, size) {
   const height = +svg.attr('height');
 
   const render = (data) => {
-    const xValue = (d) => d.date;
+    const xValue = (d) => new Date(d.date);
     const yValue = (d) => d[key];
     const margin = {
       top: 20,
@@ -55,7 +57,9 @@ function graphDrow(allData, state, size) {
       .attr('transform', `translate(${margin.left},${margin.top})`);
 
     const xAxis = axisBottom(xScale)
-      .tickFormat(timeFormat(12, '%B'));
+      .tickFormat((d) => (d.date <= timeYear(d) ? d.getFullYear() : null))
+      .tickSize(0);
+      //  .tickFormat(timeFormat('%d%b%y'))
 
     const yAxis = axisLeft(yScale)
       .tickFormat(format('.2s'))
