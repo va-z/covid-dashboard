@@ -8,7 +8,7 @@ import Map from '../map/Map';
 import Table from '../table/Table';
 import Graph from '../graph/Graph';
 import Footer from '../footer/Footer';
-import graphDrow from '../../js/graphDrow';
+import graphDraw from '../../js/graphDraw';
 
 class View extends Element {
   constructor(parent) {
@@ -66,7 +66,7 @@ class View extends Element {
     this.graphResizeBtn = this.graph.fullscreenButton;
     this.graphResizeBtn.addEventListener('click', () => {
       this.size = this.graph.getSize();
-      graphDrow(params.data, params.state, this.size);
+      graphDraw(params.data, params.state, this.size);
     });
   }
 
@@ -81,7 +81,7 @@ class View extends Element {
     this.dataBlocks.forEach((block) => {
       block.update(params);
     });
-    graphDrow(params.data, params.state, this.size);
+    graphDraw(params.data, params.state, this.size);
   }
 }
 
