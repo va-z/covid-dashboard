@@ -29,7 +29,9 @@ class SearchInput extends Element {
       const { value } = this.input;
 
       if (value === '') {
-        this.dropdown.innerHTML = '';
+        setTimeout(() => {
+          this.dropdown.innerHTML = '';
+        }, 100);
       }
 
       this.addSuggestions(value);
@@ -75,6 +77,16 @@ class SearchInput extends Element {
             this.input.style.backgroundColor = '';
           }, 300);
         }
+      }
+    });
+
+    document.addEventListener('click', (event) => {
+      const isInput = event.target.classList.contains('search__input');
+      const isDropdown = event.target.closest('.search-input__dropdown');
+
+      if (!isInput && !isDropdown) {
+        this.input.blur();
+        this.dropdown.innerHTML = '';
       }
     });
   }
