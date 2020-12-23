@@ -102,6 +102,10 @@ body {
   @include regular;
 }
 
+html {
+  background-color: $primary-theme-color;
+}
+
 // //* bloks search, map, table & graph substrate
 @mixin blocks {
   position: relative;

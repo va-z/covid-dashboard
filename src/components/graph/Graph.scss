@@ -1,7 +1,11 @@
 @import "./../../scss/variables";
 
 .graph {
-  grid-area: graph;
+  display: flex;
+  flex-direction: column;
+  grid-row: 2 / 3;
+  grid-column: 3 / 4;
+  // grid-area: graph;
   //height: 100%;
   //width: 25%;
   //outline: 2px solid blue;
@@ -14,4 +18,8 @@ rect {
 .tick line {
   stroke: $secondary-text-color;
   opacity: 0.5;
+}
+
+.tabs-container {
+  margin-top: auto;
 }

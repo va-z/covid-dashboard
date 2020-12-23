@@ -72,6 +72,7 @@ class View extends Element {
    * @param {Number} params.updateTimestamp - timestamp of the last update received from the server
    * @param {Array} params.data - data array
    * @param {Object} params.state - the state of the App
+   * @param {Object} params.change - param changed in previous update request
    */
   update(params) {
     this.dataBlocks.forEach((block) => {

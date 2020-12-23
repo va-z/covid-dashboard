@@ -31,14 +31,13 @@ function processData(last, timeline, pop) {
       historicObj[`today${cap(type)}100k`] = val100k(dailyValue, pop);
       historicObj[`all${cap(type)}`] = value;
       historicObj[`all${cap(type)}100k`] = val100k(dailyValue, pop);
-
-      if (j === DAYS_AMOUNT - 1) {
-        result[`all${cap(type)}`] = value;
-        result[`all${cap(type)}100k`] = val100k(dailyValue, pop);
-      }
     }
 
     const todayValue = last[`today${cap(type)}`];
+    const allValue = last[type];
+
+    result[`all${cap(type)}`] = allValue;
+    result[`all${cap(type)}100k`] = val100k(allValue, pop);
     result[`today${cap(type)}`] = todayValue;
     result[`today${cap(type)}100k`] = val100k(todayValue, pop);
   }
