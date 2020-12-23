@@ -14,14 +14,36 @@
   }
 }
 
+.header__info {
+  text-align: right;
+}
+
 .header__button {
   border: none;
   background-color: white;
   color: rgb(82, 16, 82);
   padding: 10px;
+  margin: 0 10px;
   border-radius: 100px;
 
   &:hover {
     opacity: 0.9;
+  }
+}
+
+@media (max-width: 1023px) {
+  .header__title {
+    font-size: 1.2em
+  }
+
+  .header__button {
+    padding: 3px;
+    border-radius: 30px;
+  }
+}
+
+@media (max-width: 600px) {
+  .header {
+    font-size: 14px
   }
 }

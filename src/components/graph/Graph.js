@@ -73,12 +73,13 @@ class Graph extends FullscreenContainer {
 
       setTimeout(() => {
         if (isFullscreen) {
-          const height = `${this.element.offsetHeight - 30}px`;
-          graphContainer.style.height = height;
+          graphContainer.style.height = `${this.element.offsetHeight - 100}px`;
+          graphContainer.style.width = '';
         } else {
           graphContainer.style.height = '';
+          graphContainer.style.width = '';
         }
-      }, 10);
+      }, 25);
     });
   }
 
@@ -91,46 +92,65 @@ class Graph extends FullscreenContainer {
 
     this.title.textContent = state.name;
 
+    const obj = data.find((datum) => datum.name === state.name);
+    const key = state.getKey();
+    const dataset = obj.historic[key];
+    const { dates } = obj.historic;
+
     if (!this.myChart) {
       this.myChart = new Chart(this.ctx, {
         type: 'bar',
         data: {
-          labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+          labels: dates,
           datasets: [{
-            label: '# of Votes',
-            data: [12, 19, 3, 5, 2, 3],
-            backgroundColor: [
-              'rgba(255, 99, 132, 0.2)',
-              'rgba(54, 162, 235, 0.2)',
-              'rgba(255, 206, 86, 0.2)',
-              'rgba(75, 192, 192, 0.2)',
-              'rgba(153, 102, 255, 0.2)',
-              'rgba(255, 159, 64, 0.2)',
-            ],
-            borderColor: [
-              'rgba(255, 99, 132, 1)',
-              'rgba(54, 162, 235, 1)',
-              'rgba(255, 206, 86, 1)',
-              'rgba(75, 192, 192, 1)',
-              'rgba(153, 102, 255, 1)',
-              'rgba(255, 159, 64, 1)',
-            ],
-            borderWidth: 1,
+            label: state.getDescription(),
+            data: dataset,
+            backgroundColor: Graph.getColor(state.status),
           }],
         },
         options: {
+          tooltips: {
+
+          },
+          legend: {
+            display: false,
+          },
           maintainAspectRatio: false,
           responsive: true,
           scales: {
             yAxes: [{
               ticks: {
                 beginAtZero: true,
+                callback: (value) => value.toLocaleString('ru-RU'),
+              },
+            }],
+            xAxes: [{
+              type: 'time',
+              time: {
+                unit: 'month',
               },
             }],
           },
         },
       });
+    } else {
+      this.myChart.data.datasets[0] = {
+        backgroundColor: Graph.getColor(state.status),
+        data: dataset,
+        label: state.getDescription(),
+      };
+      this.myChart.update();
     }
+  }
+
+  static getColor(status) {
+    const colors = {
+      cases: 'yellow',
+      deaths: 'red',
+      recovered: '#4e0',
+    };
+
+    return colors[status];
   }
 }
 

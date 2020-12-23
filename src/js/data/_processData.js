@@ -1,7 +1,6 @@
 import { NUMBERS } from '../constants/index';
 import {
   createTemplate,
-  createHistoricTemplate,
   val100k,
   cap,
 } from './_helpers';
@@ -17,23 +16,32 @@ function processData(last, timeline, pop) {
     const DAYS_AMOUNT = datesEntries.length;
 
     for (let j = NUMBERS.ZERO; j < DAYS_AMOUNT; j += 1) {
-      const [date, value] = datesEntries[j];
+      const date = datesEntries[j][0];
+      let value = datesEntries[j][1];
       const prevValue = (datesEntries[j - 1]?.[1] ?? 0);
-      const dailyValue = value - prevValue;
+      let dailyValue = value - prevValue;
+      const histObj = result.historic;
 
-      if (i === NUMBERS.ZERO) {
-        result.historic.push(createHistoricTemplate(date));
+      if (value < 0) {
+        value = 0;
       }
 
-      const historicObj = result.historic[j];
+      if (dailyValue < 0) {
+        dailyValue = 0;
+      }
 
-      historicObj[`today${cap(type)}`] = dailyValue;
-      historicObj[`today${cap(type)}100k`] = val100k(dailyValue, pop);
-      historicObj[`all${cap(type)}`] = value;
-      historicObj[`all${cap(type)}100k`] = val100k(dailyValue, pop);
+      if (histObj.dates.length < DAYS_AMOUNT) {
+        histObj.dates.push(new Date(date));
+      }
+
+      histObj[`today${cap(type)}`].push(dailyValue);
+      histObj[`today${cap(type)}100k`].push(val100k(dailyValue, pop));
+      histObj[`all${cap(type)}`].push(value);
+      histObj[`all${cap(type)}100k`].push(val100k(dailyValue, pop));
     }
 
-    const lastHistoricValue = result.historic[result.historic.length - 1][`all${cap(type)}`];
+    const histArr = result.historic[`all${cap(type)}`];
+    const lastHistoricValue = histArr[histArr.length - 1];
     const allValue = last[type];
     const todayValue = last[`today${cap(type)}`];
 
