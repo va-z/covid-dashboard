@@ -30,6 +30,12 @@ class State {
     return result;
   }
 
+  getDescription() {
+    const getFigureStr = (str) => (str === 'all' ? 'all time' : 'today');
+    const getAmountStr = (str) => (str === '100k' ? 'per 100k ' : ' ');
+    return `${cap(this.status)} ${getAmountStr(this.amount)}(${getFigureStr(this.figure)})`;
+  }
+
   update(params) {
     const [key, val] = Object.entries(params)[0];
     this[key] = val;

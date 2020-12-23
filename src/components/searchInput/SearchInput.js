@@ -13,9 +13,9 @@ class SearchInput extends Element {
       attrs: [
         ['type', 'text'],
         ['placeholder', 'Type to search'],
+        ['id', 'input'],
       ],
     });
-
     this.dropdown = Element.createDOM({
       className: 'search-input__dropdown',
     });
@@ -29,7 +29,9 @@ class SearchInput extends Element {
       const { value } = this.input;
 
       if (value === '') {
-        this.dropdown.innerHTML = '';
+        setTimeout(() => {
+          this.dropdown.innerHTML = '';
+        }, 100);
       }
 
       this.addSuggestions(value);
@@ -53,30 +55,48 @@ class SearchInput extends Element {
     });
 
     this.element.addEventListener('keydown', (event) => {
-      const { value } = this.input;
       const keyCond = event.key === 'Enter';
-      const valCond = value !== '';
 
-      if (keyCond && valCond) {
-        let name = this.names.find((str) => str === value);
-
-        if (name) {
-          SearchInput.sendUpdateRequest(this.element, 'name', name);
-          this.dropdown.innerHTML = '';
-        } else if (this.dropdown.children.length !== 0) {
-          name = this.dropdown.firstElementChild.textContent;
-          this.input.value = name;
-          SearchInput.sendUpdateRequest(this.element, 'name', name);
-          this.dropdown.innerHTML = '';
-        } else {
-          this.input.style.backgroundColor = '#eb4034';
-
-          setTimeout(() => {
-            this.input.style.backgroundColor = '';
-          }, 300);
-        }
+      if (keyCond) {
+        this.handleEnter();
       }
     });
+
+    document.addEventListener('click', (event) => {
+      const isInput = event.target.classList.contains('search__input');
+      const isDropdown = event.target.closest('.search-input__dropdown');
+      const isVirtualKeyboard = event.target.closest('.simple-keyboard');
+
+      if (!isInput && !isDropdown && !isVirtualKeyboard) {
+        this.input.blur();
+        this.dropdown.innerHTML = '';
+      }
+    });
+  }
+
+  handleEnter() {
+    const { value } = this.input;
+    const valCond = value !== '';
+
+    if (valCond) {
+      let name = this.names.find((str) => str === value);
+
+      if (name) {
+        SearchInput.sendUpdateRequest(this.element, 'name', name);
+        this.dropdown.innerHTML = '';
+      } else if (this.dropdown.children.length !== 0) {
+        name = this.dropdown.firstElementChild.textContent;
+        this.input.value = name;
+        SearchInput.sendUpdateRequest(this.element, 'name', name);
+        this.dropdown.innerHTML = '';
+      } else {
+        this.input.style.backgroundColor = '#eb4034';
+
+        setTimeout(() => {
+          this.input.style.backgroundColor = '';
+        }, 300);
+      }
+    }
   }
 
   addSuggestions(value) {

@@ -15,6 +15,12 @@ class FullscreenContainer extends Element {
 
     this.fullscreenButton.addEventListener('click', () => {
       this.element.classList.toggle(CLASSES.STATIC.FULLSCREEN_ACTIVE);
+
+      const event = new CustomEvent('fullscreenSet', {
+        bubbles: true,
+      });
+
+      this.fullscreenButton.dispatchEvent(event);
     });
   }
 }
