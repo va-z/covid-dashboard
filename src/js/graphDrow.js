@@ -1,3 +1,4 @@
+/* eslint-disable prefer-template */
 import {
   select,
   scaleLinear,
@@ -6,26 +7,33 @@ import {
   axisLeft,
   axisBottom,
   format,
-  timeFormat,
+  // timeFormat,
+  // timeMonth,
+  timeYear,
+  // getFullYear,
 } from 'd3';
 import { TAGS } from './constants/index';
 
-function graphDrow(allData, state) {
+function graphDrow(allData, state, size) {
   const key = state.getKey();
   const currentCountry = allData.find((obj) => (obj.name === state.name));
   const currentData = currentCountry.historic;
-  // console.log(currentData);
+  const initialHeight = size.height;
+  const initialWidth = size.width;
+
+  const parent = document.querySelector('.graph__block');
+  parent.innerText = '';
 
   const svg = select('.graph__block')
     .append(`${TAGS.SVG}`)
-    .attr('height', '300')
-    .attr('width', '500');
+    .attr('height', initialHeight)
+    .attr('width', initialWidth);
 
   const width = +svg.attr('width');
   const height = +svg.attr('height');
 
   const render = (data) => {
-    const xValue = (d) => d.date;
+    const xValue = (d) => new Date(d.date);
     const yValue = (d) => d[key];
     const margin = {
       top: 20,
@@ -49,8 +57,9 @@ function graphDrow(allData, state) {
       .attr('transform', `translate(${margin.left},${margin.top})`);
 
     const xAxis = axisBottom(xScale)
-      .ticks(5)
-      .tickFormat(timeFormat(12, '%B'));
+      .tickFormat((d) => (d.date <= timeYear(d) ? d.getFullYear() : null))
+      .tickSize(0);
+      //  .tickFormat(timeFormat('%d%b%y'))
 
     const yAxis = axisLeft(yScale)
       .tickFormat(format('.2s'))
@@ -67,19 +76,12 @@ function graphDrow(allData, state) {
       .attr('y', (d) => yScale(yValue(d)))
       .attr('x', (d) => xScale(xValue(d)))
       .attr('width', xScale.bandwidth())
-      .attr('height', (d) => innerHeight - yScale(yValue(d)));
+      .attr('height', (d) => innerHeight - yScale(yValue(d)))
+      .append('title')
+      .text((d) => `${d.date}: ${d[key]}`);
   };
 
   render(currentData);
-
-  // this.svgContainer = Element.createDOM({
-  //   tagName: TAGS.SVG,
-  //   className: CLASSES.GRAPH['GRAPH_SVG-CONTAINER'],
-  //   attrs: [['width', '350'],
-  //     ['height', '200'],
-  //     ['viewBox', '0 0 180 180'],
-  //     ['preserveAspectRatio', 'none']],
-  // });
 }
 
 export default graphDrow;
