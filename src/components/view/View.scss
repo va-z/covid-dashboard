@@ -20,6 +20,12 @@
   grid-template-rows: 1fr 2fr;
   gap: 1rem;
   padding: 0 1rem;
+
+  @media (max-width: $media-midW) {
+    display: flex;
+    flex-direction: column;
+  }
+
 }
 
 .svg-container svg {

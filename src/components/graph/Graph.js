@@ -71,9 +71,8 @@ class Graph extends FullscreenContainer {
     if (this.element.classList.contains('fullscreen--active')) {
       size.height = this.element.clientHeight - 100;
       size.width = this.element.clientWidth - 26;
-    } else {
-      size.height = 200;
-      size.width = 274;
+    } else if (window.innerWidth < 1024) {
+      size.width = 474;
     }
     return size;
   }

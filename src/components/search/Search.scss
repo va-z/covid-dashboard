@@ -5,16 +5,6 @@
   flex-direction: column;
   grid-column: 1 / 2;
   grid-row: 1 / 3;
-
-  // grid-area: search;
-  // height: 100%;
-  //width: 25%;
-  // padding: 0.8rem 0.8rem 0 0.8rem;
-  //outline: 2px solid seagreen;
-  // border-radius: 13px 13px 0 0;
-  // background: $primary-theme-color;
-  // box-shadow: 7px 7px 11px #3f0b31,
-  // -7px -7px 11px #7b155f;
 }
 
 .search__title {
@@ -26,6 +16,11 @@
   overflow-y: scroll;
   flex: 1 0 1px;
 
+  @media (max-width: $media-midW) {
+    flex: 0 0 auto;
+    max-height: 50vh;
+  }
+
   &::-webkit-scrollbar {
     width: 10px;
     background-color: rgb(187, 93, 93);
@@ -36,6 +31,10 @@
     background-color: brown;
     border-radius: 100px;
   }
+}
+
+.fullscreen--active .search__list {
+  max-height: 70vh;
 }
 
 .simple-keyboard {
