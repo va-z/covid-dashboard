@@ -66,3 +66,17 @@
 .leaflet-control-zoom-out {
   border-radius: 100% !important;
 }
+
+@media (max-width: 1023px) {
+  .map {
+    grid-row: 3 / 4;
+    grid-column: 1 / 3;
+  }
+}
+
+@media (max-width: 600px) {
+  .map {
+    grid-row: 4 / 5;
+    grid-column: 1 / 2;
+  }
+}

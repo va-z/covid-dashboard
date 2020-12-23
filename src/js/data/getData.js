@@ -42,6 +42,8 @@ async function getData(urls) {
         ...processData(lastCountry, cumulativeCountry.timeline, population),
       };
 
+      console.log(result);
+
       result.push(countryObj);
     }
   }

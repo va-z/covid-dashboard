@@ -7,6 +7,7 @@
   grid-template-rows: auto 1fr auto;
   row-gap: 1rem;
   height: 100vh;
+  min-height: 760px;
   background-color: $primary-theme-color;
 
   main {
@@ -24,4 +25,23 @@
 
 .svg-container svg {
   width: 100%;
+}
+
+@media (max-width: 1023px) {
+  .view {
+    height: auto;
+    min-height: auto;
+  }
+
+  .content-wrapper--main {
+    grid-template-columns: auto 300px;
+    grid-template-rows: 400px 400px 600px;
+  }
+}
+
+@media (max-width: 600px) {
+  .content-wrapper--main {
+    grid-template-columns: auto;
+    grid-row: repeat(4, auto);
+  }
 }

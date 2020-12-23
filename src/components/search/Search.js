@@ -77,7 +77,6 @@ class Search extends FullscreenContainer {
           }
         });
 
-        this.scrollToActive();
         return;
       }
     }
@@ -110,15 +109,6 @@ class Search extends FullscreenContainer {
         this.listItems.push(li);
       });
     }
-
-    this.scrollToActive();
-  }
-
-  scrollToActive() {
-    const activeItem = this.listItems.find((elem) => elem.classList.contains('search-item--active'));
-    activeItem.scrollIntoView({
-      behavior: 'smooth',
-    });
   }
 }
 
