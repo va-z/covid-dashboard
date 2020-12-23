@@ -110,10 +110,9 @@ class Graph extends FullscreenContainer {
         },
         options: {
           tooltips: {
-
-          },
-          legend: {
-            display: false,
+            callbacks: {
+              title: (item) => item[0].xLabel.split(',').slice(0, 2).join(', '),
+            },
           },
           maintainAspectRatio: false,
           responsive: true,

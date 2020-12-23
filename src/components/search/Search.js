@@ -13,6 +13,7 @@ class Search extends FullscreenContainer {
     this.addClasses(CLASSES.SEARCH.SEARCH);
     this.names = [];
     this.listItems = [];
+    this.activeItem = null;
 
     const title = Element.createDOM({
       tagName: TAGS.H2,
@@ -72,11 +73,15 @@ class Search extends FullscreenContainer {
         this.listItems.forEach((item) => {
           if (state.name === item.dataset.stateName) {
             item.classList.add('search-item--active');
+            this.activeItem = item;
           } else {
             item.classList.remove('search-item--active');
           }
         });
 
+        this.activeItem.scrollIntoView({
+          behavior: 'smooth',
+        });
         return;
       }
     }
