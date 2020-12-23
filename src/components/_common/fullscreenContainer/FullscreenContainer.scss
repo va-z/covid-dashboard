@@ -22,7 +22,7 @@
   background-color: #3f0b31;
   color: $secondary-text-color;
   outline: none;
-  z-index: 1000;
+  z-index: 20;
 
   &::before {
     content: "\2922";
@@ -54,5 +54,5 @@
   margin: 10px;
   box-sizing: border-box;
 
-  z-index: 2000;
+  z-index: 30;
 }

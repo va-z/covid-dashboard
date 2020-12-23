@@ -1,9 +1,8 @@
 .loading-screen {
-
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 20;
+  z-index: 100;
 
   display: flex;
   flex-direction: column;
@@ -13,30 +12,55 @@
   width: 100%;
   height: 100vh;
 
-  background-color: black;
+  background: #c4167e;
+  background: -webkit-linear-gradient(to right, #c4167e, #493240);
+  background: linear-gradient(to right, #c4167e, #493240);
+
+  font-size: 1.2em;
 
   &--loaded {
     .loading-screen__button {
       display: inline;
     }
   }
-
-  display: none !important;
 }
 
 .loading-screen__heading-wrapper {
   display: flex;
   flex-direction: row;
   justify-content: center;
+  align-items: center;
   width: 450px;
+  margin-bottom: 20px;
+}
+
+.loading-screen__p {
   margin-bottom: 20px;
 }
 
 .loading-screen__button {
   display: none;
   margin-left: 100px;
+
+  border: none;
+  background-color: white;
+  color: darkmagenta;
+  padding: 10px;
+  border-radius: 100px;
+
+  &:hover {
+    opacity: 0.9;
+  }
 }
 
 .loading-screen__wrapper {
   text-align: center;
+
+  ul {
+    text-align: left;
+  }
+
+  ul li {
+    margin: 10px;
+  }
 }

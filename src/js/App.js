@@ -21,6 +21,19 @@ class App {
         change,
       });
     });
+
+    this.view.header.button.addEventListener('click', () => {
+      const link = document.createElement('a');
+      const { name } = this.state;
+      const obj = this.data.filter((datum) => datum.name === name)[0];
+      const file = new Blob([JSON.stringify(obj)], { type: 'text/plain' });
+
+      link.download = `${name}data.json`;
+      link.href = URL.createObjectURL(file);
+      link.click();
+
+      link.remove();
+    });
   }
 
   async setData(url) {
