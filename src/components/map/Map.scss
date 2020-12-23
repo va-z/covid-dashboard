@@ -39,11 +39,16 @@
   left: 5px;
 
   display: flex;
-  width: 260px;
+  flex-wrap: wrap;
+  width: 120px;
   justify-content: space-between;
 
   .toggles {
-    width: 49%;
+    width: 100%;
+  }
+
+  .toggles:first-child {
+    margin-bottom: 3px;
   }
 }
 
@@ -52,11 +57,12 @@
 }
 
 .leaflet-control-zoom {
+  border: none !important;
   border-radius: 1100px !important;
   background-color: transparent;
 }
 
 .leaflet-control-zoom-in,
 .leaflet-control-zoom-out {
-  border-radius: 100%;
+  border-radius: 100% !important;
 }

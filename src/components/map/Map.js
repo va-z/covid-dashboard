@@ -6,12 +6,15 @@ import Element from '../_common/Element';
 import FullscreenContainer from '../_common/fullscreenContainer/FullscreenContainer';
 import Tabs from '../_common/tabs/Tabs';
 import Toggle from '../_common/toggle/Toggle';
+import MapLegend from '../map-legend/MapLegend';
 
 class Map extends FullscreenContainer {
   constructor() {
     super();
     this.addClasses(CLASSES.MAP.MAP);
     this.circles = [];
+    this.minA = 50;
+    this.maxA = 750;
 
     const mapWrapper = Element.createDOM({
       className: 'map-wrapper',
@@ -36,7 +39,7 @@ class Map extends FullscreenContainer {
         attribution,
         accessToken,
         maxZoom: 18,
-        minZoom: 1,
+        minZoom: 2,
         id: 'mapbox/streets-v11',
         tileSize: 512,
         zoomOffset: -1,
@@ -47,6 +50,14 @@ class Map extends FullscreenContainer {
       attribution,
       position: 'topright',
     }).addTo(this.map);
+
+    const bounds = L.latLngBounds([
+      [-90, -180], [90, 180],
+    ]);
+
+    this.map.setMaxBounds(bounds);
+
+    this.legend = new MapLegend(this.minA, this.maxA);
 
     setTimeout(() => this.map.invalidateSize(), 500);
 
@@ -69,8 +80,12 @@ class Map extends FullscreenContainer {
     ];
 
     togglesContainer.append(this.togglePeriod.element, this.toggleAmount.element);
-    mapWrapper.append(mapContainer, togglesContainer);
+    mapWrapper.append(mapContainer, togglesContainer, this.legend.element);
     this.element.append(mapWrapper, this.tabs.element);
+
+    this.element.addEventListener('fullscreenSet', () => {
+      this.map.invalidateSize();
+    });
   }
 
   update({ state, data, change }) {
@@ -94,6 +109,14 @@ class Map extends FullscreenContainer {
 
     const key = state.getKey();
     const [minVal, maxVal, filteredData] = Map.filterData(data, key);
+    const { minA, maxA } = this;
+
+    this.legend.update({
+      minVal,
+      maxVal,
+      title: state.getDescription(),
+      status: state.status,
+    });
 
     filteredData.forEach(({
       name,
@@ -102,10 +125,10 @@ class Map extends FullscreenContainer {
       val,
     }) => {
       if (name !== 'World') {
-        const radius = Map.getRadius(val, minVal, maxVal);
+        const radius = Map.getRadius(val, minVal, maxVal, minA, maxA);
         const color = Map.getColor(state.status);
 
-        const circle = L.circle([lat, long], {
+        const circle = L.circleMarker([lat, long], {
           color,
           fillColor: color,
           fillOpacity: '0.3',
@@ -149,12 +172,14 @@ class Map extends FullscreenContainer {
     return [minVal, maxVal, filteredData];
   }
 
-  static getRadius(val, minVal, maxVal) {
-    const maxR = 1500000;
-    const minR = 10000;
-    const R = ((maxR) * (val - minVal)) / (maxVal - minVal);
+  static getRadius(val, minVal, maxVal, minA, maxA) {
+    let A0 = ((maxA) * (val - minVal)) / (maxVal - minVal);
 
-    return R < minR ? minR : R;
+    if (A0 < minA) {
+      A0 = minA;
+    }
+
+    return Math.sqrt(A0 / Math.PI);
   }
 
   static getColor(status) {

@@ -65,8 +65,9 @@ class SearchInput extends Element {
     document.addEventListener('click', (event) => {
       const isInput = event.target.classList.contains('search__input');
       const isDropdown = event.target.closest('.search-input__dropdown');
+      const isVirtualKeyboard = event.target.closest('.simple-keyboard');
 
-      if (!isInput && !isDropdown) {
+      if (!isInput && !isDropdown && !isVirtualKeyboard) {
         this.input.blur();
         this.dropdown.innerHTML = '';
       }
