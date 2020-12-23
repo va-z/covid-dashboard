@@ -7,10 +7,10 @@ import {
   axisLeft,
   axisBottom,
   format,
-  timeFormat,
-  timeMonth,
+  // timeFormat,
+  // timeMonth,
   timeYear,
-  getFullYear,
+  // getFullYear,
 } from 'd3';
 import { TAGS } from './constants/index';
 
