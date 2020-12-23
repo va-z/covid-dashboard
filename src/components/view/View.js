@@ -52,13 +52,19 @@ class View extends Element {
     );
 
     parent.insertAdjacentElement('afterbegin', this.element);
+    this.size = this.graph.getSize();
   }
 
   init(params) {
     this.loadingScreen.setLoaded();
     this.update(params);
     geo(params.data);
-    graphDrow(params.data, params.state);
+
+    this.graphResizeBtn = this.graph.fullscreenButton;
+    this.graphResizeBtn.addEventListener('click', () => {
+      this.size = this.graph.getSize();
+      graphDrow(params.data, params.state, this.size);
+    });
   }
 
   /**
@@ -71,6 +77,7 @@ class View extends Element {
     this.dataBlocks.forEach((block) => {
       block.update(params);
     });
+    graphDrow(params.data, params.state, this.size);
   }
 }
 

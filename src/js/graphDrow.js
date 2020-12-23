@@ -10,16 +10,20 @@ import {
 } from 'd3';
 import { TAGS } from './constants/index';
 
-function graphDrow(allData, state) {
+function graphDrow(allData, state, size) {
   const key = state.getKey();
   const currentCountry = allData.find((obj) => (obj.name === state.name));
   const currentData = currentCountry.historic;
-  //console.log(currentData);
+  const initialHeight = size.height;
+  const initialWidth = size.width;
+
+  const parent = document.querySelector('.graph__block');
+  parent.innerText = '';
 
   const svg = select('.graph__block')
     .append(`${TAGS.SVG}`)
-    .attr('height', '300')
-    .attr('width', '500');
+    .attr('height', initialHeight)
+    .attr('width', initialWidth);
 
   const width = +svg.attr('width');
   const height = +svg.attr('height');
