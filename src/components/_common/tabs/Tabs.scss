@@ -19,6 +19,7 @@
     &--active {
       background-color: $primary-theme-color;
       color: $primary-text-color;
+      outline: none;
     }
   }
 }

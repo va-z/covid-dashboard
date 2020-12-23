@@ -3,6 +3,7 @@ import Keyboard from 'simple-keyboard';
 
 class VirtualKeyboard {
   constructor(host) {
+    this.inputInstance = host.view.search.searchInput;
     this.inputElem = host.view.element.querySelector('#input');
     this.keyboardContainer = host.view.keyboardContainer;
 
@@ -45,7 +46,7 @@ class VirtualKeyboard {
     this.inputElem.value = input;
     setTimeout(() => {
       this.inputElem.focus();
-    }, 100);
+    }, 10);
   }
 
   onKeyPress(button) {
@@ -53,6 +54,8 @@ class VirtualKeyboard {
       this.handleShift();
     } else if (button === '{close}') {
       this.keyboardContainer.style.display = '';
+    } else if (button === '{enter}') {
+      this.inputInstance.handleEnter();
     }
   }
 
