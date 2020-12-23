@@ -46,3 +46,17 @@
     width: 49%;
   }
 }
+
+.leaflet-control-attribution {
+  max-width: 70%;
+}
+
+.leaflet-control-zoom {
+  border-radius: 1100px !important;
+  background-color: transparent;
+}
+
+.leaflet-control-zoom-in,
+.leaflet-control-zoom-out {
+  border-radius: 100%;
+}

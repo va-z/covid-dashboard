@@ -11,6 +11,7 @@ class Map extends FullscreenContainer {
   constructor() {
     super();
     this.addClasses(CLASSES.MAP.MAP);
+    this.circles = [];
 
     const mapWrapper = Element.createDOM({
       className: 'map-wrapper',
@@ -77,13 +78,93 @@ class Map extends FullscreenContainer {
       this.controls.forEach((control) => {
         control.update(state);
       });
+
+      if (Object.keys(change)[0] === 'name') {
+        return;
+      }
     }
 
-    this.mapData(data);
+    this.mapData(data, state);
   }
 
-  mapData(data) {
-    console.log(data);
+  mapData(data, state) {
+    this.circles.forEach((m) => {
+      this.map.removeLayer(m);
+    });
+
+    const key = state.getKey();
+    const [minVal, maxVal, filteredData] = Map.filterData(data, key);
+
+    filteredData.forEach(({
+      name,
+      lat,
+      long,
+      val,
+    }) => {
+      if (name !== 'World') {
+        const radius = Map.getRadius(val, minVal, maxVal);
+        const color = Map.getColor(state.status);
+
+        const circle = L.circle([lat, long], {
+          color,
+          fillColor: color,
+          fillOpacity: '0.3',
+          radius,
+        })
+          .bindTooltip(`${name} - ${state.getDescription()} - ${val.toLocaleString('ru-RU')}`)
+          .addTo(this.map);
+
+        this.circles.push(circle);
+      }
+    });
+  }
+
+  static filterData(data, key) {
+    let minVal = Infinity;
+    let maxVal = 0;
+
+    const filteredData = data.map((datum) => {
+      const {
+        name, lat, long, [key]: val,
+      } = datum;
+
+      if (name !== 'World') {
+        if (val < minVal) {
+          minVal = val;
+        }
+
+        if (val > maxVal) {
+          maxVal = val;
+        }
+      }
+
+      return {
+        name,
+        lat,
+        long,
+        val,
+      };
+    });
+
+    return [minVal, maxVal, filteredData];
+  }
+
+  static getRadius(val, minVal, maxVal) {
+    const maxR = 1500000;
+    const minR = 10000;
+    const R = ((maxR) * (val - minVal)) / (maxVal - minVal);
+
+    return R < minR ? minR : R;
+  }
+
+  static getColor(status) {
+    const colors = {
+      cases: 'yellow',
+      deaths: 'red',
+      recovered: 'green',
+    };
+
+    return colors[status];
   }
 }
 
