@@ -19,8 +19,14 @@ class Header extends Element {
 
     this.date = Element.createDOM({ tagName: TAGS.P });
 
+    this.button = Element.createDOM({
+      tagName: TAGS.BUTTON,
+      className: 'header__button',
+      textContent: 'Save as JSON',
+    });
+
     dateWrapper.append(text, this.date);
-    wrapper.append(title, dateWrapper);
+    wrapper.append(title, this.button, dateWrapper);
     this.element.append(wrapper);
   }
 

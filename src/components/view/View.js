@@ -8,7 +8,6 @@ import Map from '../map/Map';
 import Table from '../table/Table';
 import Graph from '../graph/Graph';
 import Footer from '../footer/Footer';
-import geo from '../../js/geo/geo';
 import graphDrow from '../../js/graphDrow';
 
 class View extends Element {
@@ -27,6 +26,10 @@ class View extends Element {
     this.table = new Table();
     this.graph = new Graph();
     this.footer = new Footer();
+
+    this.keyboardContainer = Element.createDOM({
+      className: 'simple-keyboard',
+    });
 
     this.dataBlocks = [
       this.header,
@@ -49,6 +52,7 @@ class View extends Element {
       this.header.element,
       mainWrapper,
       this.footer.element,
+      this.keyboardContainer,
     );
 
     parent.insertAdjacentElement('afterbegin', this.element);
@@ -58,7 +62,6 @@ class View extends Element {
   init(params) {
     this.loadingScreen.setLoaded();
     this.update(params);
-    geo(params.data);
 
     this.graphResizeBtn = this.graph.fullscreenButton;
     this.graphResizeBtn.addEventListener('click', () => {
