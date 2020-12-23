@@ -116,7 +116,7 @@ class MapLegend extends Element {
     const colors = {
       cases: '#FF0',
       deaths: '#F00',
-      recovered: '#0F0',
+      recovered: '#4e0',
     };
 
     return colors[status];

@@ -103,9 +103,9 @@ class Map extends FullscreenContainer {
   }
 
   mapData(data, state) {
-    this.circles.forEach((m) => {
-      this.map.removeLayer(m);
-    });
+    // this.circles.forEach((m) => {
+    //   this.map.removeLayer(m);
+    // });
 
     const key = state.getKey();
     const [minVal, maxVal, filteredData] = Map.filterData(data, key);
@@ -118,13 +118,13 @@ class Map extends FullscreenContainer {
       status: state.status,
     });
 
-    filteredData.forEach(({
-      name,
-      lat,
-      long,
-      val,
-    }) => {
-      if (name !== 'World') {
+    if (this.circles.length === 0) {
+      filteredData.forEach(({
+        name,
+        lat,
+        long,
+        val,
+      }) => {
         const radius = Map.getRadius(val, minVal, maxVal, minA, maxA);
         const color = Map.getColor(state.status);
 
@@ -137,37 +137,58 @@ class Map extends FullscreenContainer {
           .bindTooltip(`${name} - ${state.getDescription()} - ${val.toLocaleString('ru-RU')}`)
           .addTo(this.map);
 
+        circle.addEventListener('click', () => {
+          Map.sendUpdateRequest(this.element, 'name', name);
+        });
+
         this.circles.push(circle);
-      }
-    });
+      });
+    } else {
+      this.circles.forEach((circle, index) => {
+        const { name, val } = filteredData[index];
+        const radius = Map.getRadius(val, minVal, maxVal, minA, maxA);
+        const color = Map.getColor(state.status);
+
+        circle.setRadius(radius);
+        circle.setTooltipContent(`${name} - ${state.getDescription()} - ${val.toLocaleString('ru-RU')}`);
+        circle.setStyle({
+          color,
+          fillColor: color,
+        });
+      });
+    }
   }
 
   static filterData(data, key) {
     let minVal = Infinity;
     let maxVal = 0;
 
-    const filteredData = data.map((datum) => {
+    const filteredData = data.reduce((acc, datum) => {
       const {
         name, lat, long, [key]: val,
       } = datum;
 
-      if (name !== 'World') {
-        if (val < minVal) {
-          minVal = val;
-        }
-
-        if (val > maxVal) {
-          maxVal = val;
-        }
+      if (name === 'World') {
+        return acc;
       }
 
-      return {
+      if (val < minVal) {
+        minVal = val;
+      }
+
+      if (val > maxVal) {
+        maxVal = val;
+      }
+
+      acc.push({
         name,
         lat,
         long,
         val,
-      };
-    });
+      });
+
+      return acc;
+    }, []);
 
     return [minVal, maxVal, filteredData];
   }
@@ -186,7 +207,7 @@ class Map extends FullscreenContainer {
     const colors = {
       cases: 'yellow',
       deaths: 'red',
-      recovered: 'green',
+      recovered: '#4e0',
     };
 
     return colors[status];
