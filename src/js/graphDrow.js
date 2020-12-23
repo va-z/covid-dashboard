@@ -1,3 +1,4 @@
+/* eslint-disable prefer-template */
 import {
   select,
   scaleLinear,
@@ -7,6 +8,7 @@ import {
   axisBottom,
   format,
   timeFormat,
+  selection,
 } from 'd3';
 import { TAGS } from './constants/index';
 
@@ -70,19 +72,12 @@ function graphDrow(allData, state, size) {
       .attr('y', (d) => yScale(yValue(d)))
       .attr('x', (d) => xScale(xValue(d)))
       .attr('width', xScale.bandwidth())
-      .attr('height', (d) => innerHeight - yScale(yValue(d)));
+      .attr('height', (d) => innerHeight - yScale(yValue(d)))
+      .append('title')
+      .text((d) => `${d.date}: ${d[key]}`);
   };
 
   render(currentData);
-
-  // this.svgContainer = Element.createDOM({
-  //   tagName: TAGS.SVG,
-  //   className: CLASSES.GRAPH['GRAPH_SVG-CONTAINER'],
-  //   attrs: [['width', '350'],
-  //     ['height', '200'],
-  //     ['viewBox', '0 0 180 180'],
-  //     ['preserveAspectRatio', 'none']],
-  // });
 }
 
 export default graphDrow;

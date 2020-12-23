@@ -6,7 +6,7 @@
   border-radius: 13px 13px 0 0;
   background: $primary-theme-color;
   box-shadow: 7px 7px 11px #3f0b31,
-    -7px -7px 11px #7b155f;
+             -7px -7px 11px #7b155f;
 
   box-sizing: border-box;
 }
@@ -34,12 +34,12 @@
 
   &:hover,
   &:focus {
-    border-color: white;
+    border-color: #ffffff;
   }
 
   &:hover::before,
   &:focus::before {
-    color: white;
+    color: #ffffff;
   }
 }
 
@@ -47,11 +47,9 @@
   position: fixed;
   top: 0;
   left: 0;
-
-  height: calc(100vh - 20px);
+  height: calc(100vh - 30px);
   width: calc(100% - 20px);
   margin: 10px;
   box-sizing: border-box;
-
   z-index: 10;
 }
