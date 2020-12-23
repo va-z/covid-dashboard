@@ -59,7 +59,7 @@ class Map extends FullscreenContainer {
 
     this.legend = new MapLegend(this.minA, this.maxA);
 
-    setTimeout(() => this.map.invalidateSize(), 500);
+    setTimeout(() => this.map.invalidateSize(), 100);
 
     this.togglePeriod = new Toggle({
       type: 'period',
