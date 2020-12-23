@@ -103,10 +103,6 @@ class Map extends FullscreenContainer {
   }
 
   mapData(data, state) {
-    // this.circles.forEach((m) => {
-    //   this.map.removeLayer(m);
-    // });
-
     const key = state.getKey();
     const [minVal, maxVal, filteredData] = Map.filterData(data, key);
     const { minA, maxA } = this;
