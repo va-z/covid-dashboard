@@ -8,8 +8,7 @@ import Map from '../map/Map';
 import Table from '../table/Table';
 import Graph from '../graph/Graph';
 import Footer from '../footer/Footer';
-import geo from '../../js/geo/geo';
-import graphDrow from '../../js/graphDrow';
+// import graphDrow from '../../js/graphDrow';
 // import geo from '../../js/geo/geo';
 
 class View extends Element {
@@ -63,9 +62,6 @@ class View extends Element {
   init(params) {
     this.loadingScreen.setLoaded();
     this.update(params);
-    geo(params.data);
-
-    // geo(params.data);
   }
 
   /**
@@ -79,7 +75,7 @@ class View extends Element {
     this.dataBlocks.forEach((block) => {
       block.update(params);
     });
-    graphDrow(params.data, params.state);
+    // graphDrow(params.data, params.state);
   }
 }
 
