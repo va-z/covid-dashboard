@@ -16,6 +16,7 @@ class SearchInput extends Element {
         ['id', 'input'],
       ],
     });
+
     this.dropdown = Element.createDOM({
       className: 'search-input__dropdown',
     });

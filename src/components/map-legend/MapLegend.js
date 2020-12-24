@@ -37,9 +37,8 @@ class MapLegend extends Element {
     status,
   }) {
     this.title.textContent = title;
-
     this.maxTitle.textContent = maxVal.toLocaleString('ru-RU');
-    this.midTitle.textContent = parseInt(((maxVal - minVal) / 2), 10).toLocaleString('ru-RU');
+    this.midTitle.textContent = ((maxVal - minVal) / 2).toLocaleString('ru-RU');
     this.minTitle.textContent = minVal.toLocaleString('ru-RU');
 
     this.circles.forEach((circle) => {
