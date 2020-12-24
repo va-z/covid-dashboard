@@ -26,7 +26,7 @@ class Header extends Element {
     });
 
     dateWrapper.append(text, this.date);
-    wrapper.append(title, this.button, dateWrapper);
+    wrapper.append(title, dateWrapper, this.button);
     this.element.append(wrapper);
   }
 

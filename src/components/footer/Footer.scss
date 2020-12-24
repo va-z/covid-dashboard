@@ -7,7 +7,6 @@
   width: 100%;
   background-color: $p-dark-theme-color;
 
-  //outline: 2px solid rebeccapurple;
   .content-wrapper {
     display: flex;
     justify-content: space-between;
@@ -22,8 +21,10 @@
   }
 
   &__authors {
+    color: $secondary-text-color;
+
     &--pers {
-      color: $secondary-text-color;
+      color: #ffffff;
       text-decoration: none;
 
       &:hover {

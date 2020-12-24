@@ -103,9 +103,9 @@ class MapLegend extends Element {
     this.midTitle.textContent = parseInt(((maxVal - minVal) / 2), 10).toLocaleString('ru-RU');
     this.minTitle.textContent = minVal.toLocaleString('ru-RU');
 
-    this.maxCircle.style.backgroundColor = `${MapLegend.getColor(status)}5`;
-    this.midCircle.style.backgroundColor = `${MapLegend.getColor(status)}5`;
-    this.minCircle.style.backgroundColor = `${MapLegend.getColor(status)}5`;
+    this.maxCircle.style.backgroundColor = `${MapLegend.getColor(status)}69`;
+    this.midCircle.style.backgroundColor = `${MapLegend.getColor(status)}69`;
+    this.minCircle.style.backgroundColor = `${MapLegend.getColor(status)}69`;
 
     this.maxCircle.style.borderColor = `${MapLegend.getColor(status)}`;
     this.minCircle.style.borderColor = `${MapLegend.getColor(status)}`;
@@ -114,9 +114,9 @@ class MapLegend extends Element {
 
   static getColor(status) {
     const colors = {
-      cases: '#FF0',
-      deaths: '#F00',
-      recovered: '#4e0',
+      cases: '#9f0000',
+      deaths: '#5d1048',
+      recovered: '#ff523c',
     };
 
     return colors[status];

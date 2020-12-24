@@ -1,63 +1,66 @@
+@import "./../../scss/variables";
+
 .loading-screen {
   position: fixed;
   top: 0;
   left: 0;
   z-index: 100;
-
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
   width: 100%;
   height: 100vh;
-
-  background: #c4167e;
-  background: -webkit-linear-gradient(to right, #c4167e, #493240);
-  background: linear-gradient(to right, #c4167e, #493240);
-
-  font-size: 1.2em;
+  background: $primary-theme-color;
+  font-size: 1.2rem;
 
   &--loaded {
     .loading-screen__button {
       display: inline;
     }
   }
-}
 
-.loading-screen__heading-wrapper {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  width: 450px;
-  margin-bottom: 20px;
-}
+  &__heading-wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 450px;
+    margin-bottom: 3rem;
+  }
 
-.loading-screen__p {
-  margin-bottom: 20px;
-}
+  &__p {
+    margin-bottom: 10px;
 
-.loading-screen__button {
-  display: none;
-  margin-left: 100px;
+    &:first-child {
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+  }
 
-  border: none;
-  background-color: white;
-  color: darkmagenta;
-  padding: 10px;
-  border-radius: 100px;
+  &__button {
+    display: none;
+    margin-left: 100px;
+    font-size: 1.1rem;
+    border: none;
+    background-color: $p-dark-theme-color;
+    color: $primary-text-color;
+    padding: 0.8rem 1.3rem;
+    border-radius: 4px;
 
-  &:hover {
-    opacity: 0.9;
+    &:hover {
+      background-color: $p-light-theme-color;
+    }
   }
 }
 
 .loading-screen__wrapper {
-  text-align: center;
+  color: $secondary-text-color;
 
   ul {
     text-align: left;
+    list-style-type: square;
+    list-style-position: inside;
   }
 
   ul li {

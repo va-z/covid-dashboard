@@ -68,11 +68,13 @@ class Graph extends FullscreenContainer {
   getSize() {
     const size = { height: 200, width: 274 };
 
-    if (this.element.classList.contains('fullscreen--active')) {
+    if (this.element.classList.contains('fullscreen--active') && !window.innerWidth < 1024) {
       size.height = this.element.clientHeight - 100;
       size.width = this.element.clientWidth - 26;
-    } else if (window.innerWidth < 1024) {
-      size.width = 474;
+    }
+
+    if (window.innerWidth < 1024) {
+      size.width = 425;
     }
     return size;
   }

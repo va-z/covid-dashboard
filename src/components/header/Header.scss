@@ -2,7 +2,6 @@
 
 .header {
   width: 100%;
-  //outline: 2px solid rebeccapurple;
   background-color: $p-dark-theme-color;
 
   .content-wrapper {
@@ -13,16 +12,21 @@
     margin: 0 auto;
     padding: 0.5rem 1rem;
   }
-}
 
-.header__button {
-  border: none;
-  background-color: white;
-  color: rgb(82, 16, 82);
-  padding: 10px;
-  border-radius: 100px;
+  &__info {
+    color: $secondary-text-color;
+  }
 
-  &:hover {
-    opacity: 0.9;
+  &__button {
+    justify-self: end;
+    border: none;
+    background-color: $p-light-theme-color;
+    color: $primary-text-color;
+    padding: 10px;
+    border-radius: 4px;
+
+    &:hover {
+      background-color: $primary-theme-color;
+    }
   }
 }

@@ -201,9 +201,9 @@ class Map extends FullscreenContainer {
 
   static getColor(status) {
     const colors = {
-      cases: 'yellow',
-      deaths: 'red',
-      recovered: '#4e0',
+      cases: '#9f0000',
+      deaths: '#8d3f74',
+      recovered: '#ff523c',
     };
 
     return colors[status];
