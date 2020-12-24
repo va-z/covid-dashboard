@@ -2,7 +2,7 @@ import cap from '../helpers/cap';
 import { NUMBERS, STRINGS } from '../constants/index';
 
 function val100k(val, pop) {
-  return Math.round(NUMBERS['100K'] * (val / pop));
+  return +(NUMBERS['100K'] * (val / pop)).toFixed(2);
 }
 
 function createTypeFields(type) {
@@ -22,17 +22,32 @@ function createDataFields() {
   };
 }
 
-function createHistoricTemplate(dateStr) {
+function createHistoricTemplate() {
   return {
-    date: dateStr,
-    ...createDataFields(),
+    historic: {
+      dates: [],
+
+      todayCases: [],
+      todayDeaths: [],
+      todayRecovered: [],
+      todayCases100k: [],
+      todayDeaths100k: [],
+      todayRecovered100k: [],
+
+      allCases: [],
+      allDeaths: [],
+      allRecovered: [],
+      allCases100k: [],
+      allDeaths100k: [],
+      allRecovered100k: [],
+    },
   };
 }
 
 function createTemplate() {
   return {
     ...createDataFields(),
-    historic: [],
+    ...createHistoricTemplate(),
   };
 }
 

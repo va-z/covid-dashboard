@@ -6,10 +6,6 @@
   justify-content: stretch;
   grid-row: 1 / 2;
   grid-column: 3 / 4;
-  // grid-area: table;
-  // height: 100%;
-  //width: 25%;
-  //outline: 2px solid lightskyblue;
 
   .toggles-container {
     margin-top: auto;
@@ -21,4 +17,29 @@
   display: flex;
   flex-direction: column;
   justify-content: stretch;
+}
+
+@media (max-width: 1023px) {
+  .table {
+    grid-row: 1 / 2;
+    grid-column: 1 / 2;
+
+    .toggles-container {
+      flex-wrap: wrap;
+
+
+      .toggles {
+        min-width: 120px;
+        flex: 1;
+        margin: 0 3px;
+      }
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  .table {
+    grid-row: 1 / 2;
+    grid-column: 1 / 2;
+  }
 }

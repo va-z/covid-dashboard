@@ -8,7 +8,6 @@ import Map from '../map/Map';
 import Table from '../table/Table';
 import Graph from '../graph/Graph';
 import Footer from '../footer/Footer';
-import graphDraw from '../../js/graphDraw';
 
 class View extends Element {
   constructor(parent) {
@@ -56,18 +55,11 @@ class View extends Element {
     );
 
     parent.insertAdjacentElement('afterbegin', this.element);
-    this.size = this.graph.getSize();
   }
 
   init(params) {
     this.loadingScreen.setLoaded();
     this.update(params);
-
-    this.graphResizeBtn = this.graph.fullscreenButton;
-    this.graphResizeBtn.addEventListener('click', () => {
-      this.size = this.graph.getSize();
-      graphDraw(params.data, params.state, this.size);
-    });
   }
 
   /**
@@ -81,7 +73,6 @@ class View extends Element {
     this.dataBlocks.forEach((block) => {
       block.update(params);
     });
-    graphDraw(params.data, params.state, this.size);
   }
 }
 
