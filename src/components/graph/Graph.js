@@ -1,81 +1,117 @@
 import './Graph.scss';
-import { TAGS, CLASSES } from '../../js/constants/index';
+import Chart from 'chart.js';
+import { formatNumber, getMarkerColor } from '../../js/helpers/index';
+import { TAGS, CLASSES, CONFIGS } from '../../js/constants/index';
 import Element from '../_common/Element';
-import FullscreenContainer from '../_common/fullscreenContainer/FullscreenContainer';
-import Toggle from '../_common/toggle/Toggle';
-import Tabs from '../_common/tabs/Tabs';
+import ContentContainer from '../_common/content-container/ContentContainer';
+import ControlsToggles from '../_common/controls-toggles/ControlsToggles';
+import ControlsTabs from '../_common/controls-tabs/ControlsTabs';
 
-class Graph extends FullscreenContainer {
-  constructor() {
-    super();
-    this.addClasses(CLASSES.GRAPH.GRAPH);
+class Graph extends ContentContainer {
+  constructor({ blockClassName }) {
+    super({ className: CLASSES.GRAPH });
+    this.addClasses(blockClassName);
 
+    const graphContainer = Element.createDOM({ className: CLASSES.GRAPH__CONTAINER });
+    const graph = Element.createDOM({
+      tagName: 'canvas',
+      className: CLASSES.GRAPH__BLOCK,
+      attrs: [
+        ['width', CONFIGS.GRAPH.CTX_WIDTH],
+        ['height', CONFIGS.GRAPH.CTX_HEIGHT],
+      ],
+    });
+
+    this.ctx = graph.getContext('2d');
     this.title = Element.createDOM({
       tagName: TAGS.H2,
-      className: CLASSES.GRAPH.GRAPH_TITLE,
-      textContent: 'Global/Country',
+      className: CLASSES.GRAPH__TITLE,
     });
 
-    this.graph = Element.createDOM({
-      className: CLASSES.GRAPH.GRAPH_BLOCK,
-    });
+    this.toggles = new ControlsToggles({ hostClassName: CLASSES.GRAPH });
+    this.tabs = new ControlsTabs({ hostClassName: CLASSES.GRAPH });
 
-    this.togglesContainer = Element.createDOM({
-      className: CLASSES.STATIC.TOGGLES_CONTAINER,
-    });
-
-    this.togglePeriod = new Toggle({
-      type: 'period',
-      btnTitles: ['total', 'daily'],
-    });
-
-    this.toggleAmount = new Toggle({
-      type: 'amount',
-      btnTitles: ['abs', 'per 100K'],
-    });
-
-    this.tabs = new Tabs();
-
-    this.controls = [
-      this.togglePeriod,
-      this.toggleAmount,
-      this.tabs,
-    ];
-
-    this.togglesContainer.append(
-      this.togglePeriod.element,
-      this.toggleAmount.element,
-    );
-
+    graphContainer.append(graph);
     this.element.append(
       this.title,
-      this.graph,
-      this.togglesContainer,
+      graphContainer,
+      this.toggles.element,
       this.tabs.element,
     );
+
+    this.element.addEventListener('fullscreenSet', () => {
+      const isFullscreen = this.element.classList.contains('fullscreen--active');
+      graphContainer.style.width = '1px';
+      graphContainer.style.height = '1px';
+
+      setTimeout(() => {
+        if (isFullscreen) {
+          graphContainer.style.width = '';
+          graphContainer.style.height = `${this.element.offsetHeight - 100}px`;
+        } else {
+          graphContainer.style.height = '';
+          graphContainer.style.width = '';
+        }
+      });
+    });
   }
 
-  update({ state, data, change }) {
-    if (change) {
-      this.controls.forEach((control) => {
-        control.update(state);
-      });
-    }
+  update({ state, data }) {
+    this.toggles.update(state);
+    this.tabs.update(state);
 
     this.title.textContent = state.name;
-  }
 
-  getSize() {
-    const size = { height: 200, width: 274 };
+    const obj = data.find((datum) => datum.name === state.name);
+    const key = state.getKey();
+    const dataset = obj.historic[key];
+    const { dates } = obj.historic;
 
-    if (this.element.classList.contains('fullscreen--active')) {
-      size.height = this.element.clientHeight - 100;
-      size.width = this.element.clientWidth - 26;
-    } else {
-      size.height = 200;
-      size.width = 274;
+    if (!this.chart) {
+      this.chart = new Chart(this.ctx, {
+        type: 'bar',
+        data: {
+          labels: dates,
+          datasets: [{
+            label: state.getDescription(),
+            data: dataset,
+            backgroundColor: getMarkerColor(state.status),
+          }],
+        },
+        options: {
+          tooltips: {
+            callbacks: {
+              title: (item) => item[0].xLabel.split(',').slice(0, 2).join(', '),
+            },
+          },
+          maintainAspectRatio: false,
+          responsive: true,
+          scales: {
+            yAxes: [{
+              ticks: {
+                beginAtZero: true,
+                callback: formatNumber,
+              },
+            }],
+            xAxes: [{
+              type: 'time',
+              time: {
+                unit: 'month',
+              },
+            }],
+          },
+        },
+      });
+
+      return;
     }
-    return size;
+
+    this.chart.data.datasets[0] = {
+      backgroundColor: getMarkerColor(state.status, false),
+      data: dataset,
+      label: state.getDescription(),
+    };
+    this.chart.update();
   }
 }
 

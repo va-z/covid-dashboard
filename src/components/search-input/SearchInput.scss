@@ -1,0 +1,39 @@
+@import "./../../scss/variables";
+
+.input {
+  position: relative;
+}
+
+.input__field {
+  width: 100%;
+  padding: 10px;
+  box-sizing: border-box;
+  border: none;
+  border-radius: 3px;
+}
+
+.input__dropdown {
+  position: absolute;
+  top: 100%;
+  left: 1rem;
+
+  color: $color-theme-primary-darker;
+
+  width: calc(100% - 2rem);
+  max-height: 300px;
+  overflow-y: scroll;
+  background-color: $color-text-primary;
+  box-shadow: 0 2px 10px -3px inset $color-theme-primary-dark;
+  box-sizing: border-box;
+}
+
+.input__suggestion {
+  margin: 0;
+  padding: 10px;
+
+  &:hover,
+  &:focus {
+    background-color: $color-theme-primary-light-transparent;
+    cursor: pointer;
+  }
+}

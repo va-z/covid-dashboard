@@ -1,68 +1,50 @@
 @import "./../../scss/variables";
 
-.map {
-  grid-row: 1 / span 2;
-  grid-column: 2 / 3;
-  display: flex; // потом убрать
-  flex-direction: column;
-  //justify-content: space-between;
-  // grid-area: map;
-  // height: 100%;
-  //width: 50%;
-  //outline: 2px solid tomato;
-
-  &__block {
-    flex: 10 10 auto;
-    //height: 100%;
-  }
-
-  .tabs-container {
-    margin-top: auto;
-  }
-}
-
-.map-wrapper {
+.map__wrapper {
   position: relative;
+
+  width: 100%;
   height: 100%;
+  padding: 0 1rem 0.5rem;
+
+  box-sizing: border-box;
 }
 
-.map-container {
+.map__container {
   min-height: 300px;
   height: 100%;
-  z-index: 1
+  z-index: 1;
+  border-radius: 3px;
 }
 
-.map__toggles {
+.map__toggles-wrapper {
   position: absolute;
   z-index: 2;
-  bottom: 5px;
-  left: 5px;
+  left: 1.25rem;
+  bottom: 0.75rem;
 
   display: flex;
   flex-wrap: wrap;
-  width: 120px;
+  width: 150px;
   justify-content: space-between;
+}
 
-  .toggles {
-    width: 100%;
+.map__legend {
+  position: absolute;
+  bottom: 0.75rem;
+  right: 1rem;
+  z-index: 2;
+  max-width: 175px;
+}
+
+.map__toggles {
+  width: 100%;
+
+  &:first-child {
+    margin-bottom: 0.25rem;
   }
-
-  .toggles:first-child {
-    margin-bottom: 3px;
-  }
 }
 
-.leaflet-control-attribution {
-  max-width: 70%;
-}
-
-.leaflet-control-zoom {
-  border: none !important;
-  border-radius: 1100px !important;
-  background-color: transparent;
-}
-
-.leaflet-control-zoom-in,
-.leaflet-control-zoom-out {
-  border-radius: 100% !important;
+.map__tabs {
+  width: 100%;
 }

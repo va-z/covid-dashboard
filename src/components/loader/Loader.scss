@@ -1,8 +1,12 @@
-.loading-screen {
+@import "./../../scss/variables";
+
+.loader {
   position: fixed;
   top: 0;
   left: 0;
   z-index: 100;
+
+  overflow: hidden;
 
   display: flex;
   flex-direction: column;
@@ -19,48 +23,44 @@
   font-size: 1.2em;
 
   &--loaded {
-    .loading-screen__button {
+    .loader__button {
       display: inline;
     }
   }
 }
 
-.loading-screen__heading-wrapper {
+.loader__wrapper {
+  min-width: 300px;
+  margin: 0 20px;
+
+}
+
+.loader__heading-wrapper {
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  width: 450px;
+  width: 100%;
   margin-bottom: 20px;
 }
 
-.loading-screen__p {
+.loader__greeting {
   margin-bottom: 20px;
 }
 
-.loading-screen__button {
+.loader__button {
   display: none;
   margin-left: 100px;
-
-  border: none;
-  background-color: white;
-  color: darkmagenta;
   padding: 10px;
-  border-radius: 100px;
-
-  &:hover {
-    opacity: 0.9;
-  }
 }
 
-.loading-screen__wrapper {
-  text-align: center;
+.loader__list {
+  text-align: left;
+  width: 100%;
+  padding-left: 30px;
+  box-sizing: border-box;
+}
 
-  ul {
-    text-align: left;
-  }
-
-  ul li {
-    margin: 10px;
-  }
+.loader__list-item {
+  margin: 10px 0;
 }

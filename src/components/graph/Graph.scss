@@ -1,25 +1,31 @@
 @import "./../../scss/variables";
 
-.graph {
-  display: flex;
-  flex-direction: column;
-  grid-row: 2 / 3;
-  grid-column: 3 / 4;
-  // grid-area: graph;
-  //height: 100%;
-  //width: 25%;
-  //outline: 2px solid blue;
+.graph__title {
+  margin: 0;
+  padding: 0 1rem 1rem;
 }
 
-rect {
-  fill: $s-dark-theme-color;
+.graph__container {
+  position: relative;
+  flex: 1;
+  width: 98%;
+  height: 100px;
 }
 
-.tick line {
-  stroke: $secondary-text-color;
-  opacity: 0.5;
+.graph__tabs {
+  width: 100%;
 }
 
-.tabs-container {
+.graph__toggles-wrapper {
+  width: 100%;
+  padding: 0 1rem 0.5rem;
   margin-top: auto;
+}
+
+@media (max-width: $width-mobile) {
+  .graph__container {
+    position: relative;
+    width: 80vw;
+    flex: auto;
+  }
 }

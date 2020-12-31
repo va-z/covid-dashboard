@@ -1,73 +1,53 @@
+@import "./variables.scss";
+
 html {
-  background-color: #ffffff;
-}
-
-body {
-  width: 100%;
-}
-
-html,
-body,
-section,
-nav,
-div,
-dl,
-dt,
-dd,
-ul,
-ol,
-li,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-pre,
-form,
-fieldset,
-input,
-button,
-textarea,
-p,
-blockquote,
-th,
-td,
-img {
-  box-sizing: border-box;
   margin: 0;
-  padding: 0;
-  margin-block-start: 0;
-  margin-block-end: 0;
-  margin-inline-start: 0;
-  margin-inline-end: 0;
-  padding-block-start: 0;
-  padding-block-end: 0;
-  padding-inline-start: 0;
-  padding-inline-end: 0;
+
+  color: $color-text-primary;
+  background-color: $color-theme-primary;
+  font-family: "RobotoCondensed", Arial, sans-serif;
+  font-size: 16px;
 }
 
-img {
-  display: block;
-  height: 100%;
-  width: auto;
+.button {
+  color: $color-text-primary;
+  background-color: $color-theme-primary-light;
+
+  border: none;
+  border-radius: 3px;
+
+  cursor: pointer;
+
+  &:hover,
+  &:focus {
+    background-color: $color-theme-primary;
+  }
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-size: 100%;
-  font-weight: normal;
+.leaflet-control-attribution {
+  max-width: 70%;
 }
 
-svg,
-svg * {
-  line-height: 0;
+.leaflet-control-zoom {
+  border: none !important;
+  border-radius: 1100px !important;
+  background-color: transparent;
 }
 
-button {
-  font-size: 15px;
+.leaflet-control-zoom-in,
+.leaflet-control-zoom-out {
+  border-radius: 100% !important;
+}
+
+.simple-keyboard {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: 30;
+  color: black;
+
+  &--active {
+    display: block;
+  }
 }

@@ -3,30 +3,36 @@ import { TAGS, CLASSES } from '../../js/constants/index';
 import Element from '../_common/Element';
 
 class Header extends Element {
-  constructor() {
-    super({ tagName: TAGS.HEADER, className: CLASSES.STATIC.HEADER });
+  constructor({ blockClassName }) {
+    super({ tagName: TAGS.HEADER, className: CLASSES.HEADER });
+    this.addClasses(blockClassName);
 
-    const wrapper = Element.createDOM({
-      className: CLASSES.STATIC.CONTENT_WRAPPER,
-    });
+    const wrapper = Element.createDOM({ className: CLASSES.HEADER__WRAPPER });
     const title = Element.createDOM({
       tagName: TAGS.H1,
-      className: CLASSES.STATIC.HEADER_TITLE,
+      className: CLASSES.HEADER__TITLE,
       textContent: 'RSS COVID-19 Dashboard',
     });
-    const dateWrapper = Element.createDOM({ className: CLASSES.STATIC.HEADER_INFO });
-    const text = Element.createDOM({ textContent: 'Last updated: ' });
+    const dateWrapper = Element.createDOM();
+    const dateText = Element.createDOM({
+      tagName: TAGS.P,
+      className: CLASSES.HEADER__INFO,
+      textContent: 'Last updated: ',
+    });
 
-    this.date = Element.createDOM({ tagName: TAGS.P });
+    this.date = Element.createDOM({
+      tagName: TAGS.P,
+      className: CLASSES.HEADER__INFO,
+    });
 
     this.button = Element.createDOM({
       tagName: TAGS.BUTTON,
-      className: 'header__button',
+      className: `${CLASSES.HEADER__BUTTON} ${CLASSES.BUTTON}`,
       textContent: 'Save as JSON',
     });
 
-    dateWrapper.append(text, this.date);
-    wrapper.append(title, this.button, dateWrapper);
+    dateWrapper.append(dateText, this.date);
+    wrapper.append(title, dateWrapper, this.button);
     this.element.append(wrapper);
   }
 

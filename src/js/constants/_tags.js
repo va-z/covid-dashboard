@@ -4,6 +4,7 @@ const TAGS = {
 
   HEADER: 'header',
   MAIN: 'main',
+  SECTION: 'section',
   FOOTER: 'footer',
   P: 'p',
 
@@ -21,7 +22,5 @@ const TAGS = {
   BUTTON: 'button',
   INPUT: 'input',
 };
-
-Object.freeze(TAGS);
 
 export default TAGS;

@@ -1,35 +1,38 @@
 import './View.scss';
 import { TAGS, CLASSES } from '../../js/constants/index';
 import Element from '../_common/Element';
-import LoadingScreen from '../loading-screen/LoadingScreen';
+import Loader from '../loader/Loader';
 import Header from '../header/Header';
 import Search from '../search/Search';
 import Map from '../map/Map';
 import Table from '../table/Table';
 import Graph from '../graph/Graph';
 import Footer from '../footer/Footer';
-import graphDrow from '../../js/graphDrow';
 
 class View extends Element {
   constructor(parent) {
-    super({ tagName: TAGS.DIV, className: CLASSES.STATIC.VIEW });
+    super({ className: CLASSES.VIEW });
 
-    const mainWrapper = Element.createDOM({ tagName: TAGS.MAIN });
-    const wrapper = Element.createDOM({
-      className: `${CLASSES.STATIC.CONTENT_WRAPPER} ${CLASSES.STATIC['CONTENT_WRAPPER-MAIN']}`,
+    const mainWrapper = Element.createDOM({
+      tagName: TAGS.MAIN,
+      className: CLASSES['VIEW__MAIN-WRAPPER'],
     });
 
-    this.loadingScreen = new LoadingScreen();
-    this.header = new Header();
-    this.search = new Search();
-    this.map = new Map();
-    this.table = new Table();
-    this.graph = new Graph();
-    this.footer = new Footer();
+    this.loader = new Loader();
+    this.header = new Header({ blockClassName: CLASSES.VIEW__HEADER });
+    this.search = new Search({ blockClassName: CLASSES.VIEW__SEARCH });
+    this.map = new Map({ blockClassName: CLASSES.VIEW__MAP });
+    this.table = new Table({ blockClassName: CLASSES.VIEW__TABLE });
+    this.graph = new Graph({ blockClassName: CLASSES.VIEW__GRAPH });
+    this.footer = new Footer({ blockClassName: CLASSES.VIEW__FOOTER });
+    this.keyboardContainer = Element.createDOM({ className: 'simple-keyboard' });
 
-    this.keyboardContainer = Element.createDOM({
-      className: 'simple-keyboard',
-    });
+    mainWrapper.append(
+      this.search.element,
+      this.map.element,
+      this.table.element,
+      this.graph.element,
+    );
 
     this.dataBlocks = [
       this.header,
@@ -39,16 +42,8 @@ class View extends Element {
       this.graph,
     ];
 
-    wrapper.append(
-      this.search.element,
-      this.map.element,
-      this.table.element,
-      this.graph.element,
-    );
-
-    mainWrapper.append(wrapper);
     this.element.append(
-      this.loadingScreen.element,
+      this.loader.element,
       this.header.element,
       mainWrapper,
       this.footer.element,
@@ -56,18 +51,11 @@ class View extends Element {
     );
 
     parent.insertAdjacentElement('afterbegin', this.element);
-    this.size = this.graph.getSize();
   }
 
   init(params) {
-    this.loadingScreen.setLoaded();
+    this.loader.setLoaded();
     this.update(params);
-
-    this.graphResizeBtn = this.graph.fullscreenButton;
-    this.graphResizeBtn.addEventListener('click', () => {
-      this.size = this.graph.getSize();
-      graphDrow(params.data, params.state, this.size);
-    });
   }
 
   /**
@@ -81,7 +69,6 @@ class View extends Element {
     this.dataBlocks.forEach((block) => {
       block.update(params);
     });
-    graphDrow(params.data, params.state, this.size);
   }
 }
 

@@ -1,84 +1,70 @@
 import './Table.scss';
-import { TAGS, CLASSES } from '../../js/constants/index';
+import { cap } from '../../js/helpers/index';
+import { TAGS, CLASSES, STRINGS } from '../../js/constants/index';
 import Element from '../_common/Element';
-import TableRow from '../_common/tableRow/TableRow';
-import FullscreenContainer from '../_common/fullscreenContainer/FullscreenContainer';
-import Toggle from '../_common/toggle/Toggle';
+import ContentContainer from '../_common/content-container/ContentContainer';
+import ControlsToggles from '../_common/controls-toggles/ControlsToggles';
 
-class Table extends FullscreenContainer {
-  constructor() {
-    super();
-    this.addClasses(CLASSES.TABLE.TABLE);
-    this.statuses = ['Cases', 'Deaths', 'Recovered'];
-    this.rows = [];
+const statusArr = Object.values(STRINGS.STATUS);
 
-    this.title = Element.createDOM({
-      tagName: TAGS.H2,
-      className: CLASSES.TABLE.TABLE_TITLE,
-      textContent: 'Global/Country',
-    });
+class Table extends ContentContainer {
+  constructor({ blockClassName }) {
+    super({ className: CLASSES.TABLE });
+    this.addClasses(blockClassName);
 
     const table = Element.createDOM({
       tagName: TAGS.UL,
-      className: CLASSES.TABLE.TABLE_BLOCK,
+      className: CLASSES.TABLE__BLOCK,
     });
 
-    this.statuses.forEach((status) => {
-      this[`${status}Row`] = new TableRow({
-        status,
-        outerClasses: CLASSES.TABLE[`TABLE-ROW-${status.toUpperCase()}`],
-      });
-      this.rows.push(this[`${status}Row`]);
-      table.append(this[`${status}Row`].element);
+    this.values = Table.createTableRows(statusArr, table);
+
+    this.title = Element.createDOM({
+      tagName: TAGS.H2,
+      className: CLASSES.TABLE__TITLE,
     });
+    this.toggles = new ControlsToggles({ hostClassName: CLASSES.TABLE });
 
-    const togglesContainer = Element.createDOM({
-      className: CLASSES.STATIC.TOGGLES_CONTAINER,
-    });
-
-    this.togglePeriod = new Toggle({
-      type: 'period',
-      btnTitles: ['total', 'last day'],
-    });
-
-    this.toggleAmount = new Toggle({
-      type: 'amount',
-      btnTitles: ['abs', 'per 100K'],
-    });
-
-    this.controls = [
-      this.togglePeriod,
-      this.toggleAmount,
-    ];
-
-    togglesContainer.append(
-      this.togglePeriod.element,
-      this.toggleAmount.element,
-    );
     this.element.append(
       this.title,
       table,
-      togglesContainer,
+      this.toggles.element,
     );
   }
 
   update({ data, state, change }) {
-    if (change) {
-      this.controls.forEach((control) => {
-        control.update(state);
-      });
+    this.toggles.update(state);
+
+    if (change && change[0] === 'status') {
+      return;
     }
 
-    const { name, figure, amount } = state;
+    const { name, period, amount } = state;
     const src = data.find((obj) => obj.name === name);
     this.title.textContent = name;
 
-    this.statuses.forEach((status, ind) => {
-      const key = figure + status + (amount === 'abs' ? '' : '100k');
-      const val = src[key];
-
-      this.rows[ind].update(val);
+    statusArr.forEach((status) => {
+      const key = period + cap(status) + (amount === 'abs' ? '' : '100k');
+      this.values[status].textContent = src[key].toLocaleString('ru-RU');
     });
+  }
+
+  static createTableRows(arr, parent) {
+    const result = arr.reduce((acc, status) => {
+      const row = Element.createDOM({
+        tagName: TAGS.LI,
+        className: CLASSES.TABLE__ROW,
+        textContent: cap(status),
+      });
+      const value = Element.createDOM({ tagName: TAGS.P });
+
+      row.append(value);
+      parent.append(row);
+      acc[status] = value;
+      return acc;
+    }, {});
+
+    return result;
   }
 }
 

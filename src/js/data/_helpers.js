@@ -1,38 +1,53 @@
-import cap from '../helpers/cap';
+import { cap } from '../helpers/index';
 import { NUMBERS, STRINGS } from '../constants/index';
 
+const { CASES, DEATHS, RECOVERED } = STRINGS.STATUS;
+
 function val100k(val, pop) {
-  return Math.round(NUMBERS['100K'] * (val / pop));
+  return +(NUMBERS['100K'] * (val / pop)).toFixed(2);
 }
 
-function createTypeFields(type) {
+function noSubZero(val) {
+  return val < 0 ? 0 : val;
+}
+
+function toHist(obj, type, val, dailyVal, pop) {
+  obj[`today${cap(type)}`].push(dailyVal);
+  obj[`today${cap(type)}100k`].push(val100k(dailyVal, pop));
+  obj[`all${cap(type)}`].push(val);
+  obj[`all${cap(type)}100k`].push(val100k(val, pop));
+}
+
+function createTypeFields(type, isHistoric) {
   return {
-    [`today${cap(type)}`]: 0,
-    [`today${cap(type)}100k`]: 0,
-    [`all${cap(type)}`]: 0,
-    [`all${cap(type)}100k`]: 0,
+    [`today${cap(type)}`]: isHistoric ? [] : 0,
+    [`today${cap(type)}100k`]: isHistoric ? [] : 0,
+    [`all${cap(type)}`]: isHistoric ? [] : 0,
+    [`all${cap(type)}100k`]: isHistoric ? [] : 0,
   };
 }
 
-function createDataFields() {
+function createDataFields(isHistoric = false) {
   return {
-    ...createTypeFields(STRINGS.TYPES.CASES),
-    ...createTypeFields(STRINGS.TYPES.DEATHS),
-    ...createTypeFields(STRINGS.TYPES.RECOVERED),
+    ...createTypeFields(CASES, isHistoric),
+    ...createTypeFields(DEATHS, isHistoric),
+    ...createTypeFields(RECOVERED, isHistoric),
   };
 }
 
-function createHistoricTemplate(dateStr) {
+function createHistoricTemplate() {
   return {
-    date: dateStr,
-    ...createDataFields(),
+    historic: {
+      dates: [],
+      ...createDataFields(true),
+    },
   };
 }
 
 function createTemplate() {
   return {
     ...createDataFields(),
-    historic: [],
+    ...createHistoricTemplate(true),
   };
 }
 
@@ -41,4 +56,6 @@ export {
   createHistoricTemplate,
   cap,
   val100k,
+  noSubZero,
+  toHist,
 };

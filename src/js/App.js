@@ -1,5 +1,4 @@
-import '../scss/index.scss';
-import URLS from './data/URLS';
+import { CONFIGS } from './constants/index';
 import getData from './data/getData';
 import State from './State';
 import View from '../components/view/View';
@@ -8,10 +7,10 @@ class App {
   constructor(parent) {
     this.state = new State();
     this.view = new View(parent);
-    this.setData(URLS);
+    this.setData(CONFIGS.COVID_URLS);
 
     this.view.element.addEventListener('updateRequest', (event) => {
-      const change = event.detail;
+      const { change } = event.detail;
       this.state.update(change);
 
       this.view.update({

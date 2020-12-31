@@ -1,124 +1,101 @@
 import './Search.scss';
 import { TAGS, CLASSES } from '../../js/constants/index';
 import Element from '../_common/Element';
-import SearchInput from '../searchInput/SearchInput';
-import SearchItem from '../_common/searchItem/SearchItem';
-import FullscreenContainer from '../_common/fullscreenContainer/FullscreenContainer';
-import Toggle from '../_common/toggle/Toggle';
-import Tabs from '../_common/tabs/Tabs';
+import ContentContainer from '../_common/content-container/ContentContainer';
+import ControlsTabs from '../_common/controls-tabs/ControlsTabs';
+import ControlsToggles from '../_common/controls-toggles/ControlsToggles';
+import SearchInput from '../search-input/SearchInput';
+import SearchItem from '../search-item/SearchItem';
 
-class Search extends FullscreenContainer {
-  constructor() {
-    super();
-    this.addClasses(CLASSES.SEARCH.SEARCH);
-    this.names = [];
-    this.listItems = [];
+class Search extends ContentContainer {
+  constructor({ blockClassName }) {
+    super({ className: CLASSES.SEARCH });
+    this.addClasses(blockClassName);
 
     const title = Element.createDOM({
       tagName: TAGS.H2,
-      className: CLASSES.SEARCH.SEARCH_TITLE,
+      className: CLASSES.SEARCH__TITLE,
       textContent: 'Cases by countries',
     });
-    const togglesContainer = Element.createDOM({
-      className: CLASSES.STATIC.TOGGLES_CONTAINER,
-    });
+    const listWrapper = Element.createDOM({ className: CLASSES['SEARCH__LIST-WRAPPER'] });
 
-    this.searchInput = new SearchInput();
-
-    this.searchList = Element.createDOM({
+    this.searchInput = new SearchInput({ blockClassName: CLASSES.SEARCH__INPUT });
+    this.list = Element.createDOM({
       tagName: TAGS.UL,
-      className: CLASSES.SEARCH.SEARCH_LIST,
+      className: CLASSES.SEARCH__LIST,
     });
+    this.toggles = new ControlsToggles({ hostClassName: CLASSES.SEARCH });
+    this.tabs = new ControlsTabs({ hostClassName: CLASSES.SEARCH });
 
-    this.togglePeriod = new Toggle({
-      type: 'period',
-      btnTitles: ['total', 'last day'],
-    });
-
-    this.toggleAmount = new Toggle({
-      type: 'amount',
-      btnTitles: ['abs', 'per 100K'],
-    });
-
-    this.tabs = new Tabs();
-
-    this.controls = [
-      this.togglePeriod,
-      this.toggleAmount,
-      this.tabs,
-    ];
-
-    togglesContainer.append(
-      this.togglePeriod.element,
-      this.toggleAmount.element,
-    );
-
+    listWrapper.append(this.list);
     this.element.append(
       title,
       this.searchInput.element,
-      this.searchList,
-      togglesContainer,
+      listWrapper,
+      this.toggles.element,
       this.tabs.element,
     );
+
+    this.list.addEventListener('click', (event) => {
+      const item = event.target.closest(`.${CLASSES['SEARCH-ITEM']}`);
+
+      if (item) {
+        Search.fireEvent({
+          dispatcher: this.element,
+          name: 'updateRequest',
+          bubbles: true,
+          detail: { change: ['name', item.dataset.name] },
+        });
+      }
+    });
   }
 
   update({ data, state, change }) {
-    if (change) {
-      this.controls.forEach((control) => {
-        control.update(state);
+    this.tabs.update(state);
+    this.toggles.update(state);
+
+    if (change && change[0] === 'name') {
+      this.searchItemsDOM.forEach((item) => {
+        SearchItem.setActiveDOM(item, change[1]);
       });
 
-      if (Object.keys(change)[0] === 'name') {
-        this.listItems.forEach((item) => {
-          if (state.name === item.dataset.stateName) {
-            item.classList.add('search-item--active');
-          } else {
-            item.classList.remove('search-item--active');
-          }
-        });
-
-        this.scrollToActive();
-        return;
-      }
+      return;
     }
 
     const key = state.getKey();
-    const filteredData = data
-      .map((obj) => ({
-        flag: obj.flag,
-        name: obj.name,
-        value: obj[key],
-      }))
-      .sort(({ value: val1 }, { value: val2 }) => val2 - val1);
 
-    if (this.names.length === 0) {
-      filteredData.forEach((obj) => {
-        const li = SearchItem.createDOM({ ...obj, currentName: state.name });
-        this.searchList.append(li);
-        this.names.push(obj.name);
-        this.listItems.push(li);
-      });
-
-      this.searchInput.getNames(this.names);
-    } else {
-      this.listItems = [];
-      this.searchList.innerHTML = '';
-
-      filteredData.forEach((obj) => {
-        const li = SearchItem.createDOM({ ...obj, currentName: state.name });
-        this.searchList.append(li);
-        this.listItems.push(li);
-      });
+    if (!this.searchItemsDOM) {
+      this.init(data, state, key);
+      return;
     }
 
-    this.scrollToActive();
+    const filteredData = data.map((datum) => ({
+      flag: datum.flag,
+      name: datum.name,
+      value: datum[key],
+      currentName: state.name,
+    })).sort(({ value: v1 }, { value: v2 }) => v2 - v1);
+
+    this.searchItemsDOM.forEach((item, index) => {
+      SearchItem.updateDOM(item, filteredData[index]);
+    });
   }
 
-  scrollToActive() {
-    const activeItem = this.listItems.find((elem) => elem.classList.contains('search-item--active'));
-    activeItem.scrollIntoView({
-      behavior: 'smooth',
-    });
+  init(data, state, key) {
+    const names = [];
+    const filteredData = data.map((datum) => {
+      names.push(datum.name);
+      return {
+        flag: datum.flag,
+        name: datum.name,
+        value: datum[key],
+        currentName: state.name,
+      };
+    }).sort(({ value: v1 }, { value: v2 }) => v2 - v1);
+
+    this.searchInput.names = names;
+    this.searchItemsDOM = filteredData.map((datum) => SearchItem.createDOM(datum));
+    this.list.append(...this.searchItemsDOM);
   }
 }
 

@@ -6,12 +6,17 @@ const NUMBERS = {
   ZERO: 0,
   TWO: 2,
   SIX: 6,
-  SIXTY: 60,
-  EIGHTY_THREE: 83,
+  TEN: 10,
 
-  '100K': 100000,
+  '100K': 100_000,
+
+  THOUSAND: 1_000,
+  MILLION: 1_000_000,
+
+  DELAY: {
+    MIN: 100,
+    MID: 300,
+  },
 };
-
-Object.freeze(NUMBERS);
 
 export default NUMBERS;

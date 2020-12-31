@@ -1,0 +1,37 @@
+@import "./../../scss/variables";
+
+.search-item {
+  display: flex;
+  justify-self: start;
+  align-items: center;
+  padding: 10px 5px;
+  margin: 0 10px 0 0;
+
+  font-weight: 400;
+
+  &:hover,
+  &:focus {
+    background-color: $color-theme-primary-light;
+    cursor: pointer;
+  }
+
+  &--active {
+    background-color: $color-theme-primary-light;
+  }
+}
+
+.search-item__flag {
+  width: 30px;
+  height: 20px;
+  margin-right: 10px;
+  border-radius: 3px
+}
+
+.search-item__value {
+  margin: 0;
+}
+
+.search-item__title {
+  width: 100%;
+  margin: 0;
+}

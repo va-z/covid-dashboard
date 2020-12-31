@@ -17,13 +17,13 @@ class Element {
     this.addClasses(className);
     this.addAttrs(attrs);
 
-    if (textContent) {
+    if (textContent !== null) {
       this.element.textContent = textContent;
     }
   }
 
   addClasses(str) {
-    if (str) {
+    if (str !== null) {
       this.element.classList.add(...str.split(' '));
     }
   }
@@ -46,15 +46,21 @@ class Element {
     return new this(params).element;
   }
 
-  static sendUpdateRequest(dispatcher, key, value) {
-    const customEvent = new CustomEvent('updateRequest', {
-      bubbles: true,
-      detail: {
-        [key]: value,
-      },
-    });
-
-    dispatcher.dispatchEvent(customEvent);
+  /**
+   * @param {Object} params
+   * @param {HTMLElement} params.dispatcher
+   * @param {String} params.name
+   * @param {Boolean} params.bubbles
+   * @param {Object} params.detail
+   */
+  static fireEvent({
+    dispatcher,
+    name,
+    bubbles,
+    detail = {},
+  }) {
+    const event = new CustomEvent(name, { bubbles, detail });
+    dispatcher.dispatchEvent(event);
   }
 }
 

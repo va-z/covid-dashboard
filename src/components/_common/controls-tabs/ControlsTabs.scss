@@ -1,0 +1,24 @@
+@import "./../../../scss/variables.scss";
+
+.tabs {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 5px;
+
+  background-color: $color-shadow-1;
+}
+
+.tabs__tab {
+  width: 100%;
+
+  border: none;
+  background-color: $color-theme-primary-light;
+  color: $color-text-secondary;
+  outline: none;
+  cursor: pointer;
+
+  &.active {
+    background-color: $color-theme-primary;
+    color: $color-text-primary;
+  }
+}

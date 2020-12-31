@@ -1,0 +1,40 @@
+@import "./../../../scss/variables.scss";
+
+.toggles {
+  display: flex;
+  justify-content: space-between;
+  box-sizing: border-box;
+  font-size: 14px;
+}
+
+.toggles__wrapper {
+  display: flex;
+  justify-content: space-between;
+  width: 49%;
+}
+
+.toggles__toggle {
+  width: 50%;
+  padding: 1px 0;
+  margin: 0;
+
+  border: 1px solid $color-theme-secondary;
+  background-color: $color-theme-secondary-light;
+  color: $color-text-secondary;
+  outline: none;
+  cursor: pointer;
+
+  &:first-child {
+    border-radius: 4px 0 0 4px;
+  }
+
+  &:last-child {
+    border-radius: 0 4px 4px 0;
+  }
+
+  &.active {
+    border-color: $color-theme-secondary-dark;
+    background-color: $color-theme-secondary-dark;
+    color: $color-text-primary;
+  }
+}

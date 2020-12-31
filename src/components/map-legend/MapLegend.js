@@ -1,125 +1,82 @@
 import './MapLegend.scss';
+import { radius } from '../../js/helpers/index';
+import {
+  TAGS,
+  CLASSES,
+  STRINGS,
+  CONFIGS,
+} from '../../js/constants/index';
 import Element from '../_common/Element';
 
 class MapLegend extends Element {
-  constructor(minA, maxA) {
-    super({ className: 'map-legend' });
+  constructor({ className, minArea, maxArea }) {
+    super({ className: CLASSES.LEGEND });
+    this.addClasses(className);
 
-    const maxSide = `${parseInt(2 * Math.sqrt(maxA / Math.PI), 10)}px`;
-    const midSide = `${parseInt(2 * Math.sqrt((maxA - minA) / (2 * Math.PI)), 10)}px`;
-    const minSide = `${parseInt(2 * Math.sqrt(minA / Math.PI), 10)}px`;
+    const containerSide = `${parseInt(2 * radius.fromArea(maxArea), 10)}px`;
+    const areas = [maxArea, ((maxArea - minArea) / 2), minArea];
+    const { rows, rowTitles } = areas.reduce((acc, area) => {
+      const [row, title] = MapLegend.createRow(area, containerSide);
+      acc.rows.push(row);
+      acc.rowTitles.push(title);
+      return acc;
+    }, { rows: [], rowTitles: [] });
 
     this.title = Element.createDOM({
-      tagName: 'h3',
-      className: 'map-legend__title',
-      textContent: '',
+      tagName: TAGS.H3,
+      className: CLASSES.LEGEND__TITLE,
     });
+    this.rowTitles = rowTitles;
 
-    const maxRow = Element.createDOM({
-      className: 'map-legend__row',
-    });
-    const midRow = Element.createDOM({
-      className: 'map-legend__row',
-    });
-    const minRow = Element.createDOM({
-      className: 'map-legend__row',
-    });
-
-    const maxContainer = Element.createDOM({
-      className: 'map-legend__circle-container',
-      attrs: [
-        ['style', `width: ${maxSide}; height: ${maxSide}`],
-      ],
-    });
-    this.maxCircle = Element.createDOM({
-      className: 'map-legend__circle',
-      attrs: [
-        ['style', `width: ${maxSide}; height: ${maxSide}`],
-      ],
-    });
-
-    const midContainer = Element.createDOM({
-      className: 'map-legend__circle-container',
-      attrs: [
-        ['style', `width: ${maxSide}; height: ${maxSide}`],
-      ],
-    });
-    this.midCircle = Element.createDOM({
-      className: 'map-legend__circle',
-      attrs: [
-        ['style', `width: ${midSide}; height: ${midSide}`],
-      ],
-    });
-
-    const minContainer = Element.createDOM({
-      className: 'map-legend__circle-container',
-      attrs: [
-        ['style', `width: ${maxSide}; height: ${maxSide}`],
-      ],
-    });
-    this.minCircle = Element.createDOM({
-      className: 'map-legend__circle',
-      attrs: [
-        ['style', `width: ${minSide}; height: ${minSide}`],
-      ],
-    });
-
-    this.maxTitle = Element.createDOM({
-      tagName: 'p',
-    });
-
-    this.midTitle = Element.createDOM({
-      tagName: 'p',
-    });
-
-    this.minTitle = Element.createDOM({
-      tagName: 'p',
-    });
-
-    maxContainer.append(this.maxCircle);
-    midContainer.append(this.midCircle);
-    minContainer.append(this.minCircle);
-
-    maxRow.append(maxContainer, this.maxTitle);
-    midRow.append(midContainer, this.midTitle);
-    minRow.append(minContainer, this.minTitle);
-
-    this.element.append(
-      this.title,
-      maxRow,
-      midRow,
-      minRow,
-    );
+    this.element.append(this.title, ...rows);
   }
 
   update({
     minVal,
     maxVal,
-    title,
-    status,
+    state,
   }) {
-    this.title.textContent = title;
-    this.maxTitle.textContent = maxVal.toLocaleString('ru-RU');
-    this.midTitle.textContent = parseInt(((maxVal - minVal) / 2), 10).toLocaleString('ru-RU');
-    this.minTitle.textContent = minVal.toLocaleString('ru-RU');
+    const values = [maxVal, (maxVal - minVal) / 2, minVal];
+    values.forEach((value, index) => {
+      this.rowTitles[index].textContent = MapLegend.formatAmount(value, state.amount);
+    });
 
-    this.maxCircle.style.backgroundColor = `${MapLegend.getColor(status)}5`;
-    this.midCircle.style.backgroundColor = `${MapLegend.getColor(status)}5`;
-    this.minCircle.style.backgroundColor = `${MapLegend.getColor(status)}5`;
-
-    this.maxCircle.style.borderColor = `${MapLegend.getColor(status)}`;
-    this.minCircle.style.borderColor = `${MapLegend.getColor(status)}`;
-    this.midCircle.style.borderColor = `${MapLegend.getColor(status)}`;
+    this.element.dataset.status = state.status;
+    this.title.textContent = state.getDescription();
   }
 
-  static getColor(status) {
-    const colors = {
-      cases: '#FF0',
-      deaths: '#F00',
-      recovered: '#4e0',
-    };
+  static createRow(area, containerSide) {
+    const side = `${parseInt(2 * radius.fromArea(area), 10)}px`;
+    const row = Element.createDOM({ className: CLASSES.LEGEND__ROW });
+    const circleContainer = Element.createDOM({
+      className: CLASSES['LEGEND__CIRCLE-CONTAINER'],
+      attrs: [
+        ['style', `width: ${containerSide}; height: ${containerSide}`],
+      ],
+    });
 
-    return colors[status];
+    const circle = Element.createDOM({
+      className: CLASSES.LEGEND__CIRCLE,
+      attrs: [
+        ['style', `width: ${side}; height: ${side}`],
+      ],
+    });
+    const title = Element.createDOM({ tagName: TAGS.P });
+
+    circleContainer.append(circle);
+    row.append(circleContainer, title);
+    return [row, title];
+  }
+
+  static formatAmount(val, amount) {
+    switch (amount) {
+      case STRINGS.AMOUNT.PER100K: {
+        const [int, float] = `${val}`.split('.');
+        return `${(+int).toLocaleString(CONFIGS.LOCALE)}.${float === undefined ? '0' : float.slice(0, 1)}`;
+      }
+      default:
+        return parseInt(val, 10).toLocaleString(CONFIGS.LOCALE);
+    }
   }
 }
 

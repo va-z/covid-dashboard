@@ -1,86 +1,33 @@
 import './Map.scss';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
-import { CLASSES } from '../../js/constants/index';
+import { radius, getMarkerColor } from '../../js/helpers/index';
+import { CLASSES, CONFIGS } from '../../js/constants/index';
 import Element from '../_common/Element';
-import FullscreenContainer from '../_common/fullscreenContainer/FullscreenContainer';
-import Tabs from '../_common/tabs/Tabs';
-import Toggle from '../_common/toggle/Toggle';
+import ContentContainer from '../_common/content-container/ContentContainer';
+import ControlsTabs from '../_common/controls-tabs/ControlsTabs';
+import ControlsToggles from '../_common/controls-toggles/ControlsToggles';
 import MapLegend from '../map-legend/MapLegend';
 
-class Map extends FullscreenContainer {
-  constructor() {
-    super();
-    this.addClasses(CLASSES.MAP.MAP);
+class Map extends ContentContainer {
+  constructor({ blockClassName }) {
+    super({ className: CLASSES.MAP });
+    this.addClasses(blockClassName);
+
+    const mapWrapper = Element.createDOM({ className: CLASSES.MAP__WRAPPER });
+    const mapContainer = Element.createDOM({ className: CLASSES.MAP__CONTAINER });
+
     this.circles = [];
-    this.minA = 50;
-    this.maxA = 750;
-
-    const mapWrapper = Element.createDOM({
-      className: 'map-wrapper',
+    this.map = Map.createLeafletMap(mapContainer);
+    this.legend = new MapLegend({
+      className: CLASSES.MAP__LEGEND,
+      minArea: CONFIGS.MAP.MIN_MARKER_AREA,
+      maxArea: CONFIGS.MAP.MAX_MARKER_AREA,
     });
-    const mapContainer = Element.createDOM({
-      className: 'map-container',
-    });
-    const togglesContainer = Element.createDOM({
-      className: 'map__toggles',
-    });
+    this.toggles = new ControlsToggles({ hostClassName: CLASSES.MAP });
+    this.tabs = new ControlsTabs({ hostClassName: CLASSES.MAP });
 
-    this.map = L.map(mapContainer, {
-      attributionControl: false,
-    });
-    this.map.setView([51.505, -0.09], 3);
-    const attribution = '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors';
-    const tiles = 'https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png';
-    const accessToken = 'pk.eyJ1IjoidmEteiIsImEiOiJja2l6eDllcG0wNWp2MzNxajl0NTc3a2pkIn0.LB0pyLi9ckMonbnpiQ-i9g';
-
-    L
-      .tileLayer(tiles, {
-        attribution,
-        accessToken,
-        maxZoom: 18,
-        minZoom: 2,
-        id: 'mapbox/streets-v11',
-        tileSize: 512,
-        zoomOffset: -1,
-      })
-      .addTo(this.map);
-
-    L.control.attribution({
-      attribution,
-      position: 'topright',
-    }).addTo(this.map);
-
-    const bounds = L.latLngBounds([
-      [-90, -180], [90, 180],
-    ]);
-
-    this.map.setMaxBounds(bounds);
-
-    this.legend = new MapLegend(this.minA, this.maxA);
-
-    setTimeout(() => this.map.invalidateSize(), 500);
-
-    this.togglePeriod = new Toggle({
-      type: 'period',
-      btnTitles: ['total', 'last day'],
-    });
-
-    this.toggleAmount = new Toggle({
-      type: 'amount',
-      btnTitles: ['abs', 'per 100K'],
-    });
-
-    this.tabs = new Tabs();
-
-    this.controls = [
-      this.togglePeriod,
-      this.toggleAmount,
-      this.tabs,
-    ];
-
-    togglesContainer.append(this.togglePeriod.element, this.toggleAmount.element);
-    mapWrapper.append(mapContainer, togglesContainer, this.legend.element);
+    mapWrapper.append(mapContainer, this.toggles.element, this.legend.element);
     this.element.append(mapWrapper, this.tabs.element);
 
     this.element.addEventListener('fullscreenSet', () => {
@@ -89,14 +36,11 @@ class Map extends FullscreenContainer {
   }
 
   update({ state, data, change }) {
-    if (change) {
-      this.controls.forEach((control) => {
-        control.update(state);
-      });
+    this.tabs.update(state);
+    this.toggles.update(state);
 
-      if (Object.keys(change)[0] === 'name') {
-        return;
-      }
+    if (change && change[0] === 'name') {
+      return;
     }
 
     this.mapData(data, state);
@@ -105,14 +49,10 @@ class Map extends FullscreenContainer {
   mapData(data, state) {
     const key = state.getKey();
     const [minVal, maxVal, filteredData] = Map.filterData(data, key);
-    const { minA, maxA } = this;
+    const minA = CONFIGS.MAP.MIN_MARKER_AREA;
+    const maxA = CONFIGS.MAP.MAX_MARKER_AREA;
 
-    this.legend.update({
-      minVal,
-      maxVal,
-      title: state.getDescription(),
-      status: state.status,
-    });
+    this.legend.update({ minVal, maxVal, state });
 
     if (this.circles.length === 0) {
       filteredData.forEach(({
@@ -121,20 +61,25 @@ class Map extends FullscreenContainer {
         long,
         val,
       }) => {
-        const radius = Map.getRadius(val, minVal, maxVal, minA, maxA);
-        const color = Map.getColor(state.status);
+        const r = radius.fromValue(val, minVal, maxVal, minA, maxA);
+        const color = getMarkerColor(state.status);
 
         const circle = L.circleMarker([lat, long], {
           color,
           fillColor: color,
-          fillOpacity: '0.3',
-          radius,
+          fillOpacity: CONFIGS.MAP.FILL_OPACITY,
+          radius: r,
         })
           .bindTooltip(`${name} - ${state.getDescription()} - ${val.toLocaleString('ru-RU')}`)
           .addTo(this.map);
 
         circle.addEventListener('click', () => {
-          Map.sendUpdateRequest(this.element, 'name', name);
+          Map.fireEvent({
+            dispatcher: this.element,
+            name: 'updateRequest',
+            bubbles: true,
+            detail: { change: ['name', name] },
+          });
         });
 
         this.circles.push(circle);
@@ -142,15 +87,17 @@ class Map extends FullscreenContainer {
     } else {
       this.circles.forEach((circle, index) => {
         const { name, val } = filteredData[index];
-        const radius = Map.getRadius(val, minVal, maxVal, minA, maxA);
-        const color = Map.getColor(state.status);
+        const r = radius.fromValue(val, minVal, maxVal, minA, maxA);
+        const color = getMarkerColor(state.status);
 
-        circle.setRadius(radius);
-        circle.setTooltipContent(`${name} - ${state.getDescription()} - ${val.toLocaleString('ru-RU')}`);
         circle.setStyle({
           color,
           fillColor: color,
         });
+        circle.setRadius(r);
+        circle.setTooltipContent(
+          `${name} - ${state.getDescription()} - ${val.toLocaleString('ru-RU')}`,
+        );
       });
     }
   }
@@ -161,7 +108,10 @@ class Map extends FullscreenContainer {
 
     const filteredData = data.reduce((acc, datum) => {
       const {
-        name, lat, long, [key]: val,
+        name,
+        lat,
+        long,
+        [key]: val,
       } = datum;
 
       if (name === 'World') {
@@ -189,24 +139,48 @@ class Map extends FullscreenContainer {
     return [minVal, maxVal, filteredData];
   }
 
-  static getRadius(val, minVal, maxVal, minA, maxA) {
-    let A0 = ((maxA) * (val - minVal)) / (maxVal - minVal);
+  static createLeafletMap(container) {
+    const {
+      ATTRIBUTION,
+      TILES,
+      ACCESS_TOKEN,
+      POSITION,
+      ID,
+      MAX_ZOOM,
+      MIN_ZOOM,
+      TILE_SIZE,
+      ZOOM_OFFSET,
+      MIN_LAT,
+      MAX_LAT,
+      MIN_LONG,
+      MAX_LONG,
+    } = CONFIGS.MAP;
 
-    if (A0 < minA) {
-      A0 = minA;
-    }
+    const bounds = L.latLngBounds([
+      [MIN_LAT, MIN_LONG],
+      [MAX_LAT, MAX_LONG],
+    ]);
 
-    return Math.sqrt(A0 / Math.PI);
-  }
+    const map = L.map(container, { attributionControl: false });
 
-  static getColor(status) {
-    const colors = {
-      cases: 'yellow',
-      deaths: 'red',
-      recovered: '#4e0',
-    };
+    L
+      .tileLayer(TILES, {
+        attribution: ATTRIBUTION,
+        accessToken: ACCESS_TOKEN,
+        id: ID,
+        maxZoom: MAX_ZOOM,
+        minZoom: MIN_ZOOM,
+        tileSize: TILE_SIZE,
+        zoomOffset: ZOOM_OFFSET,
+      })
+      .addTo(map);
 
-    return colors[status];
+    L.control.attribution({ position: POSITION }).addTo(map);
+    map.setMaxBounds(bounds);
+    map.setView([25, 0], 2);
+
+    setTimeout(() => map.invalidateSize());
+    return map;
   }
 }
 

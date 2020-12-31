@@ -1,39 +1,59 @@
-.map-legend {
-  position: absolute;
-  bottom: 0;
-  right: 0;
+@import "./../../scss/variables";
 
-  z-index: 10;
-
+.legend {
   display: flex;
   flex-direction: column;
   justify-content: stretch;
   align-items: center;
 
-  width: 200px;
   padding: 0 10px;
-  background-color: darkslategrey;
+  background-color: $color-theme-tertiary;
+  border-radius: 10px 0 0 10px;
+  font-size: 14px;
+
+  &[data-status="cases"] {
+    .legend__circle {
+      background-color: #9f000066;
+      border-color: #9f0000;
+    }
+  }
+
+  &[data-status="deaths"] {
+    .legend__circle {
+      background-color: #8d3f7466;
+      border-color: #8d3f74;
+    }
+  }
+
+  &[data-status="recovered"] {
+    .legend__circle {
+      background-color: #ff523c66;
+      border-color: #ff523c;
+    }
+  }
 }
 
-.map-legend__row {
+.legend__row {
   width: 100%;
   display: flex;
   align-items: center;
 }
 
-.map-legend__title {
+.legend__title {
   padding: 5px;
+  font-weight: 400;
 }
 
-.map-legend__circle-container {
+.legend__circle-container {
   display: flex;
   justify-content: center;
   align-items: center;
   margin-right: 10px;
 }
 
-.map-legend__circle {
+.legend__circle {
   border-radius: 100%;
-  border-width: 3px;
+  border-width: 4px;
   border-style: solid;
+  box-sizing: border-box;
 }
