@@ -1,5 +1,5 @@
 import './MapLegend.scss';
-import { radius } from '../../js/helpers/index';
+import { radius, formatNumber } from '../../js/helpers/index';
 import {
   TAGS,
   CLASSES,
@@ -13,12 +13,15 @@ class MapLegend extends Element {
     super({ className: CLASSES.LEGEND });
     this.addClasses(className);
 
-    const containerSide = `${parseInt(2 * radius.fromArea(maxArea), 10)}px`;
+    const maxDiameter = 2 * radius.fromArea(maxArea);
+    const containerSide = formatNumber.toPixelString(maxDiameter);
+
     const areas = [maxArea, ((maxArea - minArea) / 2), minArea];
     const { rows, rowTitles } = areas.reduce((acc, area) => {
       const [row, title] = MapLegend.createRow(area, containerSide);
       acc.rows.push(row);
       acc.rowTitles.push(title);
+
       return acc;
     }, { rows: [], rowTitles: [] });
 
@@ -38,7 +41,7 @@ class MapLegend extends Element {
   }) {
     const values = [maxVal, (maxVal - minVal) / 2, minVal];
     values.forEach((value, index) => {
-      this.rowTitles[index].textContent = MapLegend.formatAmount(value, state.amount);
+      this.rowTitles[index].textContent = MapLegend.formatLegendAmount(value, state.amount);
     });
 
     this.element.dataset.status = state.status;
@@ -46,7 +49,9 @@ class MapLegend extends Element {
   }
 
   static createRow(area, containerSide) {
-    const side = `${parseInt(2 * radius.fromArea(area), 10)}px`;
+    const currentDiameter = 2 * radius.fromArea(area);
+    const side = formatNumber.toPixelString(currentDiameter);
+
     const row = Element.createDOM({ className: CLASSES.LEGEND__ROW });
     const circleContainer = Element.createDOM({
       className: CLASSES['LEGEND__CIRCLE-CONTAINER'],
@@ -68,12 +73,10 @@ class MapLegend extends Element {
     return [row, title];
   }
 
-  static formatAmount(val, amount) {
+  static formatLegendAmount(val, amount) {
     switch (amount) {
-      case STRINGS.AMOUNT.PER100K: {
-        const [int, float] = `${val}`.split('.');
-        return `${(+int).toLocaleString(CONFIGS.LOCALE)}.${float === undefined ? '0' : float.slice(0, 1)}`;
-      }
+      case STRINGS.AMOUNT.PER100K:
+        return formatNumber.toNamelessString(val);
       default:
         return parseInt(val, 10).toLocaleString(CONFIGS.LOCALE);
     }

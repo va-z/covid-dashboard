@@ -1,10 +1,11 @@
 import { capitalizeFirstLetter } from '../helpers/index';
-import { NUMBERS, STRINGS } from '../constants/index';
+import { STRINGS } from '../constants/index';
 
 const { CASES, DEATHS, RECOVERED } = STRINGS.STATUS;
 
-function amountPer100kPopulation(val, population) {
-  return +(NUMBERS['100K'] * (val / population)).toFixed(2);
+function amountRelativeToPopulation(val, population) {
+  const populationBase = 100_000;
+  return +(populationBase * (val / population)).toFixed(2);
 }
 
 function noSubZero(val) {
@@ -15,9 +16,9 @@ function toHist(obj, type, val, dailyVal, pop) {
   const typeInKey = capitalizeFirstLetter(type);
 
   obj[`today${typeInKey}`].push(dailyVal);
-  obj[`today${typeInKey}100k`].push(amountPer100kPopulation(dailyVal, pop));
+  obj[`today${typeInKey}100k`].push(amountRelativeToPopulation(dailyVal, pop));
   obj[`all${typeInKey}`].push(val);
-  obj[`all${typeInKey}100k`].push(amountPer100kPopulation(val, pop));
+  obj[`all${typeInKey}100k`].push(amountRelativeToPopulation(val, pop));
 }
 
 function createTypeFields(type, isHistoric) {
@@ -58,7 +59,7 @@ function createTemplate() {
 export {
   createTemplate,
   createHistoricTemplate,
-  amountPer100kPopulation,
+  amountRelativeToPopulation,
   noSubZero,
   toHist,
 };

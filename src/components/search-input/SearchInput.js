@@ -2,7 +2,6 @@ import './SearchInput.scss';
 import {
   TAGS,
   CLASSES,
-  NUMBERS,
   CONFIGS,
 } from '../../js/constants/index';
 import Element from '../_common/Element';
@@ -36,7 +35,7 @@ class SearchInput extends Element {
     document.addEventListener('click', (event) => {
       const isInput = event.target.classList.contains(CLASSES.INPUT__FIELD);
       const isDropdown = event.target.closest(`.${CLASSES.INPUT__DROPDOWN}`);
-      const isVirtualKeyboard = event.target.closest('.simple-keyboard');
+      const isVirtualKeyboard = event.target.closest(`.${CLASSES.SIMPLE_KEYBOARD}`);
 
       if (!isInput && !isDropdown && !isVirtualKeyboard) {
         this.input.blur();
@@ -51,7 +50,7 @@ class SearchInput extends Element {
     if (value === '') {
       setTimeout(() => {
         this.dropdown.innerHTML = '';
-      }, NUMBERS.DELAY.MIN);
+      }, CONFIGS.DELAY.MIN);
 
       return;
     }
@@ -91,7 +90,7 @@ class SearchInput extends Element {
 
         setTimeout(() => {
           this.input.style.backgroundColor = '';
-        }, NUMBERS.DELAY.MID);
+        }, CONFIGS.DELAY.MID);
       }
     }
   }

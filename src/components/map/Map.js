@@ -154,6 +154,9 @@ class Map extends ContentContainer {
       MAX_LAT,
       MIN_LONG,
       MAX_LONG,
+      DEFAULT_LAT,
+      DEFAULT_LONG,
+      DEFAULT_ZOOM,
     } = CONFIGS.MAP;
 
     const bounds = L.latLngBounds([
@@ -163,8 +166,9 @@ class Map extends ContentContainer {
 
     const map = L.map(container, { attributionControl: false });
 
-    L
-      .tileLayer(TILES, {
+    L.tileLayer(
+      TILES,
+      {
         attribution: ATTRIBUTION,
         accessToken: ACCESS_TOKEN,
         id: ID,
@@ -172,12 +176,13 @@ class Map extends ContentContainer {
         minZoom: MIN_ZOOM,
         tileSize: TILE_SIZE,
         zoomOffset: ZOOM_OFFSET,
-      })
+      },
+    )
       .addTo(map);
 
     L.control.attribution({ position: POSITION }).addTo(map);
     map.setMaxBounds(bounds);
-    map.setView([25, 0], 2);
+    map.setView([DEFAULT_LAT, DEFAULT_LONG], DEFAULT_ZOOM);
 
     setTimeout(() => map.invalidateSize());
     return map;

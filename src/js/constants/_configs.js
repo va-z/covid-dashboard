@@ -4,6 +4,7 @@ const CONFIGS = {
   AUTHOR_1: 'https://github.com/va-z',
   AUTHOR_2: 'https://github.com/ansivgit',
   RSS: 'https://rs.school/js/',
+  HOURS_BETWEEN_UPDATES: 6,
 
   COVID_URLS: {
     LAST_WORLD: 'https://disease.sh/v3/covid-19/all?yesterday=true',
@@ -42,11 +43,20 @@ const CONFIGS = {
     MAX_MARKER_AREA: 2000,
 
     FILL_OPACITY: '0.5',
+
+    DEFAULT_LAT: 25,
+    DEFAULT_LONG: 0,
+    DEFAULT_ZOOM: 2,
   },
 
   GRAPH: {
     CTX_WIDTH: '10',
     CTX_HEIGHT: '15',
+  },
+
+  DELAY: {
+    MIN: 100,
+    MID: 300,
   },
 };
 

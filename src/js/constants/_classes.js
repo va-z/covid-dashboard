@@ -1,6 +1,7 @@
 const CLASSES = {
   ACTIVE: 'active',
   BUTTON: 'button',
+  SIMPLE_KEYBOARD: 'simple-keyboard',
 
   'CONTENT-CONTAINER': 'content-container',
   'CONTENT-CONTAINER--FULLSCREEN': 'content-container--fullscreen',

@@ -14,7 +14,7 @@ class Graph extends ContentContainer {
 
     const graphContainer = Element.createDOM({ className: CLASSES.GRAPH__CONTAINER });
     const graph = Element.createDOM({
-      tagName: 'canvas',
+      tagName: TAGS.CANVAS,
       className: CLASSES.GRAPH__BLOCK,
       attrs: [
         ['width', CONFIGS.GRAPH.CTX_WIDTH],
@@ -40,7 +40,7 @@ class Graph extends ContentContainer {
     );
 
     this.element.addEventListener('fullscreenSet', () => {
-      const isFullscreen = this.element.classList.contains('fullscreen--active');
+      const isFullscreen = this.element.classList.contains(CLASSES['CONTENT-CONTAINER--FULLSCREEN']);
       graphContainer.style.width = '1px';
       graphContainer.style.height = '1px';
 

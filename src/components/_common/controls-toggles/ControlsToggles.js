@@ -4,9 +4,20 @@ import Element from '../Element';
 import ControlsContainer from '../ControlsContainer';
 
 const {
-  PERIOD: { ALL, TODAY },
-  AMOUNT: { ABS, PER100K },
-  DATA_STATE_ATTR: { PERIOD, AMOUNT },
+  PERIOD: {
+    ALL,
+    TODAY,
+  },
+
+  AMOUNT: {
+    ABS,
+    PER100K,
+  },
+
+  DATA_STATE_ATTR: {
+    PERIOD,
+    AMOUNT,
+  },
 } = STRINGS;
 
 class ControlsToggles extends Element {

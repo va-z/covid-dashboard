@@ -15,7 +15,7 @@ class ContentContainer extends Element {
     this.element.append(buttonFullscreen);
 
     buttonFullscreen.addEventListener('click', () => {
-      if (!this.element.classList.contains('graph')) {
+      if (!this.element.classList.contains(CLASSES.GRAPH)) {
         this.element.classList.toggle(CLASSES['CONTENT-CONTAINER--FULLSCREEN']);
       } else {
         setTimeout(() => {

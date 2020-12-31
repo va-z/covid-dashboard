@@ -1,4 +1,3 @@
-import { NUMBERS } from '../constants/index';
 import getRawData from './_getRawData';
 import processData from './_processData';
 
@@ -20,7 +19,7 @@ async function getData(urls) {
 
   const COUNTRIES = lastCountries.length;
 
-  for (let i = NUMBERS.ZERO; i < COUNTRIES; i += 1) {
+  for (let i = 0; i < COUNTRIES; i += 1) {
     const lastCountry = lastCountries[i];
     const cumulativeCountry = cumulativeCountries[i];
 

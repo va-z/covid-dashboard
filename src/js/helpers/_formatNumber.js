@@ -23,7 +23,12 @@ function toNamedString(num) {
   return toNamelessString(num);
 }
 
+function toPixelString(num) {
+  return `${parseInt(num, 10)}px`;
+}
+
 export default {
   toNamelessString,
   toNamedString,
+  toPixelString,
 };

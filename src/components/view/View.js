@@ -25,7 +25,7 @@ class View extends Element {
     this.table = new Table({ blockClassName: CLASSES.VIEW__TABLE });
     this.graph = new Graph({ blockClassName: CLASSES.VIEW__GRAPH });
     this.footer = new Footer({ blockClassName: CLASSES.VIEW__FOOTER });
-    this.keyboardContainer = Element.createDOM({ className: 'simple-keyboard' });
+    this.keyboardContainer = Element.createDOM({ className: CLASSES.SIMPLE_KEYBOARD });
 
     mainWrapper.append(
       this.search.element,
