@@ -1,47 +1,43 @@
 import { capitalizeFirstLetter } from '../helpers/index';
 import { STRINGS } from '../constants/index';
 
-const { CASES, DEATHS, RECOVERED } = STRINGS.STATUS;
+const {
+  STATUS: { CASES, DEATHS, RECOVERED },
+  PERIOD: { ALL, TODAY },
+  AMOUNT: { PER100K },
+} = STRINGS;
+
+const statuses = [CASES, DEATHS, RECOVERED];
+const periods = [ALL, TODAY];
 
 function amountRelativeToPopulation(val, population) {
   const populationBase = 100_000;
   return +(populationBase * (val / population)).toFixed(2);
 }
 
-function noSubZero(val) {
+function positiveValueOrZero(val) {
   return val < 0 ? 0 : val;
 }
 
-function toHist(obj, type, val, dailyVal, pop) {
-  const typeInKey = capitalizeFirstLetter(type);
-
-  obj[`today${typeInKey}`].push(dailyVal);
-  obj[`today${typeInKey}100k`].push(amountRelativeToPopulation(dailyVal, pop));
-  obj[`all${typeInKey}`].push(val);
-  obj[`all${typeInKey}100k`].push(amountRelativeToPopulation(val, pop));
-}
-
-function createTypeFields(type, isHistoric) {
-  const typeInKey = capitalizeFirstLetter(type);
-
-  return {
-    [`today${typeInKey}`]: isHistoric ? [] : 0,
-    [`today${typeInKey}100k`]: isHistoric ? [] : 0,
-    [`all${typeInKey}`]: isHistoric ? [] : 0,
-    [`all${typeInKey}100k`]: isHistoric ? [] : 0,
-  };
-}
-
 function createDataFields(isHistoric = false) {
-  return {
-    ...createTypeFields(CASES, isHistoric),
-    ...createTypeFields(DEATHS, isHistoric),
-    ...createTypeFields(RECOVERED, isHistoric),
-  };
+  return statuses.reduce((acc, status) => {
+    const statusInKey = capitalizeFirstLetter(status);
+
+    periods.forEach((period) => {
+      Object.assign(acc, {
+        [`${period}${statusInKey}`]: isHistoric ? [] : 0,
+        [`${period}${statusInKey}${PER100K}`]: isHistoric ? [] : 0,
+      });
+    });
+
+    return acc;
+  }, {});
 }
 
-function createHistoricTemplate() {
+function createTemplate() {
   return {
+    ...createDataFields(),
+
     historic: {
       dates: [],
       ...createDataFields(true),
@@ -49,17 +45,18 @@ function createHistoricTemplate() {
   };
 }
 
-function createTemplate() {
-  return {
-    ...createDataFields(),
-    ...createHistoricTemplate(true),
-  };
+function toHist(obj, type, value, dailyValue, pop) {
+  const typeInKey = capitalizeFirstLetter(type);
+
+  obj[`today${typeInKey}`].push(dailyValue);
+  obj[`today${typeInKey}100k`].push(amountRelativeToPopulation(dailyValue, pop));
+  obj[`all${typeInKey}`].push(value);
+  obj[`all${typeInKey}100k`].push(amountRelativeToPopulation(value, pop));
 }
 
 export {
   createTemplate,
-  createHistoricTemplate,
   amountRelativeToPopulation,
-  noSubZero,
+  positiveValueOrZero,
   toHist,
 };

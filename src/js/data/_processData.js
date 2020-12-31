@@ -3,7 +3,7 @@ import {
   createTemplate,
   amountRelativeToPopulation,
   toHist,
-  noSubZero,
+  positiveValueOrZero,
 } from './_helpers';
 
 function processData(last, timeline, pop) {
@@ -21,8 +21,8 @@ function processData(last, timeline, pop) {
     for (let j = 0; j < DAYS_AMOUNT; j += 1) {
       const histObj = result.historic;
       const date = datesEntries[j][0];
-      const value = noSubZero(datesEntries[j][1]);
-      const dailyValue = noSubZero(value - (datesEntries[j - 1]?.[1] ?? 0));
+      const value = positiveValueOrZero(datesEntries[j][1]);
+      const dailyValue = positiveValueOrZero(value - (datesEntries[j - 1]?.[1] ?? 0));
 
       if (histObj.dates.length < DAYS_AMOUNT) {
         histObj.dates.push(new Date(date));
@@ -35,7 +35,8 @@ function processData(last, timeline, pop) {
 
         if (lastDate !== lastHistoricDate) {
           if (i === 0) {
-            histObj.dates.push(new Date(last.updated));
+            const d = new Date(last.updated).setHours(0, 0, 0, 0);
+            histObj.dates.push(d);
           }
 
           toHist(histObj, type, value, dailyValue, pop);
