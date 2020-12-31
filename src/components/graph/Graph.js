@@ -90,7 +90,7 @@ class Graph extends ContentContainer {
             yAxes: [{
               ticks: {
                 beginAtZero: true,
-                callback: formatNumber,
+                callback: formatNumber.toNamedString,
               },
             }],
             xAxes: [{

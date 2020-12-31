@@ -1,4 +1,4 @@
-import { cap } from './helpers/index';
+import { capitalizeFirstLetter } from './helpers/index';
 
 class State {
   /**
@@ -25,11 +25,11 @@ class State {
   }
 
   getKey() {
-    return `${this.period}${cap(this.status)}${this.amount === '100k' ? this.amount : ''}`;
+    return `${this.period}${capitalizeFirstLetter(this.status)}${this.amount === '100k' ? this.amount : ''}`;
   }
 
   getDescription() {
-    return `${cap(this.status)} ${this.getAmountDesc()}(${this.getPeriodDesc()})`;
+    return `${capitalizeFirstLetter(this.status)} ${this.getAmountDesc()}(${this.getPeriodDesc()})`;
   }
 
   getAmountDesc() {

@@ -1,11 +1,18 @@
 import './ControlsTabs.scss';
-import { cap } from '../../../js/helpers/index';
+import { capitalizeFirstLetter } from '../../../js/helpers/index';
 import { STRINGS, CLASSES } from '../../../js/constants/index';
 import ControlsContainer from '../ControlsContainer';
 
 const {
-  STATUS: { CASES, DEATHS, RECOVERED },
-  DATA_STATE_ATTR: { STATUS },
+  STATUS: {
+    CASES,
+    DEATHS,
+    RECOVERED,
+  },
+
+  DATA_STATE_ATTR: {
+    STATUS,
+  },
 } = STRINGS;
 
 const getTabsParams = (className) => ({
@@ -13,21 +20,21 @@ const getTabsParams = (className) => ({
   buttonParams: [
     {
       className: CLASSES.TABS__TAB,
-      textContent: cap(CASES),
+      textContent: capitalizeFirstLetter(CASES),
       attrs: [
         [STATUS, CASES],
       ],
     },
     {
       className: CLASSES.TABS__TAB,
-      textContent: cap(DEATHS),
+      textContent: capitalizeFirstLetter(DEATHS),
       attrs: [
         [STATUS, DEATHS],
       ],
     },
     {
       className: CLASSES.TABS__TAB,
-      textContent: cap(RECOVERED),
+      textContent: capitalizeFirstLetter(RECOVERED),
       attrs: [
         [STATUS, RECOVERED],
       ],

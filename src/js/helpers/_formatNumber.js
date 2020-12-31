@@ -1,14 +1,29 @@
-import { NUMBERS } from '../constants/index';
+import { CONFIGS } from '../constants/index';
 
-function formatNumber(num) {
-  if (num >= NUMBERS.MILLION) {
-    const [int, float] = String(num / NUMBERS.MILLION).split('.');
-    return `${int.toLocaleString('ru-RU')}.${float ? float.slice(0, 1) : '0'}M`;
-  } if (num >= NUMBERS.THOUSAND) {
-    const [int, float] = String(num / NUMBERS.THOUSAND).split('.');
-    return `${int.toLocaleString('ru-RU')}.${float ? float.slice(0, 1) : '0'}K`;
-  }
-  return num.toLocaleString('ru-RU');
+function toNamelessString(num) {
+  const [intVal, floatVal] = String(num).split('.');
+  const intStr = intVal.toLocaleString(CONFIGS.LOCALE);
+  const floatStr = floatVal ? floatVal.slice(0, 1) : '0';
+
+  return `${intStr}.${floatStr}`;
 }
 
-export default formatNumber;
+function toNamedString(num) {
+  const MILLION = 1_000_000;
+  const THOUSAND = 1_000;
+
+  if (num >= MILLION) {
+    return `${toNamelessString(num / MILLION)}M`;
+  }
+
+  if (num >= THOUSAND) {
+    return `${toNamelessString(num / THOUSAND)}K`;
+  }
+
+  return toNamelessString(num);
+}
+
+export default {
+  toNamelessString,
+  toNamedString,
+};

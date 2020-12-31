@@ -1,8 +1,8 @@
 import { NUMBERS } from '../constants/index';
+import { capitalizeFirstLetter } from '../helpers/index';
 import {
   createTemplate,
-  val100k,
-  cap,
+  amountPer100kPopulation,
   toHist,
   noSubZero,
 } from './_helpers';
@@ -17,6 +17,7 @@ function processData(last, timeline, pop) {
     const [type, dates] = timelineEntries[i];
     const datesEntries = Object.entries(dates);
     const DAYS_AMOUNT = datesEntries.length;
+    const typeInKey = capitalizeFirstLetter(type);
 
     for (let j = NUMBERS.ZERO; j < DAYS_AMOUNT; j += 1) {
       const histObj = result.historic;
@@ -43,15 +44,15 @@ function processData(last, timeline, pop) {
       }
     }
 
-    const histArr = result.historic[`all${cap(type)}`];
+    const histArr = result.historic[`all${typeInKey}`];
     const lastHistoricValue = histArr[histArr.length - 1];
     const allValue = last[type];
-    const todayValue = last[`today${cap(type)}`];
+    const todayValue = last[`today${typeInKey}`];
 
-    result[`today${cap(type)}`] = todayValue;
-    result[`today${cap(type)}100k`] = val100k(todayValue, pop);
-    result[`all${cap(type)}`] = allValue || lastHistoricValue;
-    result[`all${cap(type)}100k`] = val100k(allValue || lastHistoricValue, pop);
+    result[`today${typeInKey}`] = todayValue;
+    result[`today${typeInKey}100k`] = amountPer100kPopulation(todayValue, pop);
+    result[`all${typeInKey}`] = allValue || lastHistoricValue;
+    result[`all${typeInKey}100k`] = amountPer100kPopulation(allValue || lastHistoricValue, pop);
   }
 
   return result;

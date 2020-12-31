@@ -1,6 +1,11 @@
 import './Table.scss';
-import { cap } from '../../js/helpers/index';
-import { TAGS, CLASSES, STRINGS } from '../../js/constants/index';
+import { capitalizeFirstLetter } from '../../js/helpers/index';
+import {
+  TAGS,
+  CLASSES,
+  STRINGS,
+  CONFIGS,
+} from '../../js/constants/index';
 import Element from '../_common/Element';
 import ContentContainer from '../_common/content-container/ContentContainer';
 import ControlsToggles from '../_common/controls-toggles/ControlsToggles';
@@ -44,8 +49,8 @@ class Table extends ContentContainer {
     this.title.textContent = name;
 
     statusArr.forEach((status) => {
-      const key = period + cap(status) + (amount === 'abs' ? '' : '100k');
-      this.values[status].textContent = src[key].toLocaleString('ru-RU');
+      const key = period + capitalizeFirstLetter(status) + (amount === 'abs' ? '' : '100k');
+      this.values[status].textContent = src[key].toLocaleString(CONFIGS.LOCALE);
     });
   }
 
@@ -54,7 +59,7 @@ class Table extends ContentContainer {
       const row = Element.createDOM({
         tagName: TAGS.LI,
         className: CLASSES.TABLE__ROW,
-        textContent: cap(status),
+        textContent: capitalizeFirstLetter(status),
       });
       const value = Element.createDOM({ tagName: TAGS.P });
 

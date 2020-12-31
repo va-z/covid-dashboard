@@ -1,16 +1,16 @@
 import {
-  cap,
+  capitalizeFirstLetter,
   radius,
   formatNumber,
 } from './index';
 
 describe('Capping a lowercase string', () => {
   test('hello should be Hello', () => {
-    expect(cap('hello')).toBe('Hello');
+    expect(capitalizeFirstLetter('hello')).toBe('Hello');
   });
 
   test('HELLO should remain HELLO', () => {
-    expect(cap('HELLO')).toMatch('HELLO');
+    expect(capitalizeFirstLetter('HELLO')).toMatch('HELLO');
   });
 });
 
@@ -30,6 +30,6 @@ describe('Getting a radius from an area', () => {
 
 describe('Formatting a number', () => {
   test('formatNumber(1000) === 1.0K', () => {
-    expect(formatNumber(1000)).toBe('1.0K');
+    expect(formatNumber.toNamedString(1000)).toBe('1.0K');
   });
 });

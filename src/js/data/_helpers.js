@@ -1,10 +1,10 @@
-import { cap } from '../helpers/index';
+import { capitalizeFirstLetter } from '../helpers/index';
 import { NUMBERS, STRINGS } from '../constants/index';
 
 const { CASES, DEATHS, RECOVERED } = STRINGS.STATUS;
 
-function val100k(val, pop) {
-  return +(NUMBERS['100K'] * (val / pop)).toFixed(2);
+function amountPer100kPopulation(val, population) {
+  return +(NUMBERS['100K'] * (val / population)).toFixed(2);
 }
 
 function noSubZero(val) {
@@ -12,18 +12,22 @@ function noSubZero(val) {
 }
 
 function toHist(obj, type, val, dailyVal, pop) {
-  obj[`today${cap(type)}`].push(dailyVal);
-  obj[`today${cap(type)}100k`].push(val100k(dailyVal, pop));
-  obj[`all${cap(type)}`].push(val);
-  obj[`all${cap(type)}100k`].push(val100k(val, pop));
+  const typeInKey = capitalizeFirstLetter(type);
+
+  obj[`today${typeInKey}`].push(dailyVal);
+  obj[`today${typeInKey}100k`].push(amountPer100kPopulation(dailyVal, pop));
+  obj[`all${typeInKey}`].push(val);
+  obj[`all${typeInKey}100k`].push(amountPer100kPopulation(val, pop));
 }
 
 function createTypeFields(type, isHistoric) {
+  const typeInKey = capitalizeFirstLetter(type);
+
   return {
-    [`today${cap(type)}`]: isHistoric ? [] : 0,
-    [`today${cap(type)}100k`]: isHistoric ? [] : 0,
-    [`all${cap(type)}`]: isHistoric ? [] : 0,
-    [`all${cap(type)}100k`]: isHistoric ? [] : 0,
+    [`today${typeInKey}`]: isHistoric ? [] : 0,
+    [`today${typeInKey}100k`]: isHistoric ? [] : 0,
+    [`all${typeInKey}`]: isHistoric ? [] : 0,
+    [`all${typeInKey}100k`]: isHistoric ? [] : 0,
   };
 }
 
@@ -54,8 +58,7 @@ function createTemplate() {
 export {
   createTemplate,
   createHistoricTemplate,
-  cap,
-  val100k,
+  amountPer100kPopulation,
   noSubZero,
   toHist,
 };
