@@ -45,18 +45,29 @@ function createTemplate() {
   };
 }
 
-function toHist(obj, type, value, dailyValue, pop) {
-  const typeInKey = capitalizeFirstLetter(type);
+function pushToHistoric(obj, typeInKey, value, dailyValue, population) {
+  const val = positiveValueOrZero(value);
+  const dailyVal = positiveValueOrZero(dailyValue);
 
-  obj[`today${typeInKey}`].push(dailyValue);
-  obj[`today${typeInKey}100k`].push(amountRelativeToPopulation(dailyValue, pop));
-  obj[`all${typeInKey}`].push(value);
-  obj[`all${typeInKey}100k`].push(amountRelativeToPopulation(value, pop));
+  obj[`${ALL}${typeInKey}`].push(val);
+  obj[`${TODAY}${typeInKey}`].push(dailyVal);
+  obj[`${ALL}${typeInKey}${PER100K}`].push(amountRelativeToPopulation(val, population));
+  obj[`${TODAY}${typeInKey}${PER100K}`].push(amountRelativeToPopulation(dailyVal, population));
+}
+
+function addLastValues(obj, type, typeInKey, lastObj, population) {
+  const result = obj;
+  const allValue = lastObj[type];
+  const todayValue = lastObj[`${TODAY}${typeInKey}`];
+
+  result[`${TODAY}${typeInKey}`] = todayValue;
+  result[`${ALL}${typeInKey}`] = allValue;
+  result[`${TODAY}${typeInKey}100k`] = amountRelativeToPopulation(todayValue, population);
+  result[`${ALL}${typeInKey}100k`] = amountRelativeToPopulation(allValue, population);
 }
 
 export {
   createTemplate,
-  amountRelativeToPopulation,
-  positiveValueOrZero,
-  toHist,
+  pushToHistoric,
+  addLastValues,
 };

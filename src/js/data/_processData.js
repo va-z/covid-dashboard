@@ -1,36 +1,35 @@
 import { capitalizeFirstLetter } from '../helpers/index';
 import {
   createTemplate,
-  amountRelativeToPopulation,
-  toHist,
-  positiveValueOrZero,
+  addLastValues,
+  pushToHistoric,
 } from './_helpers';
 
-function processData(last, timeline, pop) {
+function processData(last, timeline, population) {
   const timelineEntries = Object.entries(timeline);
-  const TYPES_AMOUNT = timelineEntries.length;
-  const result = createTemplate();
+  const typesAmount = timelineEntries.length;
   const lastDate = new Date(last.updated).getDate();
+  const result = createTemplate();
 
-  for (let i = 0; i < TYPES_AMOUNT; i += 1) {
+  for (let i = 0; i < typesAmount; i += 1) {
     const [type, dates] = timelineEntries[i];
-    const datesEntries = Object.entries(dates);
-    const DAYS_AMOUNT = datesEntries.length;
     const typeInKey = capitalizeFirstLetter(type);
+    const datesEntries = Object.entries(dates);
+    const daysAmount = datesEntries.length;
 
-    for (let j = 0; j < DAYS_AMOUNT; j += 1) {
+    for (let j = 0; j < daysAmount; j += 1) {
       const histObj = result.historic;
       const date = datesEntries[j][0];
-      const value = positiveValueOrZero(datesEntries[j][1]);
-      const dailyValue = positiveValueOrZero(value - (datesEntries[j - 1]?.[1] ?? 0));
+      const value = datesEntries[j][1];
+      const dailyValue = value - (datesEntries[j - 1]?.[1] ?? 0);
 
-      if (histObj.dates.length < DAYS_AMOUNT) {
+      if (histObj.dates.length < daysAmount) {
         histObj.dates.push(new Date(date));
       }
 
-      toHist(histObj, type, value, dailyValue, pop);
+      pushToHistoric(histObj, typeInKey, value, dailyValue, population);
 
-      if (j === DAYS_AMOUNT - 1) {
+      if (j === daysAmount - 1) {
         const lastHistoricDate = new Date(date).getDate();
 
         if (lastDate !== lastHistoricDate) {
@@ -39,20 +38,12 @@ function processData(last, timeline, pop) {
             histObj.dates.push(d);
           }
 
-          toHist(histObj, type, value, dailyValue, pop);
+          pushToHistoric(histObj, typeInKey, value, dailyValue, population);
         }
       }
     }
 
-    const histArr = result.historic[`all${typeInKey}`];
-    const lastHistoricValue = histArr[histArr.length - 1];
-    const allValue = last[type];
-    const todayValue = last[`today${typeInKey}`];
-
-    result[`today${typeInKey}`] = todayValue;
-    result[`today${typeInKey}100k`] = amountRelativeToPopulation(todayValue, pop);
-    result[`all${typeInKey}`] = allValue || lastHistoricValue;
-    result[`all${typeInKey}100k`] = amountRelativeToPopulation(allValue || lastHistoricValue, pop);
+    addLastValues(result, type, typeInKey, last, population);
   }
 
   return result;
