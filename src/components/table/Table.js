@@ -19,14 +19,14 @@ class Table extends ContentContainer {
 
     const table = Element.createDOM({
       tagName: TAGS.UL,
-      className: CLASSES.TABLE__BLOCK,
+      className: CLASSES.TABLE_BLOCK,
     });
 
     this.values = Table.createTableRows(statusArr, table);
 
     this.title = Element.createDOM({
       tagName: TAGS.H2,
-      className: CLASSES.TABLE__TITLE,
+      className: CLASSES.TABLE_TITLE,
     });
     this.toggles = new ControlsToggles({ hostClassName: CLASSES.TABLE });
 
@@ -58,7 +58,7 @@ class Table extends ContentContainer {
     const result = arr.reduce((acc, status) => {
       const row = Element.createDOM({
         tagName: TAGS.LI,
-        className: CLASSES.TABLE__ROW,
+        className: CLASSES.TABLE_ROW,
         textContent: capitalizeFirstLetter(status),
       });
       const value = Element.createDOM({ tagName: TAGS.P });

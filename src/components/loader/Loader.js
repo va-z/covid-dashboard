@@ -7,16 +7,16 @@ class Loader extends Element {
   constructor() {
     super({ className: CLASSES.LOADER });
 
-    const wrapper = Element.createDOM({ className: CLASSES.LOADER__WRAPPER });
-    const greeting = `<p class="${CLASSES.LOADER__GREETING}">Уважаемые проверяющие! Вот экстра-фичи нашего проекта: </p>
-    <ul class="${CLASSES.LOADER__LIST}">
-      <li class="${CLASSES['LOADER__LIST-ITEM']}">Кнопка сохранения данных в текстовом формате</li>
-      <li class="${CLASSES['LOADER__LIST-ITEM']}">Выбор страны по клику на кружочек карты</li>
-      <li class="${CLASSES['LOADER__LIST-ITEM']}">Разноцветные кружки для разных случаев заболевания</li>
-      <li class="${CLASSES['LOADER__LIST-ITEM']}">Этот экран-заглушка на время загрузки данных :)</li>
+    const wrapper = Element.createDOM({ className: CLASSES.LOADER_WRAPPER });
+    const greeting = `<p class="${CLASSES.LOADER_GREETING}">Уважаемые проверяющие! Вот экстра-фичи нашего проекта: </p>
+    <ul class="${CLASSES.LOADER_LIST}">
+      <li class="${CLASSES.LOADER_LIST_ITEM}">Кнопка сохранения данных в текстовом формате</li>
+      <li class="${CLASSES.LOADER_LIST_ITEM}">Выбор страны по клику на кружочек карты</li>
+      <li class="${CLASSES.LOADER_LIST_ITEM}">Разноцветные кружки для разных случаев заболевания</li>
+      <li class="${CLASSES.LOADER_LIST_ITEM}">Этот экран-заглушка на время загрузки данных :)</li>
     </ul>`;
     const headingWrapper = Element.createDOM({
-      className: CLASSES['LOADER__HEADING-WRAPPER'],
+      className: CLASSES.LOADER_HEADING_WRAPPER,
     });
 
     this.heading = Element.createDOM({
@@ -24,7 +24,7 @@ class Loader extends Element {
       textContent: 'Loading...',
     });
     this.buttonClose = Button.createDOM({
-      className: `${CLASSES.BUTTON} ${CLASSES.LOADER__BUTTON}`,
+      className: `${CLASSES.BUTTON} ${CLASSES.LOADER_BUTTON}`,
       textContent: 'Open App',
     });
 
@@ -38,7 +38,7 @@ class Loader extends Element {
 
   setLoaded() {
     this.heading.textContent = 'Loading done!';
-    this.element.classList.add(CLASSES['LOADER--LOADED']);
+    this.element.classList.add(CLASSES.LOADER_LOADED);
   }
 }
 

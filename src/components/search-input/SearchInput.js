@@ -13,14 +13,14 @@ class SearchInput extends Element {
 
     this.input = Element.createDOM({
       tagName: TAGS.INPUT,
-      className: CLASSES.INPUT__FIELD,
+      className: CLASSES.INPUT_FIELD,
       attrs: [
         ['type', 'text'],
         ['placeholder', 'Type to search'],
         ['id', 'input'],
       ],
     });
-    this.dropdown = Element.createDOM({ className: CLASSES.INPUT__DROPDOWN });
+    this.dropdown = Element.createDOM({ className: CLASSES.INPUT_DROPDOWN });
 
     this.element.append(
       this.input,
@@ -33,8 +33,8 @@ class SearchInput extends Element {
     this.dropdown.addEventListener('click', (event) => { this.handleDropdownClick(event); });
 
     document.addEventListener('click', (event) => {
-      const isInput = event.target.classList.contains(CLASSES.INPUT__FIELD);
-      const isDropdown = event.target.closest(`.${CLASSES.INPUT__DROPDOWN}`);
+      const isInput = event.target.classList.contains(CLASSES.INPUT_FIELD);
+      const isDropdown = event.target.closest(`.${CLASSES.INPUT_DROPDOWN}`);
       const isVirtualKeyboard = event.target.closest(`.${CLASSES.SIMPLE_KEYBOARD}`);
 
       if (!isInput && !isDropdown && !isVirtualKeyboard) {
@@ -117,7 +117,7 @@ class SearchInput extends Element {
     filtered.forEach((name) => {
       const suggestion = Element.createDOM({
         tagName: TAGS.P,
-        className: CLASSES.INPUT__SUGGESTION,
+        className: CLASSES.INPUT_SUGGESTION,
         textContent: name,
       });
 

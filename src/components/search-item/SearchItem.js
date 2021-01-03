@@ -16,31 +16,31 @@ class SearchItem extends Element {
   }) {
     super({
       tagName: TAGS.LI,
-      className: CLASSES['SEARCH-ITEM'],
+      className: CLASSES.SEARCH_ITEM,
       attrs: [
         [STRINGS.DATA_STATE_ATTR.NAME, name],
       ],
     });
 
     if (name === currentName) {
-      this.element.classList.add(CLASSES['SEARCH-ITEM--ACTIVE']);
+      this.element.classList.add(CLASSES.SEARCH_ITEM_ACTIVE);
     }
 
     this.titleElem = Element.createDOM({
       tagName: TAGS.H3,
-      className: CLASSES['SEARCH-ITEM__TITLE'],
+      className: CLASSES.SEARCH_ITEM_TITLE,
       textContent: name,
     });
 
     this.valueElem = Element.createDOM({
       tagName: TAGS.H3,
-      className: CLASSES['SEARCH-ITEM__VALUE'],
+      className: CLASSES.SEARCH_ITEM_VALUE,
       textContent: value.toLocaleString(CONFIGS.LOCALE) || '0',
     });
 
     this.flagElem = Element.createDOM({
       tagName: TAGS.IMG,
-      className: CLASSES['SEARCH-ITEM__FLAG'],
+      className: CLASSES.SEARCH_ITEM_FLAG,
       attrs: [
         ['alt', name],
         ['src', flag],
@@ -79,9 +79,9 @@ class SearchItem extends Element {
 
   static setActiveDOM(htmlElement, currentName) {
     if (htmlElement.dataset.name === currentName) {
-      htmlElement.classList.add(CLASSES['SEARCH-ITEM--ACTIVE']);
+      htmlElement.classList.add(CLASSES.SEARCH_ITEM_ACTIVE);
     } else {
-      htmlElement.classList.remove(CLASSES['SEARCH-ITEM--ACTIVE']);
+      htmlElement.classList.remove(CLASSES.SEARCH_ITEM_ACTIVE);
     }
   }
 }

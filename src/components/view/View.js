@@ -15,16 +15,16 @@ class View extends Element {
 
     const mainWrapper = Element.createDOM({
       tagName: TAGS.MAIN,
-      className: CLASSES['VIEW__MAIN-WRAPPER'],
+      className: CLASSES.VIEW_MAIN_WRAPPER,
     });
 
     this.loader = new Loader();
-    this.header = new Header({ blockClassName: CLASSES.VIEW__HEADER });
-    this.search = new Search({ blockClassName: CLASSES.VIEW__SEARCH });
-    this.map = new Map({ blockClassName: CLASSES.VIEW__MAP });
-    this.table = new Table({ blockClassName: CLASSES.VIEW__TABLE });
-    this.graph = new Graph({ blockClassName: CLASSES.VIEW__GRAPH });
-    this.footer = new Footer({ blockClassName: CLASSES.VIEW__FOOTER });
+    this.header = new Header({ blockClassName: CLASSES.VIEW_HEADER });
+    this.search = new Search({ blockClassName: CLASSES.VIEW_SEARCH });
+    this.map = new Map({ blockClassName: CLASSES.VIEW_MAP });
+    this.table = new Table({ blockClassName: CLASSES.VIEW_TABLE });
+    this.graph = new Graph({ blockClassName: CLASSES.VIEW_GRAPH });
+    this.footer = new Footer({ blockClassName: CLASSES.VIEW_FOOTER });
     this.keyboardContainer = Element.createDOM({ className: CLASSES.SIMPLE_KEYBOARD });
 
     mainWrapper.append(

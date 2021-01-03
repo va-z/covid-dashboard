@@ -14,13 +14,13 @@ class Map extends ContentContainer {
     super({ className: CLASSES.MAP });
     this.addClasses(blockClassName);
 
-    const mapWrapper = Element.createDOM({ className: CLASSES.MAP__WRAPPER });
-    const mapContainer = Element.createDOM({ className: CLASSES.MAP__CONTAINER });
+    const mapWrapper = Element.createDOM({ className: CLASSES.MAP_WRAPPER });
+    const mapContainer = Element.createDOM({ className: CLASSES.MAP_CONTAINER });
 
     this.circles = [];
     this.map = Map.createLeafletMap(mapContainer);
     this.legend = new MapLegend({
-      className: CLASSES.MAP__LEGEND,
+      className: CLASSES.MAP_LEGEND,
       minArea: CONFIGS.MAP.MIN_MARKER_AREA,
       maxArea: CONFIGS.MAP.MAX_MARKER_AREA,
     });

@@ -12,10 +12,10 @@ class Graph extends ContentContainer {
     super({ className: CLASSES.GRAPH });
     this.addClasses(blockClassName);
 
-    const graphContainer = Element.createDOM({ className: CLASSES.GRAPH__CONTAINER });
+    const graphContainer = Element.createDOM({ className: CLASSES.GRAPH_CONTAINER });
     const graph = Element.createDOM({
       tagName: TAGS.CANVAS,
-      className: CLASSES.GRAPH__BLOCK,
+      className: CLASSES.GRAPH_BLOCK,
       attrs: [
         ['width', CONFIGS.GRAPH.CTX_WIDTH],
         ['height', CONFIGS.GRAPH.CTX_HEIGHT],
@@ -25,7 +25,7 @@ class Graph extends ContentContainer {
     this.ctx = graph.getContext('2d');
     this.title = Element.createDOM({
       tagName: TAGS.H2,
-      className: CLASSES.GRAPH__TITLE,
+      className: CLASSES.GRAPH_TITLE,
     });
 
     this.toggles = new ControlsToggles({ hostClassName: CLASSES.GRAPH });
@@ -40,7 +40,7 @@ class Graph extends ContentContainer {
     );
 
     this.element.addEventListener('fullscreenSet', () => {
-      const isFullscreen = this.element.classList.contains(CLASSES['CONTENT-CONTAINER--FULLSCREEN']);
+      const isFullscreen = this.element.classList.contains(CLASSES.CONTENT_CONTAINER_FULLSCREEN);
       graphContainer.style.width = '1px';
       graphContainer.style.height = '1px';
 
