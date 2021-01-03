@@ -14,15 +14,15 @@ class Search extends ContentContainer {
 
     const title = Element.createDOM({
       tagName: TAGS.H2,
-      className: CLASSES.SEARCH__TITLE,
+      className: CLASSES.SEARCH_TITLE,
       textContent: 'Cases by countries',
     });
-    const listWrapper = Element.createDOM({ className: CLASSES['SEARCH__LIST-WRAPPER'] });
+    const listWrapper = Element.createDOM({ className: CLASSES.SEARCH_LIST_WRAPPER });
 
-    this.searchInput = new SearchInput({ blockClassName: CLASSES.SEARCH__INPUT });
+    this.searchInput = new SearchInput({ blockClassName: CLASSES.SEARCH_INPUT });
     this.list = Element.createDOM({
       tagName: TAGS.UL,
-      className: CLASSES.SEARCH__LIST,
+      className: CLASSES.SEARCH_LIST,
     });
     this.toggles = new ControlsToggles({ hostClassName: CLASSES.SEARCH });
     this.tabs = new ControlsTabs({ hostClassName: CLASSES.SEARCH });
@@ -37,7 +37,7 @@ class Search extends ContentContainer {
     );
 
     this.list.addEventListener('click', (event) => {
-      const item = event.target.closest(`.${CLASSES['SEARCH-ITEM']}`);
+      const item = event.target.closest(`.${CLASSES.SEARCH_ITEM}`);
 
       if (item) {
         Search.fireEvent({

@@ -8,11 +8,11 @@ class Footer extends Element {
     super({ tagName: TAGS.FOOTER, className: CLASSES.FOOTER });
     this.addClasses(blockClassName);
 
-    const wrapper = Element.createDOM({ className: CLASSES.FOOTER__WRAPPER });
+    const wrapper = Element.createDOM({ className: CLASSES.FOOTER_WRAPPER });
     const authors = Element.createDOM({ textContent: 'Created by: ' });
     const author1 = Element.createDOM({
       tagName: TAGS.A,
-      className: CLASSES.FOOTER__LINK,
+      className: CLASSES.FOOTER_LINK,
       textContent: 'va-z',
       attrs: [
         ['href', CONFIGS.AUTHOR_1],
@@ -21,7 +21,7 @@ class Footer extends Element {
     });
     const author2 = Element.createDOM({
       tagName: TAGS.A,
-      className: CLASSES.FOOTER__LINK,
+      className: CLASSES.FOOTER_LINK,
       textContent: 'AnnaZAS',
       attrs: [
         ['href', CONFIGS.AUTHOR_2],
@@ -30,7 +30,7 @@ class Footer extends Element {
     });
     const rssLogo = Element.createDOM({
       tagName: TAGS.A,
-      className: CLASSES['FOOTER__LINK--LOGO'],
+      className: CLASSES.FOOTER_LINK_LOGO,
       attrs: [
         ['href', CONFIGS.RSS],
         ['target', '_blank'],
@@ -38,7 +38,7 @@ class Footer extends Element {
     });
     const logoImg = Element.createDOM({
       tagName: TAGS.IMG,
-      className: CLASSES.FOOTER__IMAGE,
+      className: CLASSES.FOOTER_IMAGE,
       attrs: [
         ['src', logo],
         ['alt', 'RSS-logo'],

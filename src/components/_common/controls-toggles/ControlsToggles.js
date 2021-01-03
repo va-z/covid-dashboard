@@ -22,20 +22,20 @@ const {
 
 class ControlsToggles extends Element {
   constructor({ hostClassName }) {
-    super({ className: `${CLASSES.TOGGLES} ${hostClassName}__${CLASSES['TOGGLES-WRAPPER']}` });
+    super({ className: `${CLASSES.TOGGLES} ${hostClassName}__${CLASSES.TOGGLES_CONTAINER}` });
 
     this.togglePeriod = new ControlsContainer({
-      className: `${CLASSES.TOGGLES__WRAPPER} ${hostClassName}__${CLASSES.TOGGLES}`,
+      className: `${CLASSES.TOGGLES_WRAPPER} ${hostClassName}__${CLASSES.TOGGLES}`,
       buttonParams: [
         {
-          className: CLASSES.TOGGLES__TOGGLE,
+          className: CLASSES.TOGGLES_TOGGLE,
           textContent: 'Total',
           attrs: [
             [PERIOD, ALL],
           ],
         },
         {
-          className: CLASSES.TOGGLES__TOGGLE,
+          className: CLASSES.TOGGLES_TOGGLE,
           textContent: hostClassName === 'graph' ? 'Daily' : 'Last day',
           attrs: [
             [PERIOD, TODAY],
@@ -45,17 +45,17 @@ class ControlsToggles extends Element {
     });
 
     this.toggleAmount = new ControlsContainer({
-      className: `${CLASSES.TOGGLES__WRAPPER} ${hostClassName}__${CLASSES.TOGGLES}`,
+      className: `${CLASSES.TOGGLES_WRAPPER} ${hostClassName}__${CLASSES.TOGGLES}`,
       buttonParams: [
         {
-          className: CLASSES.TOGGLES__TOGGLE,
+          className: CLASSES.TOGGLES_TOGGLE,
           textContent: 'Abs',
           attrs: [
             [AMOUNT, ABS],
           ],
         },
         {
-          className: CLASSES.TOGGLES__TOGGLE,
+          className: CLASSES.TOGGLES_TOGGLE,
           textContent: 'Per 100k',
           attrs: [
             [AMOUNT, PER100K],

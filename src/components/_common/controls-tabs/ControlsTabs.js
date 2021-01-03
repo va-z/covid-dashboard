@@ -19,21 +19,21 @@ const getTabsParams = (className) => ({
   className: `${CLASSES.TABS} ${className}__${CLASSES.TABS}`,
   buttonParams: [
     {
-      className: CLASSES.TABS__TAB,
+      className: CLASSES.TABS_TAB,
       textContent: capitalizeFirstLetter(CASES),
       attrs: [
         [STATUS, CASES],
       ],
     },
     {
-      className: CLASSES.TABS__TAB,
+      className: CLASSES.TABS_TAB,
       textContent: capitalizeFirstLetter(DEATHS),
       attrs: [
         [STATUS, DEATHS],
       ],
     },
     {
-      className: CLASSES.TABS__TAB,
+      className: CLASSES.TABS_TAB,
       textContent: capitalizeFirstLetter(RECOVERED),
       attrs: [
         [STATUS, RECOVERED],

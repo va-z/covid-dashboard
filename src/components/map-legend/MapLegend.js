@@ -27,7 +27,7 @@ class MapLegend extends Element {
 
     this.title = Element.createDOM({
       tagName: TAGS.H3,
-      className: CLASSES.LEGEND__TITLE,
+      className: CLASSES.LEGEND_TITLE,
     });
     this.rowTitles = rowTitles;
 
@@ -52,16 +52,16 @@ class MapLegend extends Element {
     const currentDiameter = 2 * radius.fromArea(area);
     const side = formatNumber.toPixelString(currentDiameter);
 
-    const row = Element.createDOM({ className: CLASSES.LEGEND__ROW });
+    const row = Element.createDOM({ className: CLASSES.LEGEND_ROW });
     const circleContainer = Element.createDOM({
-      className: CLASSES['LEGEND__CIRCLE-CONTAINER'],
+      className: CLASSES.LEGEND_CIRCLE_CONTAINER,
       attrs: [
         ['style', `width: ${containerSide}; height: ${containerSide}`],
       ],
     });
 
     const circle = Element.createDOM({
-      className: CLASSES.LEGEND__CIRCLE,
+      className: CLASSES.LEGEND_CIRCLE,
       attrs: [
         ['style', `width: ${side}; height: ${side}`],
       ],
